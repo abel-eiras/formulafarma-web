@@ -1,7 +1,41 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const htmlContent = "<h3>La política de cookies más corta y honesta que verás.</h3>\n<p>Odio los banners de cookies tanto como tú. Sobre todo, las que te dicen &quot;¿Quieres ver mi contenido? Acepta las cookies o págame&quot;. Es como para salirse al momento.</p>\n<p>Por eso, mi política es radicalmente simple:</p>\n<p><strong><code>formulafarma.com</code> NO utiliza cookies de análisis, de publicidad ni de ningún tipo de rastreo.</strong></p>\n<p>No uso Google Analytics ni Metricool ni nada por el estilo. No me interesa saber de dónde vienes, cuánto tiempo te quedas ni en qué haces clic. Quiero que navegues con total tranquilidad, sabiendo que tu visita es completamente anónima desde mi lado.</p>\n<h4><strong>Entonces, ¿hay alguna cookie?</strong></h4>\n<p>Sí, las mínimas e imprescindibles para que la web funcione. Son las llamadas <strong>cookies técnicas o funcionales</strong>. WordPress (el sistema con el que está hecha esta web) las usa para cosas básicas como:</p>\n<ul>\n<li><p>Gestionar los comentarios (para saber si ya has comentado antes y no tratarte como un spammer).</p>\n</li>\n<li><p>Mantener la sesión si en el futuro hubiese un área privada (que no me planteo por ahora).</p>\n</li>\n</ul>\n<p>Estas cookies no recogen información personal tuya y son esenciales para la navegación. Sin ellas, la web no funcionaría correctamente.</p>\n<h4><strong>¿Aún así quieres desactivarlas?</strong></h4>\n<p>Estás en tu derecho. Puedes configurar tu navegador para que no acepte ninguna cookie, aunque algunas webs podrían dejar de funcionar bien. Aquí te dejo las guías para los navegadores más comunes:</p>\n<ul>\n<li><p><a href=\"https://support.google.com/chrome/answer/95647?hl=es\">Google Chrome</a></p>\n</li>\n<li><p><a href=\"https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias\">Mozilla Firefox</a></p>\n</li>\n<li><p><a href=\"https://www.google.com/search?q=https://support.apple.com/es-es/guide/safari/sfri11471/mac\">Safari</a></p>\n</li>\n</ul>\n<p>Y eso es todo. Navega con libertad.</p>\n";
+// Contenido HTML formateado en múltiples líneas para facilitar la edición
+const htmlContent = `
+<h3>La política de cookies más corta y honesta que verás.</h3>
+
+<p>Odio los banners de cookies tanto como tú. Sobre todo, las que te dicen "¿Quieres ver mi contenido? Acepta las cookies o págame". Es como para salirse al momento.</p>
+
+<p>Por eso, mi política es radicalmente simple:</p>
+
+<p><strong><code>formulafarma.com</code> NO utiliza cookies de análisis, de publicidad ni de ningún tipo de rastreo.</strong></p>
+
+<p>No uso Google Analytics ni Metricool ni nada por el estilo. No me interesa saber de dónde vienes, cuánto tiempo te quedas ni en qué haces clic. Quiero que navegues con total tranquilidad, sabiendo que tu visita es completamente anónima desde mi lado.</p>
+
+<h4><strong>Entonces, ¿hay alguna cookie?</strong></h4>
+
+<p>Sí, las mínimas e imprescindibles para que la web funcione. Son las llamadas <strong>cookies técnicas o funcionales</strong>. Astro (el sistema con el que está hecha esta web) las usa para cosas básicas como:</p>
+
+<ul>
+  <li><p>Gestionar el formulario de contacto (para evitar spam y mantener la sesión durante el envío).</p></li>
+  <li><p>Mantener la sesión si en el futuro hubiese un área privada (que no me planteo por ahora).</p></li>
+</ul>
+
+<p>Estas cookies no recogen información personal tuya y son esenciales para la navegación. Sin ellas, la web no funcionaría correctamente.</p>
+
+<h4><strong>¿Aún así quieres desactivarlas?</strong></h4>
+
+<p>Estás en tu derecho. Puedes configurar tu navegador para que no acepte ninguna cookie, aunque algunas webs podrían dejar de funcionar bien. Aquí te dejo las guías para los navegadores más comunes:</p>
+
+<ul>
+  <li><p><a href="https://support.google.com/chrome/answer/95647?hl=es">Google Chrome</a></p></li>
+  <li><p><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias">Mozilla Firefox</a></p></li>
+  <li><p><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac">Safari</a></p></li>
+</ul>
+
+<p>Y eso es todo. Navega con libertad.</p>
+`.trim();
 ---
 
 <Layout title="Política de Cookies - Fórmula Farma" description="Página Política de Cookies de Fórmula Farma">
