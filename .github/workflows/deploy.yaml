@@ -7,6 +7,7 @@ on:
 jobs:
   web-deploy:
     runs-on: ubuntu-latest
+    environment: Formulafarma_secrets
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
