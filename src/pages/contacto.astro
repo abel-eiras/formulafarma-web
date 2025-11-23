@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const htmlContent = "<h3>¿Tienes una idea loca, una pregunta existencial o simplemente te apetece saludar?</h3>\n<p>Este es el lugar.</p>\n<p>Entiendo que a veces surgen dudas, propuestas o simplemente la necesidad de compartir una reflexión. Si es tu caso, has llegado al sitio correcto. Rellena el formulario de aquí abajo y te prometo que lo leeré en algún momento y prometo contestar. No rápido. Pero contestaré.</p>\n<p>Aunque también podríamos saltarnos el formalismo del formulario y hablar por redes sociales. Para eso están. Puedes encontrarme aquí:</p>\n<ul>\n<li><a href=\"https://www.facebook.com/abel.eiras.e\" title=\"Facebook\">facebook</a></li>\n<li><a href=\"https://www.instagram.com/abel.eiras/\" title=\"Instagram\">instagram</a></li>\n<li><a href=\"https://www.linkedin.com/in/abel-eiras/\" title=\"Linkedin\">linkedin</a></li>\n<li><a href=\"https://x.com/abel_eiras\" title=\"X\">x</a></li>\n<li><a href=\"https://t.me/abel_eiras\" title=\"Telegram\">telegram</a></li>\n<li><a href=\"https://github.com/abel-eiras\" title=\"GitHub\">github</a></li>\n</ul>\n<p>\\</p>\n";
+---
+
+<Layout title="¿Hablamos? - Fórmula Farma" description="Página ¿Hablamos? de Fórmula Farma">
+  <div class="container mx-auto px-4 py-12 max-w-4xl">
+    <article class="prose prose-lg prose-slate max-w-none font-serif" set:html={htmlContent} />
+  </div>
+</Layout>

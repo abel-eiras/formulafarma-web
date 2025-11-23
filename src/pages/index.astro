@@ -1,16 +1,19 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Fórmula Farma - Farmacéutico Híbrido">
+  <div class="container mx-auto px-4 py-12">
+    <section class="max-w-4xl mx-auto text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-pharma-dark mb-4">
+        Fórmula Farma
+      </h1>
+      <p class="text-xl text-pharma-grey mb-6">
+        Farmacéutico Híbrido
+      </p>
+      <p class="text-pharma-grey max-w-2xl mx-auto">
+        Blog personal sobre farmacia, tecnología y ciencia. Explorando la intersección entre la salud y la innovación.
+      </p>
+    </section>
+  </div>
+</Layout>
