@@ -230,6 +230,13 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
    - Filtros por categorías/tags
    - RSS feed para suscriptores
    - [X] Sitemap.xml automático (ya implementado en src/pages/sitemap.xml.ts)
+   - [ ] Sistema de comentarios con backend propio (preferencia: sin herramientas externas, sin anuncios)
+     - **Nota:** Cuando se implemente, será con backend propio (PHP/Node.js)
+     - Login con Google/Facebook mediante OAuth
+     - Base de datos propia para comentarios
+     - Moderación manual/automática
+     - **Complejidad estimada:** 8-15 horas de desarrollo
+     - **Requisitos:** Servidor con base de datos (MySQL/PostgreSQL)
 
 ---
 
@@ -354,6 +361,19 @@ Si quieres añadir funcionalidades adicionales:
    - Impacto: Engagement
    - Esfuerzo: Bajo (1 hora)
    - Valor: Permite suscripciones
+
+5. **Sistema de comentarios con backend propio** (Futuro)
+   - Impacto: Engagement alto
+   - Esfuerzo: Alto (8-15 horas)
+   - Valor: Permite feedback directo de usuarios
+   - **Decisión:** Implementar con backend propio, sin herramientas externas, sin anuncios
+   - **Tecnología sugerida:** PHP (ya tienes servidor PHP) + MySQL + OAuth (Google/Facebook)
+   - **Componentes necesarios:**
+     - API REST para comentarios (crear, leer, moderar)
+     - Base de datos para almacenar comentarios
+     - Sistema de autenticación OAuth (Google/Facebook)
+     - Panel de moderación
+     - Protección anti-spam (similar al formulario de contacto)
 
 ### Opción 3: Optimizaciones Adicionales (No Prioritarias)
 
