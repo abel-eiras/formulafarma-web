@@ -75,50 +75,54 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     
     echo "Leyendo respuesta EHLO...\n";
     // Leer todas las líneas hasta que encontremos una que termine con espacio (no guión)
-    $max_lines = 20; // Límite de seguridad
+    // IMPORTANTE: El EHLO puede tener líneas 220- al inicio y luego líneas 250- después
+    $max_lines = 30; // Límite de seguridad aumentado
     $line_count = 0;
+    $ehlo_complete = false;
     
-    while ($line_count < $max_lines) {
-        // Verificar si hay datos disponibles
-        $read = array($smtp);
-        $write = null;
-        $except = null;
-        
-        // Esperar hasta 2 segundos por más datos
-        if (stream_select($read, $write, $except, 2) > 0) {
+    while ($line_count < $max_lines && !$ehlo_complete) {
+        // Leer línea directamente
+        $line = fgets($smtp, 515);
+        if ($line === false) {
+            // Esperar un momento y verificar si hay más datos
+            $read = array($smtp);
+            $write = null;
+            $except = null;
+            if (stream_select($read, $write, $except, 1) == 0) {
+                echo "⚠️ No hay más datos disponibles\n";
+                break;
+            }
             $line = fgets($smtp, 515);
             if ($line === false) break;
+        }
+        
+        $ehlo_response .= $line;
+        $line_count++;
+        echo "EHLO línea $line_count: $line";
+        
+        // La respuesta termina cuando encontramos "250 " (código 250 con espacio)
+        if (strlen($line) >= 4) {
+            $code = substr($line, 0, 3);
+            $continuation = substr($line, 3, 1);
             
-            $ehlo_response .= $line;
-            $line_count++;
-            echo "EHLO línea $line_count: $line";
-            
-            // La respuesta termina cuando el 4º carácter es un espacio (no guión)
-            if (strlen($line) >= 4) {
-                $code = substr($line, 0, 3);
-                $continuation = substr($line, 3, 1);
-                
-                // Si es un código 250 o 220 y termina con espacio (no guión), es el final
-                if (($code == '250' || $code == '220') && $continuation == ' ') {
-                    echo "✅ Fin de respuesta EHLO (código: $code, continuación: '$continuation')\n";
+            // El EHLO normalmente termina con "250 " (no "250-")
+            if ($code == '250' && $continuation == ' ') {
+                echo "✅ Fin de respuesta EHLO (código: 250, continuación: espacio)\n";
+                $ehlo_complete = true;
+                break;
+            }
+            // Si encontramos "220 " pero no hemos visto "250", esperar un poco más
+            if ($code == '220' && $continuation == ' ' && strpos($ehlo_response, '250') === false) {
+                echo "⚠️ Línea 220 encontrada, pero esperando posibles líneas 250...\n";
+                $read = array($smtp);
+                $write = null;
+                $except = null;
+                if (stream_select($read, $write, $except, 1) == 0) {
+                    echo "✅ Fin de respuesta EHLO (solo líneas 220, sin 250)\n";
+                    $ehlo_complete = true;
                     break;
                 }
             }
-        } else {
-            // Si no hay más datos después de 2 segundos, verificar si terminó
-            if (!empty($ehlo_response)) {
-                $last_line = substr($ehlo_response, strrpos($ehlo_response, "\n") + 1);
-                if (strlen($last_line) >= 4) {
-                    $code = substr($last_line, 0, 3);
-                    $continuation = substr($last_line, 3, 1);
-                    if (($code == '250' || $code == '220') && $continuation == ' ') {
-                        echo "✅ Fin de respuesta EHLO (timeout, pero línea final correcta)\n";
-                        break;
-                    }
-                }
-            }
-            echo "⚠️ Timeout esperando más líneas EHLO\n";
-            break;
         }
     }
     
