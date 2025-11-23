@@ -130,9 +130,11 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     $response = '';
     while ($line = fgets($smtp, 515)) {
         $response .= $line;
-        if (substr($line, 3, 1) == ' ') break;
+        // La respuesta termina cuando el 4º carácter es un espacio (no guión)
+        if (strlen($line) >= 4 && substr($line, 3, 1) == ' ') break;
     }
-    if (strpos($response, '250') === false) {
+    // Aceptar respuestas 250 (éxito) o 220 (algunos servidores responden así)
+    if (strpos($response, '250') === false && strpos($response, '220') === false) {
         error_log("SMTP EHLO failed: $response");
         fclose($smtp);
         return false;
