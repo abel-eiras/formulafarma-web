@@ -26,6 +26,9 @@ jobs:
       - name: Copy contact.php to dist
         run: cp public/contact.php dist/contact.php
       
+      - name: Create rate_limits directory placeholder
+        run: mkdir -p dist/rate_limits && touch dist/rate_limits/.gitkeep
+      
       - name: Create SMTP config file
         run: |
           cat > smtp-config.php << EOF
