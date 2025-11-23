@@ -1,6 +1,28 @@
 <?php
 // Cargar PHPMailer
-require_once __DIR__ . '/../vendor/autoload.php';
+// Intentar varias rutas posibles para encontrar vendor
+$vendor_paths = [
+    __DIR__ . '/vendor/autoload.php',           // vendor en public_html/vendor
+    __DIR__ . '/../vendor/autoload.php',        // vendor en raíz del proyecto
+    dirname(__DIR__) . '/vendor/autoload.php',  // vendor en raíz (alternativa)
+];
+
+$vendor_loaded = false;
+foreach ($vendor_paths as $vendor_path) {
+    if (file_exists($vendor_path)) {
+        require_once $vendor_path;
+        $vendor_loaded = true;
+        break;
+    }
+}
+
+if (!$vendor_loaded) {
+    error_log("ERROR: No se pudo encontrar vendor/autoload.php. Rutas intentadas: " . implode(', ', $vendor_paths));
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode(["error" => "Error de configuración del servidor. Por favor, contacta al administrador."]);
+    exit;
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

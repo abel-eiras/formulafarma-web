@@ -34,7 +34,7 @@ jobs:
       - name: Copy contact.php to dist
         run: cp public/contact.php dist/contact.php
       
-      - name: Copy vendor directory to dist
+      - name: Copy vendor directory to dist (for PHPMailer)
         run: cp -r vendor dist/vendor
       
       - name: Create SMTP config file
