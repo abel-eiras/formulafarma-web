@@ -126,10 +126,10 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
 - [X] **Preparar GitHub**
     - Crear repo privado/público.
     - Subir código (sin `node_modules` ni `dist`).
-- [ ] **Configurar Secretos en GitHub**
+- [X] **Configurar Secretos en GitHub**
     - Settings -> Secrets -> Actions.
-    - Añadir: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
-- [ ] **Crear Workflow (.github/workflows/deploy.yaml)**
+    - Añadir: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, y todos los secretos SMTP.
+- [X] **Crear Workflow (.github/workflows/deploy.yaml)**
     - Copiar script de despliegue FTP:
     ```yaml
     name: Deploy Raiola

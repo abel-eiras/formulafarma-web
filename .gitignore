@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # WordPress export (archivo grande, no necesario en repo)
 *.WordPress.*.xml
+
+# Configuración SMTP (contiene credenciales sensibles)
+smtp-config.php

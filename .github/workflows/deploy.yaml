@@ -1,0 +1,63 @@
+name: Deploy Raiola
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  web-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build Astro
+        run: npm run build
+      
+      - name: Copy contact.php to dist
+        run: cp public/contact.php dist/contact.php
+      
+      - name: Create SMTP config file
+        run: |
+          cat > smtp-config.php << 'EOF'
+          <?php
+          return [
+              'use_smtp' => true,
+              'smtp_host' => '${{ secrets.SMTP_HOST }}',
+              'smtp_port' => ${{ secrets.SMTP_PORT }},
+              'smtp_username' => '${{ secrets.SMTP_USERNAME }}',
+              'smtp_password' => '${{ secrets.SMTP_PASSWORD }}',
+              'smtp_encryption' => '${{ secrets.SMTP_ENCRYPTION }}',
+              'from_email' => '${{ secrets.SMTP_FROM_EMAIL }}',
+              'from_name' => '${{ secrets.SMTP_FROM_NAME }}',
+              'to_email' => '${{ secrets.SMTP_TO_EMAIL }}'
+          ];
+          EOF
+      
+      - name: Deploy website to public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./public_html/
+          dangerous-clean-slate: true
+      
+      - name: Deploy SMTP config to root
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: ./
+          include: smtp-config.php
+          dangerous-clean-slate: false
