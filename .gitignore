@@ -32,3 +32,6 @@ smtp-config.php
 # Composer
 /vendor/
 composer.lock
+
+# Rate limiting files
+rate_limits/

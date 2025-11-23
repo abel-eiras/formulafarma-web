@@ -68,6 +68,96 @@ if (!empty($bot_field)) {
     exit;
 }
 
+// Rate limiting: limitar envíos por IP
+function checkRateLimit($ip, $max_attempts = 5, $time_window = 3600) {
+    // Directorio para almacenar los archivos de rate limiting (fuera de public/)
+    $rate_limit_dir = dirname(dirname(__FILE__)) . '/rate_limits';
+    
+    // Crear directorio si no existe
+    if (!is_dir($rate_limit_dir)) {
+        @mkdir($rate_limit_dir, 0755, true);
+    }
+    
+    // Archivo para esta IP (usar hash para seguridad)
+    $ip_hash = hash('sha256', $ip);
+    $rate_limit_file = $rate_limit_dir . '/' . $ip_hash . '.txt';
+    
+    $now = time();
+    $attempts = [];
+    
+    // Leer intentos anteriores
+    if (file_exists($rate_limit_file)) {
+        $content = file_get_contents($rate_limit_file);
+        $attempts = json_decode($content, true) ?: [];
+    }
+    
+    // Filtrar intentos dentro de la ventana de tiempo
+    $attempts = array_filter($attempts, function($timestamp) use ($now, $time_window) {
+        return ($now - $timestamp) < $time_window;
+    });
+    
+    // Contar intentos válidos
+    $attempt_count = count($attempts);
+    
+    if ($attempt_count >= $max_attempts) {
+        // Calcular tiempo restante
+        $oldest_attempt = min($attempts);
+        $time_remaining = $time_window - ($now - $oldest_attempt);
+        $minutes_remaining = ceil($time_remaining / 60);
+        
+        return [
+            'allowed' => false,
+            'message' => "Has alcanzado el límite de envíos. Por favor, espera {$minutes_remaining} minuto(s) antes de intentar de nuevo."
+        ];
+    }
+    
+    // Añadir este intento
+    $attempts[] = $now;
+    
+    // Guardar intentos
+    file_put_contents($rate_limit_file, json_encode(array_values($attempts)));
+    
+    // Limpiar archivos antiguos (más de 24 horas sin actividad)
+    if (file_exists($rate_limit_file) && ($now - filemtime($rate_limit_file)) > 86400) {
+        @unlink($rate_limit_file);
+    }
+    
+    return ['allowed' => true];
+}
+
+// Obtener IP del cliente (considerando proxies)
+function getClientIP() {
+    $ip_keys = ['HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'REMOTE_ADDR'];
+    foreach ($ip_keys as $key) {
+        if (!empty($_SERVER[$key])) {
+            $ip = $_SERVER[$key];
+            // Si hay múltiples IPs (proxies), tomar la primera
+            if (strpos($ip, ',') !== false) {
+                $ip = trim(explode(',', $ip)[0]);
+            }
+            // Validar que sea una IP válida
+            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                return $ip;
+            }
+        }
+    }
+    // Fallback a REMOTE_ADDR
+    return $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+}
+
+// Verificar rate limiting
+$client_ip = getClientIP();
+$rate_limit = checkRateLimit($client_ip, 5, 3600); // 5 intentos por hora
+
+if (!$rate_limit['allowed']) {
+    http_response_code(429); // Too Many Requests
+    header('Content-Type: application/json');
+    echo json_encode([
+        "error" => $rate_limit['message']
+    ]);
+    exit;
+}
+
 // Si hay errores, devolverlos
 if (!empty($errors)) {
     http_response_code(400);
