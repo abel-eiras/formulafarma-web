@@ -162,6 +162,7 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     // Intentar AUTH LOGIN primero
     fputs($smtp, "AUTH LOGIN\r\n");
     $response = fgets($smtp, 515);
+    $auth_success = false;
     
     // Si el servidor no soporta AUTH LOGIN (responde con 5xx o 250), intentar AUTH PLAIN
     if (strpos($response, '334') === false) {
@@ -170,8 +171,8 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
         fputs($smtp, "AUTH PLAIN " . $auth_string . "\r\n");
         $response = fgets($smtp, 515);
         if (strpos($response, '235') !== false) {
-            // AUTH PLAIN exitoso
-            return true; // Ya estamos autenticados, continuar con el envío
+            // AUTH PLAIN exitoso - continuar con el envío
+            $auth_success = true;
         } else {
             error_log("SMTP AUTH PLAIN failed: $response");
             // Volver a intentar AUTH LOGIN paso a paso
@@ -185,23 +186,25 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
         }
     }
     
-    // Si llegamos aquí, AUTH LOGIN fue aceptado, continuar con usuario
-    // Usuario
-    fputs($smtp, base64_encode($smtp_user) . "\r\n");
-    $response = fgets($smtp, 515);
-    if (strpos($response, '334') === false) {
-        error_log("SMTP USER failed: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    // Contraseña
-    fputs($smtp, base64_encode($smtp_pass) . "\r\n");
-    $response = fgets($smtp, 515);
-    if (strpos($response, '235') === false) {
-        error_log("SMTP PASS failed: $response");
-        fclose($smtp);
-        return false;
+    // Si AUTH PLAIN no funcionó, continuar con AUTH LOGIN paso a paso
+    if (!$auth_success) {
+        // Usuario
+        fputs($smtp, base64_encode($smtp_user) . "\r\n");
+        $response = fgets($smtp, 515);
+        if (strpos($response, '334') === false) {
+            error_log("SMTP USER failed: $response");
+            fclose($smtp);
+            return false;
+        }
+        
+        // Contraseña
+        fputs($smtp, base64_encode($smtp_pass) . "\r\n");
+        $response = fgets($smtp, 515);
+        if (strpos($response, '235') === false) {
+            error_log("SMTP PASS failed: $response");
+            fclose($smtp);
+            return false;
+        }
     }
     
     // MAIL FROM
