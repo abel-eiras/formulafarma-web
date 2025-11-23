@@ -8,7 +8,8 @@ jobs:
   web-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,7 +27,7 @@ jobs:
       
       - name: Create SMTP config file
         run: |
-          cat > smtp-config.php << 'EOF'
+          cat > smtp-config.php << EOF
           <?php
           return [
               'use_smtp' => true,
@@ -43,21 +44,22 @@ jobs:
       
       - name: Validate FTP secrets
         run: |
+          echo "Validating FTP secrets..."
           if [ -z "${{ secrets.FTP_SERVER }}" ]; then
-            echo "❌ ERROR: FTP_SERVER secret is not set!"
-            echo "Please go to Settings > Secrets and variables > Actions"
-            echo "and add the FTP_SERVER secret with your FTP server address"
+            echo "::error::FTP_SERVER secret is missing or empty"
             exit 1
           fi
           if [ -z "${{ secrets.FTP_USERNAME }}" ]; then
-            echo "❌ ERROR: FTP_USERNAME secret is not set!"
+            echo "::error::FTP_USERNAME secret is missing or empty"
             exit 1
           fi
           if [ -z "${{ secrets.FTP_PASSWORD }}" ]; then
-            echo "❌ ERROR: FTP_PASSWORD secret is not set!"
+            echo "::error::FTP_PASSWORD secret is missing or empty"
             exit 1
           fi
           echo "✅ All FTP secrets are configured"
+          echo "FTP_SERVER: ${{ secrets.FTP_SERVER }}"
+          echo "FTP_USERNAME: ${{ secrets.FTP_USERNAME }}"
       
       - name: Deploy website to public_html
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
