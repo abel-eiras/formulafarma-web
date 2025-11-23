@@ -4,12 +4,14 @@
 
 Para que el despliegue automático funcione, necesitas configurar los siguientes secretos en GitHub:
 
-### Secretos FTP (para el despliegue)
+### Secretos FTP (para el despliegue) - OBLIGATORIOS
 1. Ve a: `Settings` → `Secrets and variables` → `Actions`
-2. Añade estos secretos:
-   - `FTP_SERVER`: Servidor FTP de Raiola (ej: `ftp.formulafarma.com`)
-   - `FTP_USERNAME`: Usuario FTP
-   - `FTP_PASSWORD`: Contraseña FTP
+2. Añade estos secretos (son OBLIGATORIOS para que funcione el despliegue):
+   - `FTP_SERVER`: Servidor FTP de Raiola (ej: `ftp.formulafarma.com` o la IP del servidor)
+   - `FTP_USERNAME`: Usuario FTP de Raiola
+   - `FTP_PASSWORD`: Contraseña FTP de Raiola
+   
+   ⚠️ **IMPORTANTE**: Los nombres deben ser EXACTAMENTE así (sin espacios, con mayúsculas como se muestra)
 
 ### Secretos SMTP (para el formulario de contacto)
 Añade también estos secretos para generar automáticamente el archivo de configuración SMTP:
