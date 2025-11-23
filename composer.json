@@ -1,0 +1,8 @@
+{
+  "name": "formulafarma/web",
+  "description": "Sitio web estático de Fórmula Farma",
+  "require": {
+    "phpmailer/phpmailer": "^6.9"
+  }
+}
+

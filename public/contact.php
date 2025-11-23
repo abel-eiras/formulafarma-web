@@ -1,14 +1,18 @@
 <?php
-// Habilitar logging de errores para debugging
+// Cargar PHPMailer
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Habilitar logging de errores
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
 // Cargar configuración SMTP
-// En el servidor: contact.php está en public_html/, smtp-config.php está en la raíz
 $config_file = dirname(dirname(__FILE__)) . '/smtp-config.php';
 if (!file_exists($config_file)) {
-    // Intentar ruta alternativa
     $config_file = dirname(__DIR__) . '/smtp-config.php';
 }
 
@@ -83,199 +87,55 @@ $email_body .= "Email: " . $email . "\n";
 $email_body .= "Fecha: " . date("d/m/Y H:i:s") . "\n\n";
 $email_body .= "Mensaje:\n" . $message . "\n";
 
-// Función mejorada para enviar email con SMTP usando PHPMailer si está disponible, o implementación manual
-function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
-    $smtp_host = $config['smtp_host'];
-    $smtp_port = $config['smtp_port'];
-    $smtp_user = $config['smtp_username'];
-    $smtp_pass = $config['smtp_password'];
-    $smtp_encryption = $config['smtp_encryption'] ?? 'ssl';
-    
-    // Intentar usar PHPMailer si está disponible
-    if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-        try {
-            $mail->isSMTP();
-            $mail->Host = $smtp_host;
-            $mail->SMTPAuth = true;
-            $mail->Username = $smtp_user;
-            $mail->Password = $smtp_pass;
-            $mail->SMTPSecure = $smtp_encryption === 'ssl' ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = $smtp_port;
-            $mail->CharSet = 'UTF-8';
-            
-            $mail->setFrom($from_email, $from_name);
-            $mail->addAddress($to);
-            $mail->Subject = $subject;
-            $mail->Body = $body;
-            
-            return $mail->send();
-        } catch (Exception $e) {
-            error_log("PHPMailer Error: " . $mail->ErrorInfo);
-            return false;
-        }
-    }
-    
-    // Implementación manual mejorada
-    $context = stream_context_create([
-        'ssl' => [
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true
-        ]
-    ]);
-    
-    $smtp = @stream_socket_client(
-        ($smtp_encryption === 'ssl' ? 'ssl://' : '') . $smtp_host . ':' . $smtp_port,
-        $errno,
-        $errstr,
-        30,
-        STREAM_CLIENT_CONNECT,
-        $context
-    );
-    
-    if (!$smtp) {
-        error_log("SMTP Connection Error: $errstr ($errno)");
-        return false;
-    }
-    
-    // Leer respuesta inicial
-    $response = fgets($smtp, 515);
-    if (substr($response, 0, 3) !== '220') {
-        error_log("SMTP Initial Response Error: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    // EHLO
-    fputs($smtp, "EHLO " . $smtp_host . "\r\n");
-    $response = '';
-    while ($line = fgets($smtp, 515)) {
-        $response .= $line;
-        if (substr($line, 3, 1) === ' ') break;
-    }
-    
-    // STARTTLS si es necesario
-    if ($smtp_encryption === 'tls') {
-        fputs($smtp, "STARTTLS\r\n");
-        $response = fgets($smtp, 515);
-        if (substr($response, 0, 3) !== '220') {
-            error_log("STARTTLS Error: $response");
-            fclose($smtp);
-            return false;
-        }
-        stream_socket_enable_crypto($smtp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-        fputs($smtp, "EHLO " . $smtp_host . "\r\n");
-        $response = '';
-        while ($line = fgets($smtp, 515)) {
-            $response .= $line;
-            if (substr($line, 3, 1) === ' ') break;
-        }
-    }
-    
-    // Autenticación
-    fputs($smtp, "AUTH LOGIN\r\n");
-    $response = fgets($smtp, 515);
-    if (substr($response, 0, 3) !== '334') {
-        error_log("AUTH LOGIN Error: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    fputs($smtp, base64_encode($smtp_user) . "\r\n");
-    $response = fgets($smtp, 515);
-    if (substr($response, 0, 3) !== '334') {
-        error_log("AUTH Username Error: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    fputs($smtp, base64_encode($smtp_pass) . "\r\n");
-    $response = fgets($smtp, 515);
-    if (substr($response, 0, 3) !== '235') {
-        error_log("AUTH Password Error: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    // Enviar email
-    fputs($smtp, "MAIL FROM: <" . $from_email . ">\r\n");
-    $response = fgets($smtp, 515);
-    if (substr($response, 0, 3) !== '250') {
-        error_log("MAIL FROM Error: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    fputs($smtp, "RCPT TO: <" . $to . ">\r\n");
-    $response = fgets($smtp, 515);
-    if (substr($response, 0, 3) !== '250') {
-        error_log("RCPT TO Error: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    fputs($smtp, "DATA\r\n");
-    $response = fgets($smtp, 515);
-    if (substr($response, 0, 3) !== '354') {
-        error_log("DATA Error: $response");
-        fclose($smtp);
-        return false;
-    }
-    
-    // Headers del email
-    $headers = "From: " . $from_name . " <" . $from_email . ">\r\n";
-    $headers .= "Reply-To: " . $from_email . "\r\n";
-    $headers .= "To: " . $to . "\r\n";
-    $headers .= "Subject: " . $subject . "\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    $headers .= "\r\n";
-    
-    fputs($smtp, $headers . $body . "\r\n.\r\n");
-    $response = fgets($smtp, 515);
-    $success = substr($response, 0, 3) === '250';
-    
-    if (!$success) {
-        error_log("Email Send Error: $response");
-    }
-    
-    // Cerrar conexión
-    fputs($smtp, "QUIT\r\n");
-    fclose($smtp);
-    
-    return $success;
-}
-
 // Intentar enviar el email
 $mail_sent = false;
 $error_message = '';
 
-if (isset($smtp_config['use_smtp']) && $smtp_config['use_smtp'] === true) {
-    // Usar SMTP
-    $mail_sent = sendEmailSMTP(
-        $smtp_config,
-        $to_email,
-        $subject,
-        $email_body,
-        $smtp_config['from_email'],
-        $smtp_config['from_name']
-    );
+try {
+    $mail = new PHPMailer(true);
     
-    if (!$mail_sent) {
-        $error_message = "Error SMTP. Revisa los logs del servidor.";
+    if (isset($smtp_config['use_smtp']) && $smtp_config['use_smtp'] === true) {
+        // Configuración SMTP
+        $mail->isSMTP();
+        $mail->Host = $smtp_config['smtp_host'];
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtp_config['smtp_username'];
+        $mail->Password = $smtp_config['smtp_password'];
+        $mail->SMTPSecure = $smtp_config['smtp_encryption'] === 'ssl' ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = $smtp_config['smtp_port'];
+        $mail->CharSet = 'UTF-8';
+        
+        // Opciones adicionales para SSL
+        if ($smtp_config['smtp_encryption'] === 'ssl') {
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+        }
+    } else {
+        // Usar mail() de PHP como fallback
+        $mail->isMail();
     }
-} else {
-    // Usar mail() de PHP como fallback
-    $headers = "From: " . $smtp_config['from_name'] . " <" . $smtp_config['from_email'] . ">\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
     
-    $mail_sent = @mail($to_email, $subject, $email_body, $headers);
+    // Configuración del email
+    $mail->setFrom($smtp_config['from_email'], $smtp_config['from_name']);
+    $mail->addAddress($to_email);
+    $mail->addReplyTo($email, $name);
     
-    if (!$mail_sent) {
-        $error_message = "Error con mail() de PHP.";
-    }
+    $mail->Subject = $subject;
+    $mail->Body = $email_body;
+    $mail->AltBody = strip_tags($email_body);
+    
+    // Enviar
+    $mail_sent = $mail->send();
+    
+} catch (Exception $e) {
+    $error_message = $mail->ErrorInfo;
+    error_log("PHPMailer Error: " . $error_message);
+    $mail_sent = false;
 }
 
 header('Content-Type: application/json');
@@ -288,14 +148,11 @@ if ($mail_sent) {
         "message" => "¡Mensaje enviado correctamente! Te responderé pronto."
     ]);
 } else {
-    // Error al enviar - pero devolvemos éxito para no exponer errores
-    // Los errores se registran en el log del servidor
-    error_log("Contact form error: Failed to send email. Config file: " . ($config_file ?? 'not found'));
-    http_response_code(200);
+    // Error al enviar
+    error_log("Contact form error: Failed to send email. Error: " . ($error_message ?: 'Unknown error'));
+    http_response_code(500);
     echo json_encode([
-        "success" => true,
-        "message" => "Mensaje recibido. Te responderé pronto."
+        "error" => "Error al enviar el mensaje. Por favor, intenta de nuevo o contáctame directamente por email."
     ]);
-    // En producción, podrías querer devolver error, pero por seguridad mejor no exponer detalles
 }
 ?>

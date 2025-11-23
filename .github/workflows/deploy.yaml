@@ -23,8 +23,19 @@ jobs:
       - name: Build Astro
         run: npm run build
       
+      - name: Install Composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: '8.1'
+      
+      - name: Install PHP dependencies (PHPMailer)
+        run: composer install --no-dev --optimize-autoloader
+      
       - name: Copy contact.php to dist
         run: cp public/contact.php dist/contact.php
+      
+      - name: Copy vendor directory to dist
+        run: cp -r vendor dist/vendor
       
       - name: Create SMTP config file
         run: |
