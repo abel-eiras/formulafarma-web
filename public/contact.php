@@ -205,11 +205,15 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     }
     
     // Construir headers y cuerpo del email
+    // Codificar el subject para evitar problemas con caracteres especiales
+    $encoded_subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    
     $headers = "From: " . $from_name . " <" . $from_email . ">\r\n";
     $headers .= "Reply-To: " . $from_email . "\r\n";
     $headers .= "To: " . $to . "\r\n";
-    $headers .= "Subject: " . $subject . "\r\n";
+    $headers .= "Subject: " . $encoded_subject . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $headers .= "Content-Transfer-Encoding: 8bit\r\n";
     $headers .= "Date: " . date('r') . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "\r\n"; // Línea vacía entre headers y body
@@ -229,10 +233,11 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     fclose($smtp);
     
     // Verificar si el envío fue exitoso
-    if (strpos($response, '250') === 0) {
+    // La respuesta puede empezar con 250 o tener 250 en cualquier parte
+    if (strpos($response, '250') !== false) {
         return true;
     } else {
-        error_log("SMTP SEND failed: $response");
+        error_log("SMTP SEND failed. Response: " . trim($response));
         return false;
     }
 }
