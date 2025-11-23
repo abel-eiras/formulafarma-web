@@ -41,6 +41,24 @@ jobs:
           ];
           EOF
       
+      - name: Validate FTP secrets
+        run: |
+          if [ -z "${{ secrets.FTP_SERVER }}" ]; then
+            echo "❌ ERROR: FTP_SERVER secret is not set!"
+            echo "Please go to Settings > Secrets and variables > Actions"
+            echo "and add the FTP_SERVER secret with your FTP server address"
+            exit 1
+          fi
+          if [ -z "${{ secrets.FTP_USERNAME }}" ]; then
+            echo "❌ ERROR: FTP_USERNAME secret is not set!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.FTP_PASSWORD }}" ]; then
+            echo "❌ ERROR: FTP_PASSWORD secret is not set!"
+            exit 1
+          fi
+          echo "✅ All FTP secrets are configured"
+      
       - name: Deploy website to public_html
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
