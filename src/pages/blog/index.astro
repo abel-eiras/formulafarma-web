@@ -7,7 +7,10 @@ const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout title="Blog - Fórmula Farma" description="Todos los posts del blog de Fórmula Farma sobre farmacia, tecnología y ciencia">
+<Layout 
+  title="Blog - Fórmula Farma" 
+  description="Todos los posts del blog de Fórmula Farma sobre farmacia, tecnología y ciencia. Explorando la intersección entre la salud y la innovación."
+>
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-6xl mx-auto">
       <header class="mb-12 text-center">

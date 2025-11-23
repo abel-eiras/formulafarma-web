@@ -24,6 +24,12 @@ const formattedDate = new Intl.DateTimeFormat('es-ES', {
   day: 'numeric',
 }).format(post.data.date);
 
+// URLs para SEO
+const postURL = new URL(`/blog/${post.slug}`, Astro.site || 'https://formulafarma.com').href;
+const postImage = post.data.image 
+  ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, Astro.site || 'https://formulafarma.com').href)
+  : new URL('/logo.webp', Astro.site || 'https://formulafarma.com').href;
+
 // Obtener posts para navegación
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -32,7 +38,14 @@ const previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 ---
 
-<Layout title={`${post.data.title} - Fórmula Farma`} description={post.data.excerpt || post.data.title}>
+<Layout 
+  title={`${post.data.title} - Fórmula Farma`} 
+  description={post.data.excerpt || post.data.title}
+  image={postImage}
+  type="article"
+  publishedTime={post.data.date.toISOString()}
+  modifiedTime={post.data.date.toISOString()}
+>
   <article class="container mx-auto px-4 py-12">
     <div class="max-w-4xl mx-auto">
       {/* Botón volver */}
@@ -78,6 +91,34 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
           />
         </div>
       )}
+
+      {/* Structured Data (JSON-LD) */}
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.data.title,
+        "description": post.data.excerpt || post.data.title,
+        "image": postImage,
+        "datePublished": post.data.date.toISOString(),
+        "dateModified": post.data.date.toISOString(),
+        "author": {
+          "@type": "Person",
+          "name": "Abel Eiras Espiño",
+          "url": "https://formulafarma.com/sobre-mi"
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": "Abel Eiras Espiño",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://formulafarma.com/logo.webp"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": postURL
+        }
+      })} />
 
       {/* Contenido del post */}
       <div class="prose prose-lg prose-slate max-w-none font-serif">
