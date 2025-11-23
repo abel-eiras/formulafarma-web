@@ -1,11 +1,94 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const htmlContent = "<h3>¿Tienes una idea loca, una pregunta existencial o simplemente te apetece saludar?</h3>\n<p>Este es el lugar.</p>\n<p>Entiendo que a veces surgen dudas, propuestas o simplemente la necesidad de compartir una reflexión. Si es tu caso, has llegado al sitio correcto. Rellena el formulario de aquí abajo y te prometo que lo leeré en algún momento y prometo contestar. No rápido. Pero contestaré.</p>\n<p>Aunque también podríamos saltarnos el formalismo del formulario y hablar por redes sociales. Para eso están. Puedes encontrarme aquí:</p>\n<ul>\n<li><a href=\"https://www.facebook.com/abel.eiras.e\" title=\"Facebook\">facebook</a></li>\n<li><a href=\"https://www.instagram.com/abel.eiras/\" title=\"Instagram\">instagram</a></li>\n<li><a href=\"https://www.linkedin.com/in/abel-eiras/\" title=\"Linkedin\">linkedin</a></li>\n<li><a href=\"https://x.com/abel_eiras\" title=\"X\">x</a></li>\n<li><a href=\"https://t.me/abel_eiras\" title=\"Telegram\">telegram</a></li>\n<li><a href=\"https://github.com/abel-eiras\" title=\"GitHub\">github</a></li>\n</ul>\n<p>\\</p>\n";
+import SocialIcons from '../components/SocialIcons.astro';
 ---
 
-<Layout title="¿Hablamos? - Fórmula Farma" description="Página ¿Hablamos? de Fórmula Farma">
+<Layout title="¿Hablamos? - Fórmula Farma" description="Página de contacto de Fórmula Farma. Envíame un mensaje o conéctate conmigo en redes sociales">
   <div class="container mx-auto px-4 py-12 max-w-4xl">
-    <article class="prose prose-lg prose-slate max-w-none font-serif" set:html={htmlContent} />
+    <div class="prose prose-lg prose-slate max-w-none font-serif mb-12">
+      <h1 class="text-4xl font-bold text-pharma-dark mb-4">¿Hablamos?</h1>
+      <p class="text-xl text-pharma-grey mb-6">
+        ¿Tienes una idea loca, una pregunta existencial o simplemente te apetece saludar?
+      </p>
+      <p class="text-pharma-grey">
+        Este es el lugar. Entiendo que a veces surgen dudas, propuestas o simplemente la necesidad de compartir una reflexión. Si es tu caso, has llegado al sitio correcto.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12">
+      {/* Formulario de contacto */}
+      <div>
+        <h2 class="text-2xl font-semibold text-pharma-dark mb-6">Envíame un mensaje</h2>
+        <form 
+          name="contact" 
+          method="POST" 
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="space-y-6"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden">
+            <label>
+              No llenes este campo si eres humano: <input name="bot-field" />
+            </label>
+          </p>
+          
+          <div>
+            <label for="name" class="block text-sm font-medium text-pharma-dark mb-2">
+              Nombre
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pharma-accent focus:border-transparent outline-none transition-all"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-pharma-dark mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pharma-accent focus:border-transparent outline-none transition-all"
+            />
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-pharma-dark mb-2">
+              Mensaje
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pharma-accent focus:border-transparent outline-none transition-all resize-none"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-pharma-accent text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all duration-300 shadow-sm hover:shadow-md"
+          >
+            Enviar mensaje
+          </button>
+        </form>
+      </div>
+
+      {/* Redes sociales */}
+      <div>
+        <h2 class="text-2xl font-semibold text-pharma-dark mb-6">O conéctate en redes sociales</h2>
+        <p class="text-pharma-grey mb-6">
+          También podríamos saltarnos el formalismo del formulario y hablar por redes sociales. Para eso están.
+        </p>
+        <SocialIcons />
+      </div>
+    </div>
   </div>
 </Layout>

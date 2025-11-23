@@ -16,14 +16,14 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
 
 ## 📅 FASE 1: Configuración del Entorno (Scaffolding)
 
-- [ ] **Inicializar Proyecto Astro**
+- [X] **Inicializar Proyecto Astro**
     - Ejecutar: `npm create astro@latest formulafarma-new`
     - Selección: Plantilla "Empty" o "Blog", TypeScript (Relaxed o Strict), Instalar dependencias.
-- [ ] **Instalar Tailwind CSS**
+- [X] **Instalar Tailwind CSS**
     - Ejecutar: `npx astro add tailwind`
-- [ ] **Instalar Fuentes**
+- [X] **Instalar Fuentes**
     - Ejecutar: `npm install @fontsource/inter @fontsource/merriweather`
-- [ ] **Configurar `tailwind.config.mjs`**
+- [X] **Configurar `tailwind.config.mjs`**
     - Copiar y pegar la configuración de identidad visual:
     ```javascript
     /** @type {import('tailwindcss').Config} */
@@ -55,16 +55,16 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
 
 ## 🧩 FASE 2: Arquitectura y Componentes
 
-- [ ] **Crear Layout Principal (`src/layouts/Layout.astro`)**
+- [X] **Crear Layout Principal (`src/layouts/Layout.astro`)**
     - Implementar estructura HTML base.
     - Importar fuentes (`@fontsource`).
     - Crear Header minimalista (Logo tipográfico + Navegación simple).
     - Crear Footer sencillo.
-- [ ] **Crear Componente Tarjeta (`src/components/PostCard.astro`)**
+- [X] **Crear Componente Tarjeta (`src/components/PostCard.astro`)**
     - Diseño tipo "Card" con sombra suave (`shadow-sm`).
     - Efecto hover (`hover:-translate-y-1`).
     - Mostrar: Fecha, Tags (tipo píldora), Título y Extracto.
-- [ ] **Configurar Colecciones de Contenido (`src/content/config.ts`)**
+- [X] **Configurar Colecciones de Contenido (`src/content/config.ts`)**
     - Definir esquema Zod para los posts:
     ```typescript
     import { defineCollection, z } from 'astro:content';
@@ -84,40 +84,46 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
 
 ## 📦 FASE 3: Migración de Contenido (WordPress -> Markdown)
 
-- [ ] **Exportar XML de WordPress**
+- [X] **Exportar XML de WordPress**
     - Ir a WP Admin -> Herramientas -> Exportar -> Todo el contenido.
-- [ ] **Ejecutar Script de Conversión**
+- [X] **Ejecutar Script de Conversión**
     - Crear carpeta temporal fuera del proyecto.
     - Ejecutar: `npx wordpress-export-to-markdown`
     - **Configuración crítica del wizard:**
       - *Download images:* Yes
       - *Image folder:* `images`
       - *Image prefix:* `/images/`
-- [ ] **Importar al Proyecto Astro**
+- [X] **Importar al Proyecto Astro**
     - Mover archivos `.md` a `src/content/blog/`.
     - Mover carpeta de imágenes a `public/images/`.
-- [ ] **Sanear Frontmatter**
+- [X] **Sanear Frontmatter**
     - Revisar que los `.md` cumplan con el esquema definido en `config.ts` (Fase 2).
     - Borrar campos innecesarios de WordPress (id, post_id, status, etc) si molestan.
+- [X] **Migración de Páginas Estáticas (EXTRA)**
+    - Páginas creadas: Sobre mí, Contacto, Aviso Legal, Cookies.
+    - Contenido migrado y convertido a HTML con estilos prose.
 
 ---
 
 ## 📄 FASE 4: Páginas y Rutas
 
-- [ ] **Crear Página de Inicio (`src/pages/index.astro`)**
+- [X] **Crear Página de Inicio (`src/pages/index.astro`)**
     - Añadir sección "Hero" (Foto + Bio corta + "Farmacéutico Híbrido").
-    - Listar los últimos posts usando `getCollection('blog')`.
-    - Implementar Grid de `PostCard`.
+    - ⚠️ **PENDIENTE:** Listar los últimos posts usando `getCollection('blog')`.
+    - ⚠️ **PENDIENTE:** Implementar Grid de `PostCard`.
 - [ ] **Crear Plantilla de Post Individual (`src/pages/blog/[...slug].astro`)**
     - Usar `getStaticPaths` para generar rutas.
     - Usar clase `prose` de Tailwind para estilizar el Markdown automáticamente:
       `<article class="prose prose-lg prose-slate max-w-none">`
+- [ ] **Crear Página de Listado de Blog (`src/pages/blog/index.astro`)**
+    - Listar todos los posts del blog con paginación opcional.
+    - Implementar Grid de `PostCard`.
 
 ---
 
 ## 🚀 FASE 5: Despliegue (CI/CD en Raiola)
 
-- [ ] **Preparar GitHub**
+- [X] **Preparar GitHub**
     - Crear repo privado/público.
     - Subir código (sin `node_modules` ni `dist`).
 - [ ] **Configurar Secretos en GitHub**
@@ -153,4 +159,57 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
 - [ ] Revisar SEO (Meta tags en Layout).
 - [ ] Comprobar enlaces rotos de imágenes migradas.
 - [ ] Validar responsive en móvil.
-- [ ] Hacer Push a Main y verificar que la web cambia sola.
+- [X] Hacer Push a Main y verificar que la web cambia sola.
+
+---
+
+## 🎯 Próximos Pasos Recomendados
+
+### Prioridad Alta (Completar FASE 4)
+
+1. **Completar Página de Inicio (`src/pages/index.astro`)**
+   - Implementar listado de últimos posts usando `getCollection('blog')`
+   - Crear grid responsive con componente `PostCard`
+   - Ordenar posts por fecha (más recientes primero)
+   - Limitar a 6-9 posts más recientes
+
+2. **Crear Página de Listado de Blog (`src/pages/blog/index.astro`)**
+   - Listar todos los posts del blog
+   - Implementar grid de `PostCard`
+   - Añadir filtros por tags (opcional, futuro)
+   - Considerar paginación si hay muchos posts
+
+3. **Crear Plantilla de Post Individual (`src/pages/blog/[...slug].astro`)**
+   - Usar `getStaticPaths` con `getCollection('blog')`
+   - Renderizar contenido markdown con clase `prose`
+   - Añadir navegación anterior/siguiente post
+   - Incluir metadata (fecha, tags, imagen destacada)
+   - Añadir botón "Volver al blog"
+
+### Prioridad Media (Preparar Despliegue)
+
+4. **Mejorar SEO**
+   - Añadir Open Graph tags en Layout
+   - Implementar meta description dinámica por página
+   - Añadir structured data (JSON-LD) para artículos
+   - Verificar que todas las imágenes tengan alt text
+
+5. **Optimizaciones**
+   - Validar responsive en móvil/tablet
+   - Optimizar imágenes (considerar formato WebP)
+   - Añadir lazy loading para imágenes
+   - Verificar performance con Lighthouse
+
+### Prioridad Baja (Post-Lanzamiento)
+
+6. **Configurar CI/CD (FASE 5)**
+   - Configurar secretos FTP en GitHub
+   - Crear workflow de despliegue automático
+   - Hacer backup del sitio WordPress actual
+   - Probar despliegue en staging antes de producción
+
+7. **Mejoras Futuras**
+   - Sistema de búsqueda de posts
+   - Filtros por categorías/tags
+   - RSS feed para suscriptores
+   - Sitemap.xml automático

@@ -1,7 +1,7 @@
 ---
 title: "El farmacéutico \"híbrido\": Por qué el futuro pertenece a quien domina la empatía y los datos"
 date: 2025-07-13
-excerpt: "¿Sientes a veces que tu día a día en la farmacia es una carrera de obstáculos donde lo único que mueves de verdad es el cúter? A mí me pasaba. Este post no es un lamento, es una declaración de intenciones. Te cuento la historia de cómo descubrí los dos superpoderes que lo cambian todo: los datos y la comunicación. Aquí nace el concepto del \\"farmacéutico híbrido\\", el profesional que está llamado a dominar el futuro de nuestra profesión. Si alguna vez te has preguntado \\"¿esto es todo?\\", este post es para ti."
+excerpt: "¿Sientes a veces que tu día a día en la farmacia es una carrera de obstáculos donde lo único que mueves de verdad es el cúter? A mí me pasaba. Este post no es un lamento, es una declaración de intenciones. Te cuento la historia de cómo descubrí los dos superpoderes que lo cambian todo: los datos y la comunicación. Aquí nace el concepto del farmacéutico híbrido, el profesional que está llamado a dominar el futuro de nuestra profesión. Si alguna vez te has preguntado si esto es todo, este post es para ti."
 tags:
   - "analisis-de-datos"
   - "atencion-farmaceutica"

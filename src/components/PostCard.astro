@@ -27,17 +27,15 @@ const formattedDate = new Intl.DateTimeFormat('es-ES', {
     <div class="p-6">
       <div class="flex items-center gap-2 text-sm text-pharma-grey mb-3">
         <time datetime={date.toISOString()}>{formattedDate}</time>
+        {tags.length > 0 && (
+          <span class="text-pharma-grey">•</span>
+        )}
+        {tags.length > 0 && (
+          <span class="text-xs text-pharma-grey">
+            {tags.slice(0, 2).join(', ')}{tags.length > 2 ? '...' : ''}
+          </span>
+        )}
       </div>
-      
-      {tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mb-3">
-          {tags.map((tag) => (
-            <span class="px-3 py-1 text-xs font-medium bg-pharma-soft text-pharma-accent rounded-full">
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
       
       <h2 class="text-xl font-semibold text-pharma-dark mb-2 group-hover:text-pharma-accent transition-colors">
         {title}

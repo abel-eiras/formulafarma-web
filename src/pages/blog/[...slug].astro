@@ -1,0 +1,119 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const formattedDate = new Intl.DateTimeFormat('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(post.data.date);
+
+// Obtener posts para navegación
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
+const previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+---
+
+<Layout title={`${post.data.title} - Fórmula Farma`} description={post.data.excerpt || post.data.title}>
+  <article class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+      {/* Botón volver */}
+      <a href="/blog" class="inline-flex items-center text-pharma-accent hover:text-pharma-dark transition-colors mb-8">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Volver al blog
+      </a>
+
+      {/* Header del post */}
+      <header class="mb-8">
+        <div class="flex items-center gap-2 text-sm text-pharma-grey mb-4">
+          <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+          {post.data.tags && post.data.tags.length > 0 && (
+            <>
+              <span class="text-pharma-grey">•</span>
+              <span class="text-xs text-pharma-grey">
+                {post.data.tags.slice(0, 3).join(', ')}{post.data.tags.length > 3 ? ` +${post.data.tags.length - 3} más` : ''}
+              </span>
+            </>
+          )}
+        </div>
+
+        <h1 class="text-4xl md:text-5xl font-bold text-pharma-dark mb-4">
+          {post.data.title}
+        </h1>
+
+        {post.data.excerpt && (
+          <p class="text-xl text-pharma-grey leading-relaxed">
+            {post.data.excerpt}
+          </p>
+        )}
+      </header>
+
+      {/* Imagen destacada */}
+      {post.data.image && (
+        <div class="mb-8 rounded-lg overflow-hidden">
+          <img 
+            src={post.data.image} 
+            alt={post.data.title}
+            class="w-full h-auto object-cover"
+          />
+        </div>
+      )}
+
+      {/* Contenido del post */}
+      <div class="prose prose-lg prose-slate max-w-none font-serif">
+        <Content />
+      </div>
+
+      {/* Navegación entre posts */}
+      {(previousPost || nextPost) && (
+        <nav class="mt-16 pt-8 border-t border-gray-200">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {previousPost && (
+              <a 
+                href={`/blog/${previousPost.slug}`}
+                class="group p-4 border border-gray-200 rounded-lg hover:border-pharma-accent transition-colors"
+              >
+                <div class="text-sm text-pharma-grey mb-2">← Post anterior</div>
+                <div class="font-semibold text-pharma-dark group-hover:text-pharma-accent transition-colors">
+                  {previousPost.data.title}
+                </div>
+              </a>
+            )}
+            {nextPost && (
+              <a 
+                href={`/blog/${nextPost.slug}`}
+                class="group p-4 border border-gray-200 rounded-lg hover:border-pharma-accent transition-colors text-right md:text-left"
+              >
+                <div class="text-sm text-pharma-grey mb-2">Post siguiente →</div>
+                <div class="font-semibold text-pharma-dark group-hover:text-pharma-accent transition-colors">
+                  {nextPost.data.title}
+                </div>
+              </a>
+            )}
+          </div>
+        </nav>
+      )}
+    </div>
+  </article>
+</Layout>
+

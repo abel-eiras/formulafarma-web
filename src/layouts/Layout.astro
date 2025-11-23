@@ -4,6 +4,7 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/merriweather/400.css';
 import '@fontsource/merriweather/700.css';
+import Logo from '../components/Logo.astro';
 
 interface Props {
   title: string;
@@ -19,7 +20,7 @@ const { title, description = 'Blog personal sobre farmacia, tecnología y cienci
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
@@ -27,14 +28,11 @@ const { title, description = 'Blog personal sobre farmacia, tecnología y cienci
     <header class="border-b border-gray-200 bg-white">
       <nav class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
-          <a href="/" class="text-2xl font-semibold text-pharma-dark hover:text-pharma-accent transition-colors">
-            Fórmula Farma
-          </a>
+          <Logo />
           <div class="flex gap-6">
-            <a href="/" class="text-pharma-grey hover:text-pharma-accent transition-colors">Home</a>
             <a href="/blog" class="text-pharma-grey hover:text-pharma-accent transition-colors">Blog</a>
             <a href="/sobre-mi" class="text-pharma-grey hover:text-pharma-accent transition-colors">Sobre mí</a>
-            <a href="/contacto" class="text-pharma-grey hover:text-pharma-accent transition-colors">Contacto</a>
+            <a href="/contacto" class="text-pharma-grey hover:text-pharma-accent transition-colors">¿Hablamos?</a>
           </div>
         </div>
       </nav>
