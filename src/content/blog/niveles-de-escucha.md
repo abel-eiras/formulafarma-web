@@ -15,7 +15,7 @@ tags:
   - "inteligencia-emocional"
   - "negociacion"
   - "tecnicas-de-venta"
-image: "/images/ChatGPT-Image-20-jul-2025-12_48_57.png"
+image: "/images/ChatGPT-Image-20-jul-2025-12_48_57.webp"
 ---
 
 

@@ -6,12 +6,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "convert-images": "node scripts/convert-images.js"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@fontsource/merriweather": "^5.2.11",
-    "astro": "^5.16.0"
+    "astro": "^5.16.0",
+    "sharp": "^0.34.5"
   },
   "optionalDependencies": {
     "@rollup/rollup-win32-x64-msvc": "^4.53.3"
@@ -21,7 +23,10 @@
     "@tailwindcss/typography": "^0.5.19",
     "autoprefixer": "^10.4.22",
     "marked": "^17.0.1",
+    "rehype-raw": "^7.0.0",
+    "remark-rehype": "^11.1.2",
     "rollup": "^4.53.3",
-    "tailwindcss": "^3.4.18"
+    "tailwindcss": "^3.4.18",
+    "unist-util-visit": "^5.0.0"
   }
 }

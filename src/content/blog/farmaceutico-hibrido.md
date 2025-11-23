@@ -15,7 +15,7 @@ tags:
   - "inteligencia-emocional"
   - "python-para-farmacia"
   - "vocacion"
-image: "/images/ChatGPT-Image-14-jul-2025-22_03_24-e1752523876432.png"
+image: "/images/ChatGPT-Image-14-jul-2025-22_03_24-e1752523876432.webp"
 ---
 
 

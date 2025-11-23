@@ -21,7 +21,15 @@ const formattedDate = new Intl.DateTimeFormat('es-ES', {
   <article class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 overflow-hidden h-full">
     {image && (
       <div class="w-full h-48 bg-pharma-soft overflow-hidden">
-        <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+        <img 
+          src={image} 
+          alt={title} 
+          width="400"
+          height="192"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+        />
       </div>
     )}
     <div class="p-6">

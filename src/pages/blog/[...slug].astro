@@ -87,6 +87,10 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
           <img 
             src={post.data.image} 
             alt={post.data.title}
+            width="1200"
+            height="630"
+            loading="eager"
+            decoding="async"
             class="w-full h-auto object-cover"
           />
         </div>

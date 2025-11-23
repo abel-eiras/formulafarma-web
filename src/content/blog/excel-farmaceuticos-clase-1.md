@@ -13,7 +13,7 @@ tags:
   - "libreoffice-calc"
   - "limpiar-datos"
   - "tutorial-excel"
-image: "/images/excel.png"
+image: "/images/excel.webp"
 ---
 
 
@@ -49,7 +49,7 @@ Antes de empezar, necesitas saber cuál es tu herramienta. En este blog hablaré
 
 - **LibreOffice Calc:** La alternativa gratuita y de código abierto. Es como el primo feo de Excel, pero igual de fuerte y casi tan listo. Si no tienes Excel y no quieres pagar (ni arriesgarte a usar una versión pirata), esta es tu opción. Es un programa excelente.
 
-![Captura de Excel y LibreOffice Calc](/images/01.-Excel-Vs-Calc-1024x227.png)
+![Captura de Excel y LibreOffice Calc](/images/01.-Excel-Vs-Calc-1024x227.webp)
 
 En este tutorial, te explicaré cómo hacer cada paso en ambos programas. Tú solo tienes que seguir las instrucciones del que tengas. También lo podrías hacer con Google Sheets, la alternativa online de Google. Pero a mí ya no me apetece meterme la paliza de explicarlo para los tres. Me gusta hacerlo con Calc por ser software libre, que si no, ni eso. Si esto del software libre, el código abierto y demás vocablos te suenan a chino, no te preocupes, que probablemente lo explicaré en cuanto nos metamos con temitas de inteligencia artificial.
 
@@ -84,7 +84,7 @@ Ahora viene el momento de la verdad. No vamos a hacer doble clic en el archivo. 
 
 11. Una vez ajustado, haz clic en el botón verde de abajo que dice **`Cargar`**. Nos quedarán los datos ya en formato tabla. Veremos en otras clases lo que implica este formato.
 
-![](/images/02.-Excel-import.png)
+![Ventana de importación de datos en Excel mostrando la vista previa de los datos CSV con delimitador punto y coma](/images/02.-Excel-import.webp)
 
 ##### **Opción B: Importar con LibreOffice Calc**
 
@@ -99,7 +99,7 @@ Ahora viene el momento de la verdad. No vamos a hacer doble clic en el archivo. 
 
 7. En la vista previa de abajo, deberías ver tus datos perfectamente ordenados en columnas. Si se ve bien, haz clic en **`Aceptar`**.
 
-![](/images/03.-Calc-import.png)
+![Asistente de importación de LibreOffice Calc mostrando la configuración de importación CSV con separador punto y coma](/images/03.-Calc-import.webp)
 
 ### ¡Empieza la Cirugía! Limpieza y Formateo paso a paso
 

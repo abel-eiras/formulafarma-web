@@ -13,7 +13,7 @@ tags:
   - "marca-personal"
   - "profesional-de-la-salud"
   - "sindrome-del-impostor"
-image: "/images/ChatGPT-Image-23-ago-2025-22_08_49.png"
+image: "/images/ChatGPT-Image-23-ago-2025-22_08_49.webp"
 ---
 
 

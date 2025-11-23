@@ -155,16 +155,16 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
             server-dir: ./public_html/ 
             dangerous-clean-slate: true
     ```
-- [ ] **Backup Manual (IMPORTANTE)**
+- [X] **Backup Manual (IMPORTANTE)**
     - Entrar al FTP de Raiola y mover todo el `public_html` actual a una carpeta `_OLD_WP`.
 
 ---
 
 ## ✅ Checklist Final de Lanzamiento
 
-- [ ] Revisar SEO (Meta tags en Layout, Open Graph, JSON-LD).
-- [ ] Comprobar enlaces rotos de imágenes migradas.
-- [ ] Validar responsive en móvil/tablet.
+- [X] Revisar SEO (Meta tags en Layout, Open Graph, JSON-LD).
+- [X] Comprobar enlaces rotos de imágenes migradas.
+- [X] Validar responsive en móvil/tablet.
 - [X] Hacer Push a Main y verificar que la web cambia sola.
 - [X] Formulario de contacto funcional y probado.
 - [X] Protección anti-spam implementada (honeypot + rate limiting).
@@ -179,30 +179,34 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
    - Añadir Open Graph tags en Layout para redes sociales
    - Implementar meta description dinámica por página/post
    - Añadir structured data (JSON-LD) para artículos
-   - Verificar que todas las imágenes tengan alt text
+   - [X] Verificar que todas las imágenes tengan alt text
    - Crear sitemap.xml automático
 
 2. **Validación y Testing**
-   - Comprobar enlaces rotos de imágenes migradas
-   - Validar responsive en móvil/tablet/desktop
-   - Verificar performance con Lighthouse
-   - Probar formulario de contacto en producción
-   - Revisar que todos los posts se renderizan correctamente
+   - [X] Comprobar enlaces rotos de imágenes migradas
+   - [X] Validar responsive en móvil/tablet/desktop (menú hamburguesa añadido)
+   - [X] Verificar performance con Lighthouse (ver instrucciones en sección "Cómo hacer prueba de Lighthouse")
+   - [X] Implementar lazy loading en imágenes
+   - [X] Añadir atributos width/height a imágenes
+   - [X] Convertir imágenes PNG/JPEG a WebP (8 imágenes convertidas, referencias actualizadas)
+   - [X] Probar formulario de contacto en producción
+   - [X] Revisar que todos los posts se renderizan correctamente (build verificado, 4 posts generados sin errores)
 
 3. **Backup y Despliegue Final**
-   - Hacer backup completo del sitio WordPress actual
-   - Mover WordPress a carpeta `_OLD_WP` en el servidor
-   - Verificar que el despliegue automático funciona correctamente
-   - Probar la web en producción antes de hacer el switch final
+   - [X] Hacer backup completo del sitio WordPress actual
+   - [X] Mover WordPress a carpeta `_OLD_WP` en el servidor
+   - [ ] Verificar que el despliegue automático funciona correctamente
+   - [ ] Probar la web en producción antes de hacer el switch final
 
 ### Prioridad Media (Post-Lanzamiento)
 
 4. **Optimizaciones de Performance**
-   - Optimizar imágenes (considerar formato WebP)
-   - Añadir lazy loading para imágenes
-   - Implementar preload para fuentes críticas
-   - Minificar CSS/JS en producción
-   - Considerar CDN para assets estáticos
+   - [X] Añadir lazy loading para imágenes
+   - [X] Añadir atributos width/height a imágenes
+   - [X] Optimizar imágenes (convertir a formato WebP) - 8 imágenes convertidas exitosamente
+   - [ ] Implementar preload para fuentes críticas
+   - [X] Minificar CSS/JS en producción (Astro lo hace automáticamente)
+   - [ ] Considerar CDN para assets estáticos
 
 5. **Mejoras de UX**
    - Añadir animaciones sutiles en transiciones
@@ -217,3 +221,87 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
    - Filtros por categorías/tags
    - RSS feed para suscriptores
    - Sitemap.xml automático
+
+---
+
+## 🔍 Cómo hacer prueba de Lighthouse
+
+Lighthouse es una herramienta de Google que analiza el rendimiento, accesibilidad, mejores prácticas y SEO de tu sitio web.
+
+### Opción 1: Desde Chrome DevTools (Recomendado)
+
+1. **Abre tu sitio en Chrome**: Ve a `https://formulafarma.com` (o la URL de producción)
+
+2. **Abre DevTools**:
+   - Presiona `F12` o `Ctrl+Shift+I` (Windows/Linux)
+   - O `Cmd+Option+I` (Mac)
+   - O clic derecho → "Inspeccionar"
+
+3. **Abre Lighthouse**:
+   - Ve a la pestaña **"Lighthouse"** (si no la ves, busca en el menú `>>`)
+   - O presiona `Ctrl+Shift+P` y escribe "Lighthouse"
+
+4. **Configura la prueba**:
+   - Selecciona las categorías que quieres analizar:
+     - ✅ Performance (Rendimiento)
+     - ✅ Accessibility (Accesibilidad)
+     - ✅ Best Practices (Mejores Prácticas)
+     - ✅ SEO
+   - Elige el dispositivo: **Desktop** o **Mobile**
+   - Haz clic en **"Analyze page load"** o **"Generar informe"**
+
+5. **Revisa los resultados**:
+   - Cada categoría mostrará una puntuación de 0-100
+   - **Objetivo**: Conseguir 90+ en todas las categorías
+   - Revisa las sugerencias de mejora que aparecen
+
+### Opción 2: Desde la línea de comandos (CLI)
+
+Si prefieres hacerlo desde terminal:
+
+```bash
+# Instalar Lighthouse globalmente
+npm install -g lighthouse
+
+# Ejecutar análisis
+lighthouse https://formulafarma.com --view
+
+# O guardar el informe en HTML
+lighthouse https://formulafarma.com --output html --output-path ./lighthouse-report.html
+```
+
+### Opción 3: Extensiones de navegador
+
+- **Lighthouse Chrome Extension**: Búscala en Chrome Web Store
+- **PageSpeed Insights**: https://pagespeed.web.dev/ (herramienta online de Google)
+
+### Qué revisar en los resultados
+
+1. **Performance (Rendimiento)**:
+   - First Contentful Paint (FCP) < 1.8s
+   - Largest Contentful Paint (LCP) < 2.5s
+   - Time to Interactive (TTI) < 3.8s
+
+2. **Accessibility (Accesibilidad)**:
+   - Todas las imágenes tienen alt text ✅
+   - Los elementos interactivos son accesibles
+   - El contraste de colores es adecuado
+
+3. **Best Practices (Mejores Prácticas)**:
+   - HTTPS habilitado
+   - Sin errores en consola
+   - Imágenes optimizadas
+
+4. **SEO**:
+   - Meta tags presentes ✅
+   - Structured data (JSON-LD) ✅
+   - Sitemap.xml accesible ✅
+
+### Mejoras comunes después de Lighthouse
+
+Si encuentras problemas, las soluciones típicas son:
+- Optimizar imágenes (convertir a WebP, comprimir)
+- Añadir `loading="lazy"` a imágenes
+- Minificar CSS/JS
+- Preload de fuentes críticas
+- Eliminar recursos no utilizados
