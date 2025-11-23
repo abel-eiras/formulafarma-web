@@ -69,21 +69,52 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
         return false;
     }
     
-    // EHLO - Leer TODAS las líneas de respuesta
+    // EHLO - Leer TODAS las líneas de respuesta (pueden ser múltiples)
     fputs($smtp, "EHLO " . $smtp_host . "\r\n");
     $ehlo_response = '';
-    while ($line = fgets($smtp, 515)) {
-        $ehlo_response .= $line;
-        // La respuesta termina cuando el 4º carácter es un espacio (no guión)
-        if (strlen($line) >= 4 && substr($line, 3, 1) == ' ') break;
+    $timeout = 5; // timeout en segundos
+    $start_time = time();
+    
+    echo "Leyendo respuesta EHLO...\n";
+    // Leer todas las líneas hasta que encontremos una que termine con espacio (no guión)
+    while (true) {
+        // Verificar timeout
+        if (time() - $start_time > $timeout) {
+            echo "❌ EHLO timeout\n";
+            fclose($smtp);
+            return false;
+        }
+        
+        // Leer línea con stream_select para evitar bloqueo
+        $read = array($smtp);
+        $write = null;
+        $except = null;
+        if (stream_select($read, $write, $except, 1) > 0) {
+            $line = fgets($smtp, 515);
+            if ($line === false) break;
+            $ehlo_response .= $line;
+            echo "EHLO línea: $line";
+            
+            // La respuesta termina cuando el 4º carácter es un espacio (no guión)
+            if (strlen($line) >= 4 && substr($line, 3, 1) == ' ') {
+                echo "✅ Fin de respuesta EHLO\n";
+                break;
+            }
+        } else {
+            // Si no hay datos, esperar un poco más
+            usleep(100000); // 0.1 segundos
+        }
     }
-    echo "EHLO: $ehlo_response";
+    
+    echo "\nRespuesta EHLO completa:\n$ehlo_response\n";
+    
     // Aceptar respuestas 250 (éxito) o 220 (algunos servidores responden así)
     if (strpos($ehlo_response, '250') === false && strpos($ehlo_response, '220') === false) {
         echo "❌ EHLO falló\n";
         fclose($smtp);
         return false;
     }
+    echo "✅ EHLO exitoso\n\n";
     
     // Intentar AUTH LOGIN primero
     fputs($smtp, "AUTH LOGIN\r\n");
