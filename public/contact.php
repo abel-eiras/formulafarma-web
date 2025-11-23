@@ -125,17 +125,17 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
         return false;
     }
     
-    // EHLO
+    // EHLO - Leer TODAS las líneas de respuesta
     fputs($smtp, "EHLO " . $smtp_host . "\r\n");
-    $response = '';
+    $ehlo_response = '';
     while ($line = fgets($smtp, 515)) {
-        $response .= $line;
+        $ehlo_response .= $line;
         // La respuesta termina cuando el 4º carácter es un espacio (no guión)
         if (strlen($line) >= 4 && substr($line, 3, 1) == ' ') break;
     }
     // Aceptar respuestas 250 (éxito) o 220 (algunos servidores responden así)
-    if (strpos($response, '250') === false && strpos($response, '220') === false) {
-        error_log("SMTP EHLO failed: $response");
+    if (strpos($ehlo_response, '250') === false && strpos($ehlo_response, '220') === false) {
+        error_log("SMTP EHLO failed: $ehlo_response");
         fclose($smtp);
         return false;
     }
@@ -150,17 +150,42 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
             return false;
         }
         stream_socket_enable_crypto($smtp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+        // Re-enviar EHLO después de STARTTLS
+        fputs($smtp, "EHLO " . $smtp_host . "\r\n");
+        $ehlo_response = '';
+        while ($line = fgets($smtp, 515)) {
+            $ehlo_response .= $line;
+            if (strlen($line) >= 4 && substr($line, 3, 1) == ' ') break;
+        }
     }
     
-    // AUTH LOGIN
+    // Intentar AUTH LOGIN primero
     fputs($smtp, "AUTH LOGIN\r\n");
     $response = fgets($smtp, 515);
+    
+    // Si el servidor no soporta AUTH LOGIN (responde con 5xx o 250), intentar AUTH PLAIN
     if (strpos($response, '334') === false) {
-        error_log("SMTP AUTH LOGIN failed: $response");
-        fclose($smtp);
-        return false;
+        // Intentar AUTH PLAIN como alternativa
+        $auth_string = base64_encode("\0" . $smtp_user . "\0" . $smtp_pass);
+        fputs($smtp, "AUTH PLAIN " . $auth_string . "\r\n");
+        $response = fgets($smtp, 515);
+        if (strpos($response, '235') !== false) {
+            // AUTH PLAIN exitoso
+            return true; // Ya estamos autenticados, continuar con el envío
+        } else {
+            error_log("SMTP AUTH PLAIN failed: $response");
+            // Volver a intentar AUTH LOGIN paso a paso
+            fputs($smtp, "AUTH LOGIN\r\n");
+            $response = fgets($smtp, 515);
+            if (strpos($response, '334') === false) {
+                error_log("SMTP AUTH LOGIN failed: $response");
+                fclose($smtp);
+                return false;
+            }
+        }
     }
     
+    // Si llegamos aquí, AUTH LOGIN fue aceptado, continuar con usuario
     // Usuario
     fputs($smtp, base64_encode($smtp_user) . "\r\n");
     $response = fgets($smtp, 515);

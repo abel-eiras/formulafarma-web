@@ -69,52 +69,73 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
         return false;
     }
     
-    // EHLO
+    // EHLO - Leer TODAS las líneas de respuesta
     fputs($smtp, "EHLO " . $smtp_host . "\r\n");
-    $response = '';
+    $ehlo_response = '';
     while ($line = fgets($smtp, 515)) {
-        $response .= $line;
+        $ehlo_response .= $line;
         // La respuesta termina cuando el 4º carácter es un espacio (no guión)
         if (strlen($line) >= 4 && substr($line, 3, 1) == ' ') break;
     }
-    echo "EHLO: $response";
+    echo "EHLO: $ehlo_response";
     // Aceptar respuestas 250 (éxito) o 220 (algunos servidores responden así)
-    if (strpos($response, '250') === false && strpos($response, '220') === false) {
+    if (strpos($ehlo_response, '250') === false && strpos($ehlo_response, '220') === false) {
         echo "❌ EHLO falló\n";
         fclose($smtp);
         return false;
     }
     
-    // AUTH LOGIN
+    // Intentar AUTH LOGIN primero
     fputs($smtp, "AUTH LOGIN\r\n");
     $response = fgets($smtp, 515);
     echo "AUTH LOGIN: $response";
+    
+    // Si el servidor no soporta AUTH LOGIN, intentar AUTH PLAIN
     if (strpos($response, '334') === false) {
-        echo "❌ AUTH LOGIN falló\n";
-        fclose($smtp);
-        return false;
+        echo "\nIntentando AUTH PLAIN como alternativa...\n";
+        $auth_string = base64_encode("\0" . $smtp_user . "\0" . $smtp_pass);
+        fputs($smtp, "AUTH PLAIN " . $auth_string . "\r\n");
+        $response = fgets($smtp, 515);
+        echo "AUTH PLAIN: $response";
+        if (strpos($response, '235') !== false) {
+            echo "✅ Autenticación exitosa (PLAIN)\n";
+            // Continuar con el envío
+        } else {
+            echo "❌ AUTH PLAIN falló, intentando AUTH LOGIN paso a paso...\n";
+            fputs($smtp, "AUTH LOGIN\r\n");
+            $response = fgets($smtp, 515);
+            echo "AUTH LOGIN (reintento): $response";
+            if (strpos($response, '334') === false) {
+                echo "❌ AUTH LOGIN falló\n";
+                fclose($smtp);
+                return false;
+            }
+        }
     }
     
-    // Usuario
-    fputs($smtp, base64_encode($smtp_user) . "\r\n");
-    $response = fgets($smtp, 515);
-    echo "USER: $response";
-    if (strpos($response, '334') === false) {
-        echo "❌ USER falló\n";
-        fclose($smtp);
-        return false;
+    // Si AUTH LOGIN fue aceptado, continuar con usuario y contraseña
+    if (strpos($response, '334') !== false) {
+        // Usuario
+        fputs($smtp, base64_encode($smtp_user) . "\r\n");
+        $response = fgets($smtp, 515);
+        echo "USER: $response";
+        if (strpos($response, '334') === false) {
+            echo "❌ USER falló\n";
+            fclose($smtp);
+            return false;
+        }
+        
+        // Contraseña
+        fputs($smtp, base64_encode($smtp_pass) . "\r\n");
+        $response = fgets($smtp, 515);
+        echo "PASS: $response";
+        if (strpos($response, '235') === false) {
+            echo "❌ PASS falló\n";
+            fclose($smtp);
+            return false;
+        }
+        echo "✅ Autenticación exitosa (LOGIN)\n";
     }
-    
-    // Contraseña
-    fputs($smtp, base64_encode($smtp_pass) . "\r\n");
-    $response = fgets($smtp, 515);
-    echo "PASS: $response";
-    if (strpos($response, '235') === false) {
-        echo "❌ PASS falló\n";
-        fclose($smtp);
-        return false;
-    }
-    echo "✅ Autenticación exitosa\n";
     
     // MAIL FROM
     fputs($smtp, "MAIL FROM: <" . $from_email . ">\r\n");
