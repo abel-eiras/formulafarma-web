@@ -72,37 +72,27 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     // EHLO - Leer TODAS las líneas de respuesta (pueden ser múltiples)
     fputs($smtp, "EHLO " . $smtp_host . "\r\n");
     $ehlo_response = '';
-    $timeout = 5; // timeout en segundos
-    $start_time = time();
     
     echo "Leyendo respuesta EHLO...\n";
     // Leer todas las líneas hasta que encontremos una que termine con espacio (no guión)
     while (true) {
-        // Verificar timeout
-        if (time() - $start_time > $timeout) {
-            echo "❌ EHLO timeout\n";
-            fclose($smtp);
-            return false;
-        }
+        $line = fgets($smtp, 515);
+        if ($line === false) break;
         
-        // Leer línea con stream_select para evitar bloqueo
-        $read = array($smtp);
-        $write = null;
-        $except = null;
-        if (stream_select($read, $write, $except, 1) > 0) {
-            $line = fgets($smtp, 515);
-            if ($line === false) break;
-            $ehlo_response .= $line;
-            echo "EHLO línea: $line";
+        $ehlo_response .= $line;
+        echo "EHLO línea: $line";
+        
+        // La respuesta termina cuando el 4º carácter es un espacio (no guión)
+        // Y el código es 250 o 220 (no 250- o 220-)
+        if (strlen($line) >= 4) {
+            $code = substr($line, 0, 3);
+            $continuation = substr($line, 3, 1);
             
-            // La respuesta termina cuando el 4º carácter es un espacio (no guión)
-            if (strlen($line) >= 4 && substr($line, 3, 1) == ' ') {
-                echo "✅ Fin de respuesta EHLO\n";
+            // Si es un código 250 o 220 y termina con espacio (no guión), es el final
+            if (($code == '250' || $code == '220') && $continuation == ' ') {
+                echo "✅ Fin de respuesta EHLO (código: $code, continuación: '$continuation')\n";
                 break;
             }
-        } else {
-            // Si no hay datos, esperar un poco más
-            usleep(100000); // 0.1 segundos
         }
     }
     
