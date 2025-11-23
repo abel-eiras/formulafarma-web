@@ -100,8 +100,13 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
     - Revisar que los `.md` cumplan con el esquema definido en `config.ts` (Fase 2).
     - Borrar campos innecesarios de WordPress (id, post_id, status, etc) si molestan.
 - [X] **Migración de Páginas Estáticas (EXTRA)**
-    - Páginas creadas: Sobre mí, Contacto, Aviso Legal, Cookies.
+    - Páginas creadas: Sobre mí, Contacto, Aviso Legal, Cookies, Privacidad.
     - Contenido migrado y convertido a HTML con estilos prose.
+- [X] **Formulario de Contacto Funcional (EXTRA)**
+    - Formulario con validación y envío SMTP.
+    - Honeypot anti-spam implementado.
+    - Rate limiting (5 envíos por hora por IP).
+    - Casilla de privacidad obligatoria con enlace a política.
 
 ---
 
@@ -109,14 +114,15 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
 
 - [X] **Crear Página de Inicio (`src/pages/index.astro`)**
     - Añadir sección "Hero" (Foto + Bio corta + "Farmacéutico Híbrido").
-    - ⚠️ **PENDIENTE:** Listar los últimos posts usando `getCollection('blog')`.
-    - ⚠️ **PENDIENTE:** Implementar Grid de `PostCard`.
-- [ ] **Crear Plantilla de Post Individual (`src/pages/blog/[...slug].astro`)**
+    - Listar los últimos posts usando `getCollection('blog')`.
+    - Implementar Grid de `PostCard`.
+- [X] **Crear Plantilla de Post Individual (`src/pages/blog/[...slug].astro`)**
     - Usar `getStaticPaths` para generar rutas.
-    - Usar clase `prose` de Tailwind para estilizar el Markdown automáticamente:
-      `<article class="prose prose-lg prose-slate max-w-none">`
-- [ ] **Crear Página de Listado de Blog (`src/pages/blog/index.astro`)**
-    - Listar todos los posts del blog con paginación opcional.
+    - Usar clase `prose` de Tailwind para estilizar el Markdown automáticamente.
+    - Navegación anterior/siguiente post implementada.
+    - Metadata (fecha, tags, imagen destacada) incluida.
+- [X] **Crear Página de Listado de Blog (`src/pages/blog/index.astro`)**
+    - Listar todos los posts del blog.
     - Implementar Grid de `PostCard`.
 
 ---
@@ -156,59 +162,57 @@ Este documento sirve como guía maestra para la migración de formulafarma.com d
 
 ## ✅ Checklist Final de Lanzamiento
 
-- [ ] Revisar SEO (Meta tags en Layout).
+- [ ] Revisar SEO (Meta tags en Layout, Open Graph, JSON-LD).
 - [ ] Comprobar enlaces rotos de imágenes migradas.
-- [ ] Validar responsive en móvil.
+- [ ] Validar responsive en móvil/tablet.
 - [X] Hacer Push a Main y verificar que la web cambia sola.
+- [X] Formulario de contacto funcional y probado.
+- [X] Protección anti-spam implementada (honeypot + rate limiting).
 
 ---
 
 ## 🎯 Próximos Pasos Recomendados
 
-### Prioridad Alta (Completar FASE 4)
+### Prioridad Alta (Pre-Lanzamiento)
 
-1. **Completar Página de Inicio (`src/pages/index.astro`)**
-   - Implementar listado de últimos posts usando `getCollection('blog')`
-   - Crear grid responsive con componente `PostCard`
-   - Ordenar posts por fecha (más recientes primero)
-   - Limitar a 6-9 posts más recientes
-
-2. **Crear Página de Listado de Blog (`src/pages/blog/index.astro`)**
-   - Listar todos los posts del blog
-   - Implementar grid de `PostCard`
-   - Añadir filtros por tags (opcional, futuro)
-   - Considerar paginación si hay muchos posts
-
-3. **Crear Plantilla de Post Individual (`src/pages/blog/[...slug].astro`)**
-   - Usar `getStaticPaths` con `getCollection('blog')`
-   - Renderizar contenido markdown con clase `prose`
-   - Añadir navegación anterior/siguiente post
-   - Incluir metadata (fecha, tags, imagen destacada)
-   - Añadir botón "Volver al blog"
-
-### Prioridad Media (Preparar Despliegue)
-
-4. **Mejorar SEO**
-   - Añadir Open Graph tags en Layout
-   - Implementar meta description dinámica por página
+1. **Mejorar SEO**
+   - Añadir Open Graph tags en Layout para redes sociales
+   - Implementar meta description dinámica por página/post
    - Añadir structured data (JSON-LD) para artículos
    - Verificar que todas las imágenes tengan alt text
+   - Crear sitemap.xml automático
 
-5. **Optimizaciones**
-   - Validar responsive en móvil/tablet
+2. **Validación y Testing**
+   - Comprobar enlaces rotos de imágenes migradas
+   - Validar responsive en móvil/tablet/desktop
+   - Verificar performance con Lighthouse
+   - Probar formulario de contacto en producción
+   - Revisar que todos los posts se renderizan correctamente
+
+3. **Backup y Despliegue Final**
+   - Hacer backup completo del sitio WordPress actual
+   - Mover WordPress a carpeta `_OLD_WP` en el servidor
+   - Verificar que el despliegue automático funciona correctamente
+   - Probar la web en producción antes de hacer el switch final
+
+### Prioridad Media (Post-Lanzamiento)
+
+4. **Optimizaciones de Performance**
    - Optimizar imágenes (considerar formato WebP)
    - Añadir lazy loading para imágenes
-   - Verificar performance con Lighthouse
+   - Implementar preload para fuentes críticas
+   - Minificar CSS/JS en producción
+   - Considerar CDN para assets estáticos
 
-### Prioridad Baja (Post-Lanzamiento)
+5. **Mejoras de UX**
+   - Añadir animaciones sutiles en transiciones
+   - Mejorar feedback visual en formularios
+   - Considerar modo oscuro (opcional)
+   - Añadir breadcrumbs en posts
 
-6. **Configurar CI/CD (FASE 5)**
-   - Configurar secretos FTP en GitHub
-   - Crear workflow de despliegue automático
-   - Hacer backup del sitio WordPress actual
-   - Probar despliegue en staging antes de producción
+### Prioridad Baja (Mejoras Futuras)
 
-7. **Mejoras Futuras**
+6. **Funcionalidades Adicionales**
    - Sistema de búsqueda de posts
    - Filtros por categorías/tags
    - RSS feed para suscriptores
