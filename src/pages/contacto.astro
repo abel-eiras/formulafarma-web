@@ -73,6 +73,23 @@ import SocialIcons from '../components/SocialIcons.astro';
             ></textarea>
           </div>
 
+          <div class="flex items-start">
+            <input
+              type="checkbox"
+              id="privacy-consent"
+              name="privacy-consent"
+              required
+              class="mt-1 h-4 w-4 text-pharma-accent border-gray-300 rounded focus:ring-pharma-accent"
+            />
+            <label for="privacy-consent" class="ml-3 text-sm text-pharma-grey">
+              Acepto que mis datos de contacto (nombre y email) solo se utilizarán para responder a este mensaje y nunca con otros fines. 
+              <a href="/privacidad" class="text-pharma-accent hover:underline" target="_blank" rel="noopener noreferrer">
+                Ver política de privacidad
+              </a>
+              <span class="text-red-500">*</span>
+            </label>
+          </div>
+
           <button
             type="submit"
             id="submit-btn"

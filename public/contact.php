@@ -37,6 +37,7 @@ $name = isset($_POST["name"]) ? trim(htmlspecialchars($_POST["name"])) : "";
 $email = isset($_POST["email"]) ? trim(htmlspecialchars($_POST["email"])) : "";
 $message = isset($_POST["message"]) ? trim(htmlspecialchars($_POST["message"])) : "";
 $bot_field = isset($_POST["bot-field"]) ? $_POST["bot-field"] : "";
+$privacy_consent = isset($_POST["privacy-consent"]) ? $_POST["privacy-consent"] : "";
 
 // Validación básica
 $errors = [];
@@ -53,6 +54,10 @@ if (empty($email)) {
 
 if (empty($message)) {
     $errors[] = "El mensaje es obligatorio";
+}
+
+if (empty($privacy_consent)) {
+    $errors[] = "Debes aceptar la política de privacidad para enviar el formulario";
 }
 
 // Honeypot: si el campo bot-field tiene contenido, es spam
