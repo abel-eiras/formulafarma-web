@@ -131,22 +131,49 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     
     // Leer todas las líneas hasta que encontremos una que termine con espacio (no guión)
     // El servidor puede enviar múltiples líneas con códigos 220- o 250-
-    while (true) {
-        $line = fgets($smtp, 515);
-        if ($line === false) break;
+    // Usar stream_select para leer de forma no bloqueante y asegurar que leemos todas
+    $max_lines = 20; // Límite de seguridad
+    $line_count = 0;
+    
+    while ($line_count < $max_lines) {
+        // Verificar si hay datos disponibles
+        $read = array($smtp);
+        $write = null;
+        $except = null;
         
-        $ehlo_response .= $line;
-        
-        // La respuesta termina cuando el 4º carácter es un espacio (no guión)
-        // Y el código es 250 o 220 (no 250- o 220-)
-        if (strlen($line) >= 4) {
-            $code = substr($line, 0, 3);
-            $continuation = substr($line, 3, 1);
+        // Esperar hasta 2 segundos por más datos
+        if (stream_select($read, $write, $except, 2) > 0) {
+            $line = fgets($smtp, 515);
+            if ($line === false) break;
             
-            // Si es un código 250 o 220 y termina con espacio (no guión), es el final
-            if (($code == '250' || $code == '220') && $continuation == ' ') {
-                break;
+            $ehlo_response .= $line;
+            $line_count++;
+            
+            // La respuesta termina cuando el 4º carácter es un espacio (no guión)
+            if (strlen($line) >= 4) {
+                $code = substr($line, 0, 3);
+                $continuation = substr($line, 3, 1);
+                
+                // Si es un código 250 o 220 y termina con espacio (no guión), es el final
+                if (($code == '250' || $code == '220') && $continuation == ' ') {
+                    break;
+                }
             }
+        } else {
+            // Si no hay más datos después de 2 segundos, asumir que terminó
+            // Pero primero verificar si la última línea leída terminaba con espacio
+            if (!empty($ehlo_response)) {
+                $last_line = substr($ehlo_response, strrpos($ehlo_response, "\n") + 1);
+                if (strlen($last_line) >= 4) {
+                    $code = substr($last_line, 0, 3);
+                    $continuation = substr($last_line, 3, 1);
+                    if (($code == '250' || $code == '220') && $continuation == ' ') {
+                        break;
+                    }
+                }
+            }
+            // Si no hay más datos y no terminó correctamente, salir
+            break;
         }
     }
     
