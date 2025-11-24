@@ -35,3 +35,7 @@ composer.lock
 
 # Rate limiting files
 rate_limits/
+
+# Base de datos SQLite de comentarios
+public/api/comments.db
+api/comments.db

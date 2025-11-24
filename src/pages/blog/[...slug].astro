@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import RatingCapsules from '../../components/RatingCapsules.astro';
+import Comments from '../../components/Comments.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -128,6 +130,12 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
       <div class="prose prose-lg prose-slate max-w-none font-serif">
         <Content />
       </div>
+
+      {/* Sistema de valoración */}
+      <RatingCapsules postSlug={post.slug} />
+
+      {/* Sistema de comentarios */}
+      <Comments postSlug={post.slug} />
 
       {/* Navegación entre posts */}
       {(previousPost || nextPost) && (

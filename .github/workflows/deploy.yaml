@@ -26,8 +26,14 @@ jobs:
       - name: Copy contact.php to dist
         run: cp public/contact.php dist/contact.php
       
+      - name: Copy API directory to dist
+        run: cp -r public/api dist/api
+      
       - name: Create rate_limits directory placeholder
         run: mkdir -p dist/rate_limits && touch dist/rate_limits/.gitkeep
+      
+      - name: Set API directory permissions
+        run: chmod -R 755 dist/api
       
       - name: Create SMTP config file
         run: |
