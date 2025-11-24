@@ -1,0 +1,8 @@
+{
+    'editor.wordWrap': 'on',
+    'editor.wordWrapColumn': 120,
+    'editor.wordWrapMode': 'wordWrapColumn',
+    'editor.wordWrapBreakAfterCharacters': 'all',
+    'editor.wordWrapBreakBeforeCharacters': 'all',
+    'editor.wordWrapBreakAfterCharacters': 'all',
+}
