@@ -10,4 +10,11 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkImageOptimize],
   },
+  i18n: {
+    defaultLocale: "gl",
+    locales: ["gl", "es"],
+    routing: {
+      prefixDefaultLocale: false // gl en /, es en /es/
+    }
+  }
 });

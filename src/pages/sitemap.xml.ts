@@ -5,15 +5,23 @@ export const GET: APIRoute = async ({ site }) => {
   const posts = await getCollection('blog');
   const baseURL = site?.href || 'https://formulafarma.com';
   
-  // Páginas estáticas
+  // Páginas estáticas (gallego - idioma principal)
   const staticPages = [
     '',
     '/blog',
-    '/sobre-mi',
+    '/sobre-min',
     '/contacto',
     '/aviso-legal',
-    '/privacidad',
+    '/privacidade',
     '/cookies',
+    // Versiones en español
+    '/es',
+    '/es/blog',
+    '/es/sobre-mi',
+    '/es/contacto',
+    '/es/aviso-legal',
+    '/es/privacidad',
+    '/es/cookies',
   ];
   
   // Generar sitemap
@@ -45,6 +53,8 @@ ${posts
     },
   });
 };
+
+
 
 
 

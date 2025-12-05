@@ -8,11 +8,11 @@ const { postSlug } = Astro.props;
 ---
 
 <form class="comment-form mt-8 space-y-4" id="comment-form" data-post-slug={postSlug}>
-  <h4 class="text-lg font-semibold text-pharma-dark mb-4">Deja un comentario</h4>
+  <h4 class="text-lg font-semibold mb-4 font-human">Deja un comentario</h4>
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div>
-      <label for="author_name" class="block text-sm font-medium text-pharma-dark mb-2">
+      <label for="author_name" class="block text-sm font-medium mb-2 font-tech">
         Nombre <span class="text-red-500">*</span>
       </label>
       <input
@@ -22,13 +22,13 @@ const { postSlug } = Astro.props;
         required
         minlength="2"
         maxlength="100"
-        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pharma-accent focus:border-pharma-accent outline-none transition-colors"
+        class="w-full border-2 border-black p-3 font-tech text-sm focus:outline-none focus:bg-yellow-50 mb-4"
         placeholder="Tu nombre"
       />
     </div>
     
     <div>
-      <label for="author_email" class="block text-sm font-medium text-pharma-dark mb-2">
+      <label for="author_email" class="block text-sm font-medium mb-2 font-tech">
         Email (opcional)
       </label>
       <input
@@ -36,14 +36,14 @@ const { postSlug } = Astro.props;
         id="author_email"
         name="author_email"
         maxlength="255"
-        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pharma-accent focus:border-pharma-accent outline-none transition-colors"
+        class="w-full border-2 border-black p-3 font-tech text-sm focus:outline-none focus:bg-yellow-50 mb-4"
         placeholder="tu@email.com"
       />
     </div>
   </div>
   
   <div>
-    <label for="content" class="block text-sm font-medium text-pharma-dark mb-2">
+    <label for="content" class="block text-sm font-medium mb-2 font-tech">
       Comentario <span class="text-red-500">*</span>
     </label>
     <textarea
@@ -53,19 +53,19 @@ const { postSlug } = Astro.props;
       minlength="10"
       maxlength="2000"
       rows="5"
-      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pharma-accent focus:border-pharma-accent outline-none transition-colors resize-y"
+      class="w-full border-2 border-black p-3 font-tech text-sm focus:outline-none focus:bg-yellow-50 mb-4"
       placeholder="Escribe tu comentario aquí (mínimo 10 caracteres)..."
     ></textarea>
-    <p class="text-xs text-pharma-grey mt-1">
+    <p class="text-xs mt-1 font-tech">
       <span id="char-count">0</span>/2000 caracteres
     </p>
   </div>
   
-  <div class="comment-message text-sm" id="comment-message"></div>
+  <div class="comment-message text-sm font-tech" id="comment-message"></div>
   
   <button
     type="submit"
-    class="bg-pharma-accent text-white px-6 py-2 rounded-lg font-medium hover:bg-pharma-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    class="bg-black text-white font-tech font-bold uppercase py-3 px-6 hover:bg-gray-800 transition-colors cursor-pointer border-2 border-transparent hover:border-black disabled:opacity-50 disabled:cursor-not-allowed"
     id="submit-btn"
   >
     Enviar comentario
@@ -174,16 +174,16 @@ const { postSlug } = Astro.props;
       
       switch (type) {
         case 'success':
-          messageEl.classList.add('text-green-600');
+          messageEl.classList.add('text-green-600', 'border-2', 'border-black', 'p-2', 'bg-green-50');
           break;
         case 'error':
-          messageEl.classList.add('text-red-600');
+          messageEl.classList.add('text-red-600', 'border-2', 'border-black', 'p-2', 'bg-red-50');
           break;
         case 'info':
-          messageEl.classList.add('text-pharma-accent');
+          messageEl.classList.add('border-2', 'border-black', 'p-2', 'bg-yellow-50');
           break;
         default:
-          messageEl.classList.add('text-pharma-grey');
+          messageEl.classList.add('border-2', 'border-black', 'p-2');
       }
       
       if (type === 'success' || type === 'info') {

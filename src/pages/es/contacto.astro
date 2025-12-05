@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import SocialIcons from '../components/SocialIcons.astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import Layout from '../../layouts/Layout.astro';
+import SocialIcons from '../../components/SocialIcons.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

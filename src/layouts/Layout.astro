@@ -4,7 +4,9 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/merriweather/400.css';
 import '@fontsource/merriweather/700.css';
-import Logo from '../components/Logo.astro';
+import { ArrowUp } from 'lucide-astro';
+import LanguagePicker from '../components/LanguagePicker.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 
 interface Props {
   title: string;
@@ -14,24 +16,36 @@ interface Props {
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
+  lang?: 'gl' | 'es';
 }
 
 const { 
   title, 
-  description = 'Blog personal sobre farmacia, tecnología y ciencia',
+  description,
   image = 'https://formulafarma.com/logo.webp',
   type = 'website',
   publishedTime,
   modifiedTime,
-  author = 'Abel Eiras Espiño'
+  author = 'Abel Eiras Espiño',
+  lang
 } = Astro.props;
+
+const currentLang = lang || getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+const translatePath = useTranslatedPath(currentLang);
+
+const defaultDescription = currentLang === 'gl' 
+  ? 'Blog persoal sobre farmacia, tecnoloxía e ciencia'
+  : 'Blog personal sobre farmacia, tecnología y ciencia';
+
+const finalDescription = description || defaultDescription;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://formulafarma.com');
 const fullImageURL = image.startsWith('http') ? image : new URL(image, canonicalURL).href;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={currentLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,7 +55,7 @@ const fullImageURL = image.startsWith('http') ? image : new URL(image, canonical
     {/* Primary Meta Tags */}
     <title>{title}</title>
     <meta name="title" content={title} />
-    <meta name="description" content={description} />
+    <meta name="description" content={finalDescription} />
     <meta name="author" content={author} />
     <link rel="canonical" href={canonicalURL} />
     
@@ -49,16 +63,16 @@ const fullImageURL = image.startsWith('http') ? image : new URL(image, canonical
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={finalDescription} />
     <meta property="og:image" content={fullImageURL} />
     <meta property="og:site_name" content="Fórmula Farma" />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={currentLang === 'gl' ? 'gl_ES' : 'es_ES'} />
     
     {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={finalDescription} />
     <meta name="twitter:image" content={fullImageURL} />
     
     {/* Article specific meta tags */}
@@ -69,79 +83,117 @@ const fullImageURL = image.startsWith('http') ? image : new URL(image, canonical
         <meta property="article:author" content={author} />
       </>
     )}
+    
+    {/* Google Fonts - Brutalismo Maker */}
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-pharma-bg text-pharma-dark font-sans antialiased">
-    <header class="border-b border-gray-200 bg-white">
-      <nav class="container mx-auto px-4 py-4">
-        <div class="flex items-center justify-between">
-          <Logo />
-          {/* Menú desktop */}
-          <div class="hidden md:flex gap-6">
-            <a href="/blog" class="text-pharma-grey hover:text-pharma-accent transition-colors">Blog</a>
-            <a href="/sobre-mi" class="text-pharma-grey hover:text-pharma-accent transition-colors">Sobre mí</a>
-            <a href="/contacto" class="text-pharma-grey hover:text-pharma-accent transition-colors">¿Hablamos?</a>
-          </div>
-          {/* Botón menú móvil */}
-          <button 
-            id="mobile-menu-button"
-            class="md:hidden p-2 text-pharma-grey hover:text-pharma-accent transition-colors"
-            aria-label="Abrir menú"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-        {/* Menú móvil */}
-        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200">
-          <div class="flex flex-col gap-4 pt-4">
-            <a href="/blog" class="text-pharma-grey hover:text-pharma-accent transition-colors">Blog</a>
-            <a href="/sobre-mi" class="text-pharma-grey hover:text-pharma-accent transition-colors">Sobre mí</a>
-            <a href="/contacto" class="text-pharma-grey hover:text-pharma-accent transition-colors">¿Hablamos?</a>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <script>
-      // Toggle menú móvil
-      const menuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      
-      if (menuButton && mobileMenu) {
-        menuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-          const isOpen = !mobileMenu.classList.contains('hidden');
-          menuButton.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
-          
-          // Cambiar icono
-          const svg = menuButton.querySelector('svg');
-          if (svg) {
-            if (isOpen) {
-              svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
-            } else {
-              svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
-            }
-          }
-        });
+  <body class="flex flex-col min-h-screen border-x-0 md:border-x-2 border-black max-w-7xl mx-auto">
+    <style is:global>
+      body {
+        background-color: #f8f7f5;
+        color: #1a1a1a;
+        background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+        background-size: 20px 20px;
       }
-    </script>
+      /* Scrollbar Brutalista */
+      ::-webkit-scrollbar { width: 10px; }
+      ::-webkit-scrollbar-track { background: #f0f0f0; border-left: 2px solid #1a1a1a; }
+      ::-webkit-scrollbar-thumb { background: #1a1a1a; }
+      
+      /* Clase de utilidad para cajas */
+      .brutal-box {
+        border: 2px solid #1a1a1a;
+        box-shadow: 6px 6px 0px #1a1a1a;
+        transition: all 0.2s ease;
+        background-color: white;
+      }
+      .brutal-box:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 8px 8px 0px #1a1a1a;
+      }
+    </style>
 
-    <main>
+    <!-- Top Bar / Navigation -->
+    <header class="border-b-2 border-black bg-[#f8f7f5]">
+        <div class="flex flex-col md:flex-row justify-between items-center p-4">
+            <div class="flex items-center gap-2">
+                <a href={translatePath('/')} class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-black text-white flex items-center justify-center font-tech font-bold text-xl">F</div>
+                    <h1 class="font-tech text-xl font-bold tracking-tighter uppercase">FormulaFarma<span class="text-xs ml-2 bg-yellow-300 px-1 border border-black text-black">By Abel Eiras</span></h1>
+                </a>
+            </div>
+            <div class="flex items-center gap-4 mt-4 md:mt-0">
+                <nav>
+                    <ul class="flex space-x-6 font-tech text-sm font-bold uppercase">
+                        <li><a href={`${translatePath('/')}#maker`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.maker')}</a></li>
+                        <li><a href={`${translatePath('/')}#escena`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.scene')}</a></li>
+                        <li><a href={`${translatePath('/')}#otras-mierdas`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.opinion')}</a></li>
+                        <li><a href={translatePath('/sobre-min')} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.about')}</a></li>
+                        <li><a href={translatePath('/contacto')} class="underline decoration-2 underline-offset-4">{t('nav.contact')}</a></li>
+                    </ul>
+                </nav>
+                <LanguagePicker />
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1">
       <slot />
     </main>
 
-    <footer class="border-t border-gray-200 bg-white mt-16">
+    <footer class="border-t-2 border-black bg-white mt-16">
       <div class="container mx-auto px-4 py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-pharma-grey text-sm">
-          <p>&copy; {new Date().getFullYear()} Fórmula Farma. Farmacéutico Híbrido.</p>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 font-tech text-sm">
+          <p>&copy; {new Date().getFullYear()} {t('footer.copyright')}</p>
           <div class="flex gap-4">
-            <a href="/aviso-legal" class="hover:text-pharma-accent transition-colors">Aviso Legal</a>
-            <a href="/privacidad" class="hover:text-pharma-accent transition-colors">Privacidad</a>
-            <a href="/cookies" class="hover:text-pharma-accent transition-colors">Cookies</a>
+            <a href={translatePath('/aviso-legal')} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('footer.legal')}</a>
+            <a href={translatePath('/privacidad')} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('footer.privacy')}</a>
+            <a href={translatePath('/cookies')} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('footer.cookies')}</a>
           </div>
         </div>
       </div>
     </footer>
+
+    <!-- Botón Volver Arriba -->
+    <button
+      id="scroll-to-top"
+      class="fixed bottom-8 right-8 w-12 h-12 bg-black text-white border-2 border-black rounded-full flex items-center justify-center shadow-brutal hover:shadow-brutal-hover transition-all opacity-0 pointer-events-none z-50"
+      aria-label="Volver arriba"
+    >
+      <ArrowUp class="w-6 h-6" />
+    </button>
+
+    <script>
+      (function() {
+        const scrollButton = document.getElementById('scroll-to-top');
+        if (!scrollButton) return;
+
+        // Mostrar/ocultar botón según scroll
+        function toggleScrollButton() {
+          if (window.scrollY > 300) {
+            scrollButton.classList.remove('opacity-0', 'pointer-events-none');
+            scrollButton.classList.add('opacity-100');
+          } else {
+            scrollButton.classList.add('opacity-0', 'pointer-events-none');
+            scrollButton.classList.remove('opacity-100');
+          }
+        }
+
+        // Scroll suave hacia arriba
+        scrollButton.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+
+        // Escuchar eventos de scroll
+        window.addEventListener('scroll', toggleScrollButton);
+        
+        // Verificar estado inicial
+        toggleScrollButton();
+      })();
+    </script>
   </body>
 </html>
 

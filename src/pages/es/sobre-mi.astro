@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+
+const htmlContentGl = `<p>Son Abel. Farmacéutico de carreira, consultor de profesión e friki por vocación.</p>
+<p>Si, esta é a típica páxina de "Sobre min". E si, é a que eu busco primeiro en calquera blog porque quero saber quen demos me está falando. Así que, por se a ti che pasa o mesmo, aquí vai a miña historia.</p>
+<p>Actualmente, xa non levo bata. Agora dedícome a axudar a outras farmacias desde o meu posto de consultor en Avantia Plus Xestión, unha empresa de Bidafarma, a mellor cooperativa farmacéutica de España.</p>
+<p><strong>E aquí, unha aclaración importante (e necesaria):</strong></p>
+<p>Precisamente porque o meu traballo diario é ser consultor, quero deixar algo meridionalmente claro desde o principio. <strong>Este blog é o meu proxecto persoal, o meu "laboratorio de ideas", e é 100% independente da miña actividade profesional.</strong></p>
+<p>O que atoparás aquí nace da miña propia curiosidade, da miña investigación, da miña experiencia como farmacéutico e de coñecemento que é de dominio público. En <code>formulafarma.com</code> <strong>xamais compartirei</strong> trucos específicos de consultoría, metodoloxías internas da miña empresa, información confidencial de clientes nin ningún "secreto de empresa".</p>
+<p>O meu obxectivo é explorar publicamente a intersección entre farmacia, datos e comunicación para crecer como profesional e, de paso, axudar a quen lle poida interesar. O que les aquí é a miña voz, e só a miña voz.</p>
+<p>Pero para que entendas de verdade de onde sae esta mestura, por que un farmacéutico acaba falando de Python, temos que viaxar á orixe de todo. Ao punto de partida do meu lado máis "friki", que naceu moito antes que a miña vocación pola farmacia.</p>
+<p>Ese "eu" naceu hai case 30 anos, diante dun ordenador con MS-DOS. Os meus pais sempre contan a anécdota de que, con 5 ou 6 anos, eu era capaz de arrancar un xogo pola miña conta. Entendo que isto hoxe non pareza fascinante. Os bebés xa manexan smartphones. Pero aquilo era distinto. Era un sistema operativo sen ventás nin iconos. Tiñas que pedirlle as cousas escribindo comandos nunha terminal que non perdoaba un só erro. E, dalgunha maneira, o meu eu de entón memorizou unha secuencia de teclas (algo do tipo "D:\\Kiyeko.exe") que facía funcionar esa caixa máxica.</p>
+<p>O que empezou cos videoxogos derivou nunha curiosidade insaciable pola informática, a cultura maker, os Arduinos, as Raspberrys e, finalmente, a programación e a IA. Todo o mundo me animaba a estudar algo diso. Parecía ter un "don".</p>
+<p>Eu sempre o negarei. Como afección estaba ben, pero non o vía como un traballo.</p>
+<p>Así que, cando chegou a selectividade, cunha nota que non daba para a medicina que a miña nai soñaba para o seu "fillo tan vago", tiven que buscar plans B, C, D e E. Nesa busca descubrín que existía unha carreira de farmacia. "¿Farmacia? Pero se son tendeiros con bata e cúter", pensaba o meu eu daquela época.</p>
+<p>E non me chegou a nota nin para iso.</p>
+<p>Entrei en óptica. Pero un día, o azar, que tantas veces nos marca a vida, fixo a súa maxia. Chamáronme da universidade: "¿Quedou unha praza libre en farmacia, a queres?". E eu: "venga vale". Entrei o último da miña promoción.</p>
+<p>E foi ao terminar a carreira, no mostrador da mellor farmacia do mundo, onde descubrín a miña verdadeira vocación: <strong>axudar aos demais.</strong> Non con diñeiro, que diso non teño, senón coa miña formación, os meus consellos e o meu cariño. Descubrín que non hai mellor forma de realizarse que servir a outros.</p>
+<p>E por iso estou aquí. Para unir eses dous mundos que me definen.</p>
+<p>Este blog é o meu "proxecto/experimento" para conectar a miña vocación de axudar (o farmacéutico) coa miña paixón pola tecnoloxía e os datos (o friki do MS-DOS). Lánzoo agora, "cando xa ninguén le blogs", porque creo que podo aportar algo diferente: ferramentas, ideas e un punto de vista que non atoparás noutro sitio.</p>
+<p>Para terminar, un pacto de honestidade: fago isto con dúas intencións, e só dúas: <strong>axudar a outros profesionais como ti e divertirme no proceso.</strong> O día que estas dúas cousas fallen, isto acabará. Ata entón, espero que o que atopes aquí che sexa útil, che inspire e, como mínimo, che saque un sorriso.</p>
+<p>A ver o que dura a aventura...</p>
+<p><em>(PD: Tamén me mola a idea do formato podcast, pero se procrastinei para crear isto, imaxínate a preguiza que me dá poñerme a gravar e editar. Tempo ao tempo...)</em></p>`;
+
+const htmlContentEs = `<p>Soy Abel. Farmacéutico de carrera, consultor de profesión y friki por vocación.</p>
+<p>Sí, esta es la típica página de "Sobre mí". Y sí, es la que yo busco primero en cualquier blog porque quiero saber quién demonios me está hablando. Así que, por si a ti te pasa lo mismo, aquí va mi historia.</p>
+<p>Actualmente, ya no llevo bata. Ahora me dedico a ayudar a otras farmacias desde mi puesto de consultor en Avantia Plus Gestión, una empresa de Bidafarma, la mejor cooperativa farmacéutica de España.</p>
+<p><strong>Y aquí, una aclaración importante (y necesaria):</strong></p>
+<p>Precisamente porque mi trabajo diario es ser consultor, quiero dejar algo meridianamente claro desde el principio. <strong>Este blog es mi proyecto personal, mi "laboratorio de ideas", y es 100% independiente de mi actividad profesional.</strong></p>
+<p>Lo que encontrarás aquí nace de mi propia curiosidad, de mi investigación, de mi experiencia como farmacéutico y de conocimiento que es de dominio público. En <code>formulafarma.com</code> <strong>jamás compartiré</strong> trucos específicos de consultoría, metodologías internas de mi empresa, información confidencial de clientes ni ningún "secreto de empresa".</p>
+<p>Mi objetivo es explorar públicamente la intersección entre farmacia, datos y comunicación para crecer como profesional y, de paso, ayudar a quien le pueda interesar. Lo que lees aquí es mi voz, y solo mi voz.</p>
+<p>Pero para que entiendas de verdad de dónde sale esta mezcla, por qué un farmacéutico acaba hablando de Python, tenemos que viajar al origen de todo. Al punto de partida de mi lado más "friki", que nació mucho antes que mi vocación por la farmacia.</p>
+<p>Ese "yo" nació hace casi 30 años, delante de un ordenador con MS-DOS. Mis padres siempre cuentan la anécdota de que, con 5 o 6 años, yo era capaz de arrancar un juego por mi cuenta. Entiendo que esto hoy no parezca fascinante. Los bebés ya manejan smartphones. Pero aquello era distinto. Era un sistema operativo sin ventanas ni iconos. Tenías que pedirle las cosas escribiendo comandos en una terminal que no perdonaba un solo error. Y, de alguna manera, mi yo de entonces memorizó una secuencia de teclas (algo del tipo "D:\\Kiyeko.exe") que hacía funcionar esa caja mágica.</p>
+<p>Lo que empezó con los videojuegos derivó en una curiosidad insaciable por la informática, la cultura maker, los Arduinos, las Raspberrys y, finalmente, la programación y la IA. Todo el mundo me animaba a estudiar algo de eso. Parecía tener un "don".</p>
+<p>Yo siempre lo negaré. Como afición estaba bien, pero no lo veía como un trabajo.</p>
+<p>Así que, cuando llegó la selectividad, con una nota que no daba para la medicina que mi madre soñaba para su "hijo tan vago", tuve que buscar planes B, C, D y E. En esa búsqueda descubrí que existía una carrera de farmacia. "¿Farmacia? Pero si son tenderos con bata y cúter", pensaba mi yo de aquella época.</p>
+<p>Y no me llegó la nota ni para eso.</p>
+<p>Entré en óptica. Pero un día, el azar, que tantas veces nos marca la vida, hizo su magia. Me llamaron de la universidad: "¿Ha quedado una plaza libre en farmacia, la quieres?". Y yo: "venga vale". Entré el último de mi promoción.</p>
+<p>Y fue al terminar la carrera, en el mostrador de la mejor farmacia del mundo, donde descubrí mi verdadera vocación: <strong>ayudar a los demás.</strong> No con dinero, que de eso no tengo, sino con mi formación, mis consejos y mi cariño. Descubrí que no hay mejor forma de realizarse que servir a otros.</p>
+<p>Y por eso estoy aquí. Para unir esos dos mundos que me definen.</p>
+<p>Este blog es mi "proyecto/experimento" para conectar mi vocación de ayudar (el farmacéutico) con mi pasión por la tecnología y los datos (el friki del MS-DOS). Lo lanzo ahora, "cuando ya nadie lee blogs", porque creo que puedo aportar algo diferente: herramientas, ideas y un punto de vista que no encontrarás en otro sitio.</p>
+<p>Para terminar, un pacto de honestidad: hago esto con dos intenciones, y solo dos: <strong>ayudar a otros profesionales como tú y divertirme en el proceso.</strong> El día que estas dos cosas fallen, esto se acabará. Hasta entonces, espero que lo que encuentres aquí te sea útil, te inspire y, como mínimo, te saque una sonrisa.</p>
+<p>A ver lo que dura la aventura...</p>
+<p><em>(PD: También me mola la idea del formato pódcast, pero si he procrastinado para crear esto, imagínate la pereza que me da ponerme a grabar y editar. Tiempo al tiempo...)</em></p>`;
+---
+
+<Layout title={lang === 'gl' ? 'Sobre min, ou a historia de como un "tendeiro con bata" acabou programando en Python - Fórmula Farma' : 'Sobre mí, o la historia de cómo un "tendero con bata" acabó programando en Python - Fórmula Farma'} description={lang === 'gl' ? 'Páxina Sobre min, ou a historia de como un tendeiro con bata acabou programando en Python de Fórmula Farma' : 'Página Sobre mí, o la historia de cómo un tendero con bata acabó programando en Python de Fórmula Farma'} lang={lang}>
+  <div class="container mx-auto px-4 py-12 max-w-4xl">
+    <article class="brutal-box p-8 bg-white my-8 prose prose-lg prose-slate max-w-none font-human" set:html={lang === 'gl' ? htmlContentGl : htmlContentEs} />
+  </div>
+</Layout>

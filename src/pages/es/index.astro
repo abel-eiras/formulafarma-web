@@ -1,24 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 import { Cpu, Drama, Bot } from 'lucide-astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title="FormulaFarma | O Laboratorio de Abel Eiras" lang={lang}>
+<Layout title="FormulaFarma | El Laboratorio de Abel Eiras" lang={lang}>
     <!-- Hero Section -->
     <section class="grid grid-cols-1 md:grid-cols-12 min-h-[60vh] border-b-2 border-black">
         <div class="md:col-span-7 p-8 md:p-16 flex flex-col justify-center border-b-2 md:border-b-0 md:border-r-2 border-black bg-white">
             <p class="font-tech text-sm text-gray-500 mb-4">&gt; init_personal_protocol.py</p>
             <h2 class="font-human text-5xl md:text-7xl font-black leading-[0.9] mb-6">
-                {lang === 'gl' ? (
-                    <>Non vendo <br />fórmulas. <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Inventoas.</span></>
-                ) : (
-                    <>No vendo <br />fórmulas. <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Las invento.</span></>
-                )}
+                No vendo <br>fórmulas. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Las invento.</span>
             </h2>
             <p class="font-tech text-base md:text-lg leading-relaxed text-gray-800 mb-8 border-l-4 border-yellow-400 pl-4">
                 {t('hero.subtitle')}
@@ -53,7 +49,7 @@ const translatePath = useTranslatedPath(lang);
                 <h4 class="font-human text-2xl font-bold mb-2">{t('scene.title')}</h4>
                 <p class="font-tech text-xs text-gray-600">{t('scene.description')}</p>
             </article>
-            <!-- Outras merdas / Otras mierdas -->
+            <!-- Otras mierdas -->
             <article id="otras-mierdas" class="brutal-box p-6 flex flex-col h-full">
                 <svg class="w-12 h-12 mb-4" fill="currentColor" stroke="none" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <g transform="translate(0,512) scale(0.1,-0.1)">
@@ -69,3 +65,4 @@ const translatePath = useTranslatedPath(lang);
         </div>
     </section>
 </Layout>
+

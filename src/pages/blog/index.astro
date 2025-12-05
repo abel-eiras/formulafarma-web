@@ -2,23 +2,29 @@
 import Layout from '../../layouts/Layout.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout 
-  title="Blog - Fórmula Farma" 
-  description="Todos los posts del blog de Fórmula Farma sobre farmacia, tecnología y ciencia. Explorando la intersección entre la salud y la innovación."
+  title={lang === 'gl' ? 'Blog - Fórmula Farma' : 'Blog - Fórmula Farma'} 
+  description={lang === 'gl' ? 'Todos os posts do blog de Fórmula Farma sobre farmacia, tecnoloxía e ciencia. Explorando a intersección entre a saúde e a innovación.' : 'Todos los posts del blog de Fórmula Farma sobre farmacia, tecnología y ciencia. Explorando la intersección entre la salud y la innovación.'}
+  lang={lang}
 >
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-6xl mx-auto">
       <header class="mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-pharma-dark mb-4">
-          Blog
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          {t('blog.title')}
         </h1>
-        <p class="text-xl text-pharma-grey max-w-2xl mx-auto">
-          Explorando la intersección entre farmacia, tecnología y comunicación
+        <p class="text-xl max-w-2xl mx-auto">
+          {t('blog.subtitle')}
         </p>
       </header>
 
@@ -37,10 +43,9 @@ const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTim
         </div>
       ) : (
         <div class="text-center py-12">
-          <p class="text-pharma-grey text-lg">No hay posts disponibles aún.</p>
+          <p class="text-lg">{t('blog.empty')}</p>
         </div>
       )}
     </div>
   </div>
 </Layout>
-

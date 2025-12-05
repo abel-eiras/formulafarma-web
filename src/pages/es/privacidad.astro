@@ -1,0 +1,175 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslatedPath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+
+const contentGl = `
+<h1 class="text-4xl font-bold mb-6">Política de Privacidade</h1>
+
+<h3>1. Responsable do tratamento</h3>
+<p>
+  O responsable do tratamento dos teus datos persoais é Abel Eiras Espiño, titular do sitio web <code>formulafarma.com</code>.
+</p>
+
+<h3>2. Datos que recopilo:</h3>
+<p>
+  Só o que me digas a través do formulario de contacto, nada máis:
+</p>
+<ul>
+  <li><strong>Nome:</strong> Para poder dirixirme a ti na resposta</li>
+  <li><strong>Email:</strong> Para poder responderche</li>
+  <li><strong>Mensaxe:</strong> O contido da túa consulta ou mensaxe</li>
+</ul>
+
+<h3>3. Finalidade do tratamento</h3>
+<p>
+  <strong>Os teus datos de contacto só se utilizarán para responder á propia mensaxe que me envíes e nunca con outros fins.</strong>
+</p>
+<p>
+  Non utilizarei os teus datos para:
+</p>
+<ul>
+  <li>Enviar comunicacións comerciais ou publicitarias</li>
+  <li>Compartilos con terceiros</li>
+  <li>Crear perfís de usuario</li>
+  <li>Calquera outro fin que non sexa responder á túa mensaxe. Creo que xa o dixen varias veces. Espero que se entendera.</li>
+</ul>
+
+<h3>4. Base legal</h3>
+<p>
+  O tratamento dos teus datos baséase no teu consentimento explícito ao enviar o formulario de contacto.
+</p>
+
+<h3>5. Conservación dos datos</h3>
+<p>
+  Os datos conservaranse unicamente durante o tempo necesario para responder á túa mensaxe e xestionar a comunicación derivada. Unha vez finalizada a conversa, os datos eliminaranse da miña bandexa de correo.
+</p>
+
+<h3>6. Os teus dereitos</h3>
+<p>
+  Tes dereito a:
+</p>
+<ul>
+  <li>Acceder aos teus datos persoais</li>
+  <li>Rectificar datos inexactos</li>
+  <li>Solicitar a supresión dos teus datos</li>
+  <li>Opoñerte ao tratamento</li>
+  <li>Limitar o tratamento</li>
+  <li>Portabilidade dos datos</li>
+  <li>A manter silencio e non incriminarte</li>
+  <li>A un avogado de oficio no caso de non dispoñer dun propio</li>
+  <li>A unha chamada e a un bocadillo</li>
+</ul>
+<p>
+  Para exercer estes dereitos, podes contactarme a través do formulario de contacto ou en <code>abel@formulafarma.com</code> e dicirme de que queres o bocadillo.
+</p>
+
+<h3>7. Seguridade</h3>
+<p>
+  Implemento medidas técnicas e organizativas apropiadas para protexer os teus datos persoais contra o acceso non autorizado, a perda ou a destrución. Pero tampouco te flipes que se me mandas cousas que non debes a culpa é túa. Eu son discreto. Pero non me metas nas túas merdas.
+</p>
+
+<h3>8. Cookies</h3>
+<p>
+  Xa escribín suficiente sobre isto e non vou repetilo aquí. Para máis información sobre o uso de cookies neste sitio web, consulta a <a href="${translatePath('/cookies')}" class="underline decoration-2 underline-offset-4">Política de Cookies</a>.
+</p>
+
+<h3>9. Cambios nesta política</h3>
+<p>
+  Non creo que pase. Pero reservome o dereito de modificar esta política de privacidade. Calquera cambio será publicado nesta páxina coa data de actualización.
+</p>
+
+<p class="text-sm mt-8 font-tech">
+  Última actualización: ${new Date().toLocaleDateString('gl-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+</p>
+`;
+
+const contentEs = `
+<h1 class="text-4xl font-bold mb-6">Política de Privacidad</h1>
+
+<h3>1. Responsable del tratamiento</h3>
+<p>
+  El responsable del tratamiento de tus datos personales es Abel Eiras Espiño, titular del sitio web <code>formulafarma.com</code>.
+</p>
+
+<h3>2. Datos que recopilo:</h3>
+<p>
+  Solo lo que me digas a través del formulario de contacto, nada más:
+</p>
+<ul>
+  <li><strong>Nombre:</strong> Para poder dirigirme a ti en la respuesta</li>
+  <li><strong>Email:</strong> Para poder responderte</li>
+  <li><strong>Mensaje:</strong> El contenido de tu consulta o mensaje</li>
+</ul>
+
+<h3>3. Finalidad del tratamiento</h3>
+<p>
+  <strong>Tus datos de contacto solo se utilizarán para responder al propio mensaje que me envíes y nunca con otros fines.</strong>
+</p>
+<p>
+  No utilizaré tus datos para:
+</p>
+<ul>
+  <li>Enviar comunicaciones comerciales o publicitarias</li>
+  <li>Compartirlos con terceros</li>
+  <li>Crear perfiles de usuario</li>
+  <li>Cualquier otro fin que no sea responder a tu mensaje. Creo que ya lo he dicho varias veces. Espero que se haya entendido.</li>
+</ul>
+
+<h3>4. Base legal</h3>
+<p>
+  El tratamiento de tus datos se basa en tu consentimiento explícito al enviar el formulario de contacto.
+</p>
+
+<h3>5. Conservación de los datos</h3>
+<p>
+  Los datos se conservarán únicamente durante el tiempo necesario para responder a tu mensaje y gestionar la comunicación derivada. Una vez finalizada la conversación, los datos se eliminarán de mi bandeja de correo.
+</p>
+
+<h3>6. Tus derechos</h3>
+<p>
+  Tienes derecho a:
+</p>
+<ul>
+  <li>Acceder a tus datos personales</li>
+  <li>Rectificar datos inexactos</li>
+  <li>Solicitar la supresión de tus datos</li>
+  <li>Oponerte al tratamiento</li>
+  <li>Limitar el tratamiento</li>
+  <li>Portabilidad de los datos</li>
+  <li>A mantener silencio y no incriminarte</li>
+  <li>A un abogado de oficio en el caso de no disponer de uno propio</li>
+  <li>A un una llamada y a un bocadillo</li>
+</ul>
+<p>
+  Para ejercer estos derechos, puedes contactarme a través del formulario de contacto o en <code>abel@formulafarma.com</code> y decirme de qué quieres el bocadillo.
+</p>
+
+<h3>7. Seguridad</h3>
+<p>
+  Implemento medidas técnicas y organizativas apropiadas para proteger tus datos personales contra el acceso no autorizado, la pérdida o la destrucción. Pero tampoco te flipes que si me mandas cosas que no debes la culpa es tuya. Yo soy discrito. Pero no me metas en tus mierdas.
+</p>
+
+<h3>8. Cookies</h3>
+<p>
+  Ya he escrito suficiente sobre esto y no voy a repetirlo aquí. Para más información sobre el uso de cookies en este sitio web, consulta la <a href="${translatePath('/cookies')}" class="underline decoration-2 underline-offset-4">Política de Cookies</a>.
+</p>
+
+<h3>9. Cambios en esta política</h3>
+<p>
+  No creo que pase. Pero me reservo el derecho de modificar esta política de privacidad. Cualquier cambio será publicado en esta página con la fecha de actualización.
+</p>
+
+<p class="text-sm mt-8 font-tech">
+  Última actualización: ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+</p>
+`;
+---
+
+<Layout title={lang === 'gl' ? 'Política de Privacidade - Fórmula Farma' : 'Política de Privacidad - Fórmula Farma'} description={lang === 'gl' ? 'Política de privacidade de Fórmula Farma' : 'Política de privacidad de Fórmula Farma'} lang={lang}>
+  <div class="container mx-auto px-4 py-12 max-w-4xl">
+    <article class="brutal-box p-8 bg-white my-8 prose font-human" set:html={lang === 'gl' ? contentGl : contentEs} />
+  </div>
+</Layout>
