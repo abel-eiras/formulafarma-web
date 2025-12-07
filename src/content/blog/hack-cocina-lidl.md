@@ -1,6 +1,6 @@
 ---
 title: "Hacking á cociña do Lidl: De xoguete inofensivo a ameaza hídrica"
-date: 2025-02-14
+date: 2025-12-07
 excerpt: "Como lle metín un circuíto pechado de auga a unha marabillosa cociña de 40€ do Lidl. E por que agora está clausurada co tapón de colutorio."
 tags:
   - "impresion3d"
