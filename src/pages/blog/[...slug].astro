@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import RatingCapsules from '../../components/RatingCapsules.astro';
 import Comments from '../../components/Comments.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -24,7 +25,10 @@ interface Props {
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-const formattedDate = new Intl.DateTimeFormat('es-ES', {
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const formattedDate = new Intl.DateTimeFormat(lang === 'gl' ? 'gl-ES' : 'es-ES', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -142,7 +146,7 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
       <RatingCapsules postSlug={post.slug} />
 
       {/* Sistema de comentarios */}
-      <Comments postSlug={post.slug} />
+      <Comments postSlug={post.slug} lang={lang} />
 
       {/* Navegación entre posts */}
       {(previousPost || nextPost) && (

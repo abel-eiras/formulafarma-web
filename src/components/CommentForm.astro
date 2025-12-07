@@ -1,19 +1,42 @@
 ---
+import { useTranslations } from '../i18n/utils';
+
 interface Props {
   postSlug: string;
+  lang?: 'gl' | 'es';
   onCommentAdded?: () => void;
 }
 
-const { postSlug } = Astro.props;
+const { postSlug, lang = 'gl' } = Astro.props;
+const t = useTranslations(lang);
+
+// Exportar traducciones para JavaScript
+const translations = {
+  title: t('comments.form.title'),
+  name: t('comments.form.name'),
+  email: t('comments.form.email'),
+  namePlaceholder: t('comments.form.name.placeholder'),
+  emailPlaceholder: t('comments.form.email.placeholder'),
+  content: t('comments.form.content'),
+  contentPlaceholder: t('comments.form.content.placeholder'),
+  characters: t('comments.form.characters'),
+  submit: t('comments.form.submit'),
+  sending: t('comments.form.sending'),
+  success: t('comments.form.success'),
+  errorSubmit: t('comments.form.error.submit'),
+  errorConnection: t('comments.form.error.connection'),
+  errorName: t('comments.form.error.name'),
+  errorContent: t('comments.form.error.content'),
+};
 ---
 
-<form class="comment-form mt-8 space-y-4" id="comment-form" data-post-slug={postSlug}>
-  <h4 class="text-lg font-semibold mb-4 font-human">Deja un comentario</h4>
+<form class="comment-form mt-8 space-y-4" id="comment-form" data-post-slug={postSlug} data-lang={lang} data-translations={JSON.stringify(translations)}>
+  <h4 class="text-lg font-semibold mb-4 font-human">{t('comments.form.title')}</h4>
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div>
       <label for="author_name" class="block text-sm font-medium mb-2 font-tech">
-        Nombre <span class="text-red-500">*</span>
+        {t('comments.form.name')} <span class="text-red-500">*</span>
       </label>
       <input
         type="text"
@@ -23,13 +46,13 @@ const { postSlug } = Astro.props;
         minlength="2"
         maxlength="100"
         class="w-full border-2 border-black p-3 font-tech text-sm focus:outline-none focus:bg-yellow-50 mb-4"
-        placeholder="Tu nombre"
+        placeholder={t('comments.form.name.placeholder')}
       />
     </div>
     
     <div>
       <label for="author_email" class="block text-sm font-medium mb-2 font-tech">
-        Email (opcional)
+        {t('comments.form.email')}
       </label>
       <input
         type="email"
@@ -37,14 +60,14 @@ const { postSlug } = Astro.props;
         name="author_email"
         maxlength="255"
         class="w-full border-2 border-black p-3 font-tech text-sm focus:outline-none focus:bg-yellow-50 mb-4"
-        placeholder="tu@email.com"
+        placeholder={t('comments.form.email.placeholder')}
       />
     </div>
   </div>
   
   <div>
     <label for="content" class="block text-sm font-medium mb-2 font-tech">
-      Comentario <span class="text-red-500">*</span>
+      {t('comments.form.content')} <span class="text-red-500">*</span>
     </label>
     <textarea
       id="content"
@@ -54,10 +77,10 @@ const { postSlug } = Astro.props;
       maxlength="2000"
       rows="5"
       class="w-full border-2 border-black p-3 font-tech text-sm focus:outline-none focus:bg-yellow-50 mb-4"
-      placeholder="Escribe tu comentario aquí (mínimo 10 caracteres)..."
+      placeholder={t('comments.form.content.placeholder')}
     ></textarea>
     <p class="text-xs mt-1 font-tech">
-      <span id="char-count">0</span>/2000 caracteres
+      <span id="char-count">0</span>/2000 {t('comments.form.characters')}
     </p>
   </div>
   
@@ -68,7 +91,7 @@ const { postSlug } = Astro.props;
     class="bg-black text-white font-tech font-bold uppercase py-3 px-6 hover:bg-gray-800 transition-colors cursor-pointer border-2 border-transparent hover:border-black disabled:opacity-50 disabled:cursor-not-allowed"
     id="submit-btn"
   >
-    Enviar comentario
+    {t('comments.form.submit')}
   </button>
 </form>
 
@@ -78,6 +101,7 @@ const { postSlug } = Astro.props;
     if (!form) return;
     
     const postSlug = form.dataset.postSlug;
+    const translations = form.dataset.translations ? JSON.parse(form.dataset.translations) : {};
     const submitBtn = document.getElementById('submit-btn');
     const messageEl = document.getElementById('comment-message');
     const contentTextarea = document.getElementById('content');
@@ -108,19 +132,19 @@ const { postSlug } = Astro.props;
       
       // Validación básica
       if (!data.author_name || data.author_name.trim().length < 2) {
-        showMessage('El nombre debe tener al menos 2 caracteres', 'error');
+        showMessage(translations.errorName || 'El nombre debe tener al menos 2 caracteres', 'error');
         return;
       }
       
       if (!data.content || data.content.trim().length < 10) {
-        showMessage('El comentario debe tener al menos 10 caracteres', 'error');
+        showMessage(translations.errorContent || 'El comentario debe tener al menos 10 caracteres', 'error');
         return;
       }
       
       isLoading = true;
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-      showMessage('Enviando comentario...', 'info');
+      submitBtn.textContent = translations.sending || 'Enviando...';
+      showMessage(translations.sending || 'Enviando comentario...', 'info');
       
       try {
         const response = await fetch('/api/comments.php', {
@@ -134,7 +158,7 @@ const { postSlug } = Astro.props;
         const result = await response.json();
         
         if (result.success) {
-          showMessage('¡Comentario enviado correctamente!', 'success');
+          showMessage(translations.success || '¡Comentario enviado correctamente!', 'success');
           form.reset();
           if (charCountEl) charCountEl.textContent = '0';
           
@@ -151,18 +175,18 @@ const { postSlug } = Astro.props;
             }
           }, 500);
         } else {
-          showMessage(result.message || 'Error al enviar el comentario', 'error');
+          showMessage(result.message || translations.errorSubmit || 'Error al enviar el comentario', 'error');
           if (result.errors) {
             console.error('Errores de validación:', result.errors);
           }
         }
       } catch (error) {
         console.error('Error enviando comentario:', error);
-        showMessage('Error de conexión. Intenta de nuevo.', 'error');
+        showMessage(translations.errorConnection || 'Error de conexión. Intenta de nuevo.', 'error');
       } finally {
         isLoading = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar comentario';
+        submitBtn.textContent = translations.submit || 'Enviar comentario';
       }
     });
     
@@ -197,4 +221,3 @@ const { postSlug } = Astro.props;
     }
   })();
 </script>
-

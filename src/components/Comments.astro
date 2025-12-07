@@ -1,25 +1,36 @@
 ---
 import CommentForm from './CommentForm.astro';
+import { useTranslations } from '../i18n/utils';
 
 interface Props {
   postSlug: string;
+  lang?: 'gl' | 'es';
 }
 
-const { postSlug } = Astro.props;
+const { postSlug, lang = 'gl' } = Astro.props;
+const t = useTranslations(lang);
+
+// Exportar traducciones para JavaScript
+const translations = {
+  loading: t('comments.loading'),
+  empty: t('comments.empty'),
+  errorLoad: t('comments.error.load'),
+  errorConnection: t('comments.error.connection'),
+};
 ---
 
-<div class="comments-section my-12 py-8 border-t-2 border-black" data-post-slug={postSlug}>
-  <h3 class="text-2xl font-semibold mb-6 font-human">Comentarios</h3>
+<div class="comments-section my-12 py-8 border-t-2 border-black" data-post-slug={postSlug} data-lang={lang} data-translations={JSON.stringify(translations)}>
+  <h3 class="text-2xl font-semibold mb-6 font-human">{t('comments.title')}</h3>
   
   <!-- Lista de comentarios -->
   <div id="comments-list" class="space-y-6 mb-8">
     <div class="text-center py-8 font-tech" id="comments-loading">
-      Cargando comentarios...
+      {t('comments.loading')}
     </div>
   </div>
   
   <!-- Formulario de comentarios -->
-  <CommentForm postSlug={postSlug} />
+  <CommentForm postSlug={postSlug} lang={lang} />
 </div>
 
 <script>
@@ -28,14 +39,17 @@ const { postSlug } = Astro.props;
     const loadingEl = document.getElementById('comments-loading');
     if (!commentsList || !loadingEl) return;
     
-    const postSlug = document.querySelector('[data-post-slug]')?.dataset.postSlug || '';
+    const commentsSection = document.querySelector('[data-post-slug]');
+    const postSlug = commentsSection?.dataset.postSlug || '';
+    const lang = commentsSection?.dataset.lang || 'gl';
+    const translations = commentsSection?.dataset.translations ? JSON.parse(commentsSection.dataset.translations) : {};
     
     // Función global para recargar comentarios
     window.reloadComments = loadComments;
     
     async function loadComments() {
       try {
-        loadingEl.textContent = 'Cargando comentarios...';
+        loadingEl.textContent = translations.loading || 'Cargando comentarios...';
         loadingEl.className = 'text-center text-pharma-grey py-8';
         
         const response = await fetch(`/api/comments.php?post=${encodeURIComponent(postSlug)}`);
@@ -46,16 +60,16 @@ const { postSlug } = Astro.props;
             renderComments(data.comments);
             loadingEl.style.display = 'none';
           } else {
-            loadingEl.textContent = 'Aún no hay comentarios. ¡Sé el primero en comentar!';
+            loadingEl.textContent = translations.empty || 'Aún no hay comentarios. ¡Sé el primero en comentar!';
             loadingEl.className = 'text-center py-8 italic font-tech';
           }
         } else {
-          loadingEl.textContent = 'Error al cargar los comentarios.';
+          loadingEl.textContent = translations.errorLoad || 'Error al cargar los comentarios.';
           loadingEl.className = 'text-center text-red-600 py-8 font-tech';
         }
       } catch (error) {
         console.error('Error cargando comentarios:', error);
-        loadingEl.textContent = 'Error de conexión. Intenta recargar la página.';
+        loadingEl.textContent = translations.errorConnection || 'Error de conexión. Intenta recargar la página.';
         loadingEl.className = 'text-center text-red-600 py-8 font-tech';
       }
     }
@@ -68,7 +82,7 @@ const { postSlug } = Astro.props;
         commentEl.className = 'comment-item border-b-2 border-black py-4 font-tech text-sm';
         
         const date = new Date(comment.created_at);
-        const formattedDate = date.toLocaleDateString('es-ES', {
+        const formattedDate = date.toLocaleDateString(lang === 'gl' ? 'gl-ES' : 'es-ES', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
@@ -124,4 +138,3 @@ const { postSlug } = Astro.props;
     }
   }
 </style>
-
