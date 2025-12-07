@@ -125,9 +125,9 @@ const fullImageURL = image.startsWith('http') ? image : new URL(image, canonical
             <div class="flex items-center gap-4 mt-4 md:mt-0">
                 <nav>
                     <ul class="flex space-x-6 font-tech text-sm font-bold uppercase">
-                        <li><a href={`${translatePath('/')}#maker`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.maker')}</a></li>
-                        <li><a href={`${translatePath('/')}#escena`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.scene')}</a></li>
-                        <li><a href={`${translatePath('/')}#otras-mierdas`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.opinion')}</a></li>
+                        <li><a href={`${translatePath('/blog/categoria/cultura-maker')}`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.maker')}</a></li>
+                        <li><a href={`${translatePath('/blog/categoria/teatro-raices')}`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.scene')}</a></li>
+                        <li><a href={`${translatePath('/blog/categoria/outras-merdas')}`} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.opinion')}</a></li>
                         <li><a href={translatePath('/sobre-min')} class="hover:bg-black hover:text-white px-2 py-1 transition-colors">{t('nav.about')}</a></li>
                         <li><a href={translatePath('/contacto')} class="underline decoration-2 underline-offset-4">{t('nav.contact')}</a></li>
                     </ul>

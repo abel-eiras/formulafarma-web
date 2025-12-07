@@ -9,7 +9,12 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
 const allPosts = await getCollection('blog');
-const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+// Filtrar solo posts desde hoy en adelante
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const posts = allPosts
+  .filter(post => post.data.date >= today)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout 

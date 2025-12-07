@@ -8,6 +8,7 @@ tags:
   - "fail"
   - "paternidade"
   - "electronica"
+category: "Cultura Maker"
 image: "/images/blog/hack-lidl/presentando.webp"
 ---
 

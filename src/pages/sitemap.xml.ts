@@ -2,13 +2,20 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
-  const posts = await getCollection('blog');
+  const allPosts = await getCollection('blog');
+  // Solo incluir posts desde hoy en adelante
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const posts = allPosts.filter(post => post.data.date >= today);
   const baseURL = site?.href || 'https://formulafarma.com';
   
   // Páginas estáticas (gallego - idioma principal)
   const staticPages = [
     '',
     '/blog',
+    '/blog/categoria/cultura-maker',
+    '/blog/categoria/teatro-raices',
+    '/blog/categoria/outras-merdas',
     '/sobre-min',
     '/contacto',
     '/aviso-legal',
@@ -17,6 +24,9 @@ export const GET: APIRoute = async ({ site }) => {
     // Versiones en español
     '/es',
     '/es/blog',
+    '/es/blog/categoria/cultura-maker',
+    '/es/blog/categoria/teatro-raices',
+    '/es/blog/categoria/outras-merdas',
     '/es/sobre-mi',
     '/es/contacto',
     '/es/aviso-legal',

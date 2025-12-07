@@ -42,19 +42,19 @@ const translatePath = useTranslatedPath(lang);
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Maker -->
-            <article id="maker" class="brutal-box p-6 flex flex-col h-full">
+            <a href={`${translatePath('/blog/categoria/cultura-maker')}`} id="maker" class="brutal-box p-6 flex flex-col h-full cursor-pointer">
                 <Cpu class="w-12 h-12 mb-4" />
                 <h4 class="font-human text-2xl font-bold mb-2">{t('maker.title')}</h4>
                 <p class="font-tech text-xs text-gray-600">{t('maker.description')}</p>
-            </article>
+            </a>
             <!-- Escena -->
-            <article id="escena" class="brutal-box p-6 flex flex-col h-full">
+            <a href={`${translatePath('/blog/categoria/teatro-raices')}`} id="escena" class="brutal-box p-6 flex flex-col h-full cursor-pointer">
                 <Drama class="w-12 h-12 mb-4" />
                 <h4 class="font-human text-2xl font-bold mb-2">{t('scene.title')}</h4>
                 <p class="font-tech text-xs text-gray-600">{t('scene.description')}</p>
-            </article>
+            </a>
             <!-- Outras merdas / Otras mierdas -->
-            <article id="otras-mierdas" class="brutal-box p-6 flex flex-col h-full">
+            <a href={`${translatePath('/blog/categoria/outras-merdas')}`} id="otras-mierdas" class="brutal-box p-6 flex flex-col h-full cursor-pointer">
                 <svg class="w-12 h-12 mb-4" fill="currentColor" stroke="none" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <g transform="translate(0,512) scale(0.1,-0.1)">
                         <path d="M2568 5100 c-20 -11 -47 -36 -60 -57 -22 -37 -23 -45 -29 -338 -6 -328 -7 -339 -70 -437 -84 -130 -237 -207 -414 -208 -70 0 -199 -29 -270 -61 -158 -70 -303 -208 -378 -361 -75 -152 -103 -320 -74 -453 8 -38 18 -77 21 -85 5 -12 -10 -19 -71 -32 -333 -69 -586 -306 -674 -633 -17 -62 -22 -109 -22 -210 -1 -143 14 -221 62 -335 l28 -68 -41 -16 c-132 -51 -310 -193 -402 -323 -171 -239 -218 -566 -123 -845 93 -271 315 -493 584 -585 161 -55 99 -53 1925 -53 1826 0 1764 -2 1925 53 227 78 428 254 538 472 123 246 126 558 6 813 -93 200 -268 373 -462 457 l-64 28 24 56 c166 374 30 828 -316 1059 -123 83 -296 142 -413 142 -21 0 -38 5 -38 11 0 6 14 31 31 55 48 70 106 201 135 305 32 117 44 335 24 456 -51 322 -244 605 -527 775 -395 238 -693 413 -720 424 -44 19 -91 17 -135 -6z m509 -582 c331 -197 407 -266 494 -451 86 -186 93 -424 17 -617 -59 -150 -176 -290 -294 -355 -83 -46 -101 -61 -121 -99 -35 -67 -10 -158 55 -202 30 -20 46 -22 314 -27 310 -5 337 -9 453 -70 84 -45 182 -146 223 -231 102 -211 74 -420 -82 -610 -59 -72 -73 -111 -61 -173 9 -52 69 -110 120 -117 189 -29 295 -73 395 -163 214 -194 268 -480 139 -742 -80 -163 -244 -288 -424 -326 -105 -22 -3385 -22 -3490 0 -297 62 -512 343 -492 644 19 294 252 542 539 577 82 9 115 22 147 59 62 71 54 144 -25 241 -155 189 -184 400 -84 606 59 120 167 218 298 269 50 20 82 23 267 29 229 6 249 11 298 69 56 67 43 158 -30 218 -94 77 -122 111 -139 171 -14 47 -15 69 -7 129 20 136 92 250 205 324 69 44 146 64 293 77 190 16 333 78 466 200 174 161 249 339 249 595 0 76 4 127 10 127 5 0 125 -69 267 -152z"/>
@@ -65,7 +65,7 @@ const translatePath = useTranslatedPath(lang);
                 </svg>
                 <h4 class="font-human text-2xl font-bold mb-2">{t('opinion.title')}</h4>
                 <p class="font-tech text-xs text-gray-600">{t('opinion.description')}</p>
-            </article>
+            </a>
         </div>
     </section>
 </Layout>

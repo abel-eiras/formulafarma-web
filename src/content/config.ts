@@ -8,6 +8,7 @@ const blog = defineCollection({
     excerpt: z.string().optional(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
+    category: z.enum(['Cultura Maker', 'Teatro & Raíces', 'Outras merdas']).optional(),
   }),
 });
 
