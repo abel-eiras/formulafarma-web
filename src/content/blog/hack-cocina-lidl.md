@@ -9,6 +9,8 @@ tags:
   - "paternidade"
   - "electronica"
 category: "Cultura Maker"
+lang: "gl"
+translationSlug: "hack-cocina-lidl-es"
 image: "/images/blog/hack-lidl/presentando.webp"
 ---
 
@@ -17,8 +19,6 @@ Din que as instrucións están para lelas. E eu sempre fago caso delas. Excepto 
 Outra cousa son as alegacións do tipo "idade recomendada". Para min, non son máis que unha opinión do fabricante. Na caixa da famosa cociña do Lidl pon: "Recomendado para maiores de 3 anos". A miña filla apenas ten un ano e uns poucos meses.
 
 ¿Detívome isto? Evidentemente non. Valendo 40€ e con toda a trangallada que traía era imposible non mercala.
-
-![A cociña do Lidl montada e lista para o hack](/images/blog/hack-lidl/presentando.webp)
 
 A cociña é unha fantasía: placa de indución con sons e luces, forno con luz, lavalouza, cubo para o lixo, campá extractora, xeos de madeira que caen no vaso ao empurrar como nas neveiras de verdade... pero tiña un fallo imperdoable: **a billa era de mentira**. Un cacho de plástico oco. E nesta casa respectamos as leis da termodinámica: se hai billa, ten que saír auga.
 
@@ -31,14 +31,30 @@ A idea era simple: un **circuíto pechado**.
 3. Un funil impreso en 3D (modificado dun STL que atopei por aí) para recoller a auga do pío e devolvela ao bote.
 4. Un soporte para anclar o cacharro dentro do moble da cociña e colocalo na posición correcta para recoller a auga do funil.
 
-![Detalle do funil 3D](/images/blog/hack-lidl/funil.webp)
-![O vertedoiro furado](/images/blog/hack-lidl/vertedoiro.webp)
 
 Comezando polo final fixen o soporte en **Tinkercad** para fixar a billa ao moble e imprimino. Despois desmontei a billa de plástico e para poder poñer a nova tiven que facerlle unha base. Deseñeina tamén no Tinkercad para facela a medida. Logo diso, furei o vertedoiro da cociña cun punzón e pegueille o funil.
 
-![Soporte do depósito dentro do moble](/images/blog/hack-lidl/soporte.webp)
+<img 
+  src="/images/blog/hack-lidl/funil.webp" 
+  alt="Detalle do funil 3D" 
+  class="w-full h-auto border-2 border-black shadow-[6px_6px_0px_#000] my-8"
+/>
+<img 
+  src="/images/blog/hack-lidl/vertedoiro.webp" 
+  alt="O vertedoiro furado" 
+  class="w-full h-auto border-2 border-black shadow-[6px_6px_0px_#000] my-8"
+/>
+<img 
+  src="/images/blog/hack-lidl/soporte.webp" 
+  alt="Soporte do depósito dentro do moble" 
+  class="w-full h-auto border-2 border-black shadow-[6px_6px_0px_#000] my-8"
+/>
+
 
 Pasei o tubo da billa por un dos buratos que tiña a cociña para os parafusos da billa de plástico e peguei a base da billa coa mítica cola termofusible. Non es ninguén sen unha pistoliña de cola termofusible. Listo, se non fose pola impresión 3D diría que en 5 minutos estaba feito.
+
+<video src="/images/blog/hack-lidl/case_comp.mp4" autoplay loop muted playsinline class="w-full border-2 border-black shadow-[6px_6px_0px_#000] my-8"></video>
+
 
 ## Fase 2: "Houston, temos un par de problemas de ergonomía"
 
@@ -57,9 +73,19 @@ O plan: duplicar o botón e o porto de carga noutra parte máis accesible.
 
 Soldei uns cables directamente aos pins do botón que acciona o motor da bomba. Tirei outros dous cables dende o porto de carga da batería.
 
-![Soldando os cables á placa da billa](/images/blog/hack-lidl/destripandoabilla.webp)
-
 Instalei un **botón externo** a un par de centímetros da base e puxen un **módulo de carga USB-C** nun lateral accesible para min.
+
+<img 
+  src="/images/blog/hack-lidl/destripandoabilla.webp" 
+  alt="Xa sei o que teño que soldar" 
+  class="w-full h-auto border-2 border-black shadow-[6px_6px_0px_#000] my-8"
+/>
+<img 
+  src="/images/blog/hack-lidl/amanado.webp" 
+  alt="Chambonada feita" 
+  class="w-full h-auto border-2 border-black shadow-[6px_6px_0px_#000] my-8"
+/>
+
 
 Vale, se sabes de electricidade saberás que o que fixen coa batería non é o máis axeitado vendo as fotos, pero funciona. E como o motor só funciona se pulsas o botón, non hai risco de descarga completa da batería. De aí que poida empregar os pins BAT en lugar dos pins OUT do módulo de carga e me evite máis complicacións. Se non sabes de que falo non te preocupes. O caso é que está ben.
 
@@ -67,9 +93,10 @@ Vale, se sabes de electricidade saberás que o que fixen coa batería non é o m
 
 Funciona? Vaites se funciona. A auga flúe, o circuíto recicla o líquido e o botón responde.
 
-<video src="/images/blog/hack-lidl/final_comp.mp4" autoplay loop muted playsinline class="w-full border-2 border-black shadow-[6px_6px_0px_#000] my-8"></video>
 
 O problema é que á miña nena **encántalle** acender a auga. O que non lle gusta tanto é **apagala**. Tampouco comparte a miña visión de que a auga debe permanecer **dentro** do pío. A súa visión é máis... expansiva. O pequeno moble de madeira cutre converteuse nun parque acuático en cuestión de segundos. Algo para o que non está deseñado e que probablemente reduza drasticamente a súa vida útil.
+
+<video src="/images/blog/hack-lidl/final_comp.mp4" autoplay loop muted playsinline class="w-full border-2 border-black shadow-[6px_6px_0px_#000] my-8"></video>
 
 ## A chambonada final…
 
@@ -79,9 +106,12 @@ Non imprimín unha tapa de seguridade en 3D. Non programei un corte automático 
 
 Collín o **tapón dun colutorio** e un par de **gomas elásticas**.
 
-![A solución final: un tapón e gomas elásticas](/images/blog/hack-lidl/amanado.webp)
-
 O botón quedou mecanicamente clausurado. A tecnoloxía punta vencida por un tapón de plástico reciclado. Agora a cociña ten un sistema de auga ultra-sofisticado que está desactivado ata que a nena aprenda como retirar as gomas. A ollo, cuestión de días.
 
 **Lección do día:** Podes saber soldar, podes saber deseñar e imprimir en 3D, pero nunca poderás gañarlle ao gusto dun bebé pola auga.
 
+<img 
+  src="/images/blog/hack-lidl/fin.webp" 
+  alt="A solución final: un tapón e gomas elásticas" 
+  class="w-full h-auto border-2 border-black shadow-[6px_6px_0px_#000] my-8"
+/>

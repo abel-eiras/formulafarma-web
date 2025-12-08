@@ -36,14 +36,15 @@ if (!categoryName) {
 }
 
 const allPosts = await getCollection('blog');
-// Filtrar solo posts desde hoy en adelante y de la categoría específica
+// Filtrar solo posts desde hoy en adelante, de la categoría específica y del idioma correspondiente
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 const posts = allPosts
   .filter(post => {
     const hasDate = post.data.date >= today;
     const hasCategory = post.data.category === categoryName;
-    return hasDate && hasCategory;
+    const postLang = post.data.lang || 'gl';
+    return hasDate && hasCategory && postLang === lang;
   })
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 

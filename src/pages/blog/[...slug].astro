@@ -11,22 +11,59 @@ export async function getStaticPaths() {
   // Solo generar páginas para posts desde hoy en adelante
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const posts = allPosts.filter(post => post.data.date >= today);
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const visiblePosts = allPosts.filter(post => post.data.date >= today);
+  
+  // Generar rutas: para gallego (/) y español (/es/)
+  const paths = [];
+  const slugMap = new Map<string, { gl?: typeof visiblePosts[0], es?: typeof visiblePosts[0] }>();
+  
+  // Agrupar posts por translationSlug o slug
+  for (const post of visiblePosts) {
+    const postLang = post.data.lang || 'gl';
+    const urlSlug = post.data.translationSlug || post.slug;
+    
+    if (!slugMap.has(urlSlug)) {
+      slugMap.set(urlSlug, {});
+    }
+    const entry = slugMap.get(urlSlug)!;
+    entry[postLang] = post;
+  }
+  
+  // Generar rutas para cada slug (en ambos idiomas si existen)
+  for (const [urlSlug, posts] of slugMap.entries()) {
+    // Ruta en gallego (si existe el post en gallego o no hay post en español)
+    if (posts.gl) {
+      paths.push({
+        params: { slug: urlSlug },
+        props: { post: posts.gl, lang: 'gl' },
+      });
+    }
+    
+    // Ruta en español (si existe el post en español)
+    if (posts.es) {
+      paths.push({
+        params: { slug: urlSlug },
+        props: { post: posts.es, lang: 'es' },
+      });
+    }
+  }
+  
+  return paths;
 }
 
 interface Props {
   post: CollectionEntry<'blog'>;
 }
 
-const { post } = Astro.props;
+const { post, lang: postLang } = Astro.props;
 const { Content } = await post.render();
 
-const lang = getLangFromUrl(Astro.url);
+const lang = postLang || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Obtener slug de la URL para construir rutas correctas
+const urlSlug = Astro.params.slug || '';
+const urlLang = getLangFromUrl(Astro.url);
 
 const formattedDate = new Intl.DateTimeFormat(lang === 'gl' ? 'gl-ES' : 'es-ES', {
   year: 'numeric',
@@ -34,17 +71,22 @@ const formattedDate = new Intl.DateTimeFormat(lang === 'gl' ? 'gl-ES' : 'es-ES',
   day: 'numeric',
 }).format(post.data.date);
 
-// URLs para SEO
-const postURL = new URL(`/blog/${post.slug}`, Astro.site || 'https://formulafarma.com').href;
+// URLs para SEO - usar el slug de la URL actual
+const postURLSlug = post.data.translationSlug || post.slug;
+const postURL = new URL(lang === 'gl' ? `/blog/${postURLSlug}` : `/es/blog/${postURLSlug}`, Astro.site || 'https://formulafarma.com').href;
 const postImage = post.data.image 
   ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, Astro.site || 'https://formulafarma.com').href)
   : new URL('/logo.webp', Astro.site || 'https://formulafarma.com').href;
 
-// Obtener posts para navegación (solo desde hoy)
+// Obtener posts para navegación (solo desde hoy y del mismo idioma)
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 const allPosts = await getCollection('blog');
-const visiblePosts = allPosts.filter(p => p.data.date >= today);
+const visiblePosts = allPosts.filter(p => {
+  const hasDate = p.data.date >= today;
+  const postLang = p.data.lang || 'gl';
+  return hasDate && postLang === lang;
+});
 const sortedPosts = visiblePosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
 const previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
@@ -61,13 +103,25 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
 >
   <article class="container mx-auto px-4 py-12">
     <div class="max-w-4xl mx-auto">
-      {/* Botón volver */}
-      <a href="/blog" class="inline-flex items-center text-pharma-accent hover:text-pharma-dark transition-colors mb-8">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-        Volver al blog
-      </a>
+      {/* Botón volver y selector de idioma */}
+      <div class="flex items-center justify-between mb-8">
+        <a href={lang === 'gl' ? '/blog' : '/es/blog'} class="inline-flex items-center text-pharma-accent hover:text-pharma-dark transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          {lang === 'gl' ? 'Volver ao blog' : 'Volver al blog'}
+        </a>
+        
+        {/* Enlace a la traducción si existe */}
+        {post.data.translationSlug && (
+          <a 
+            href={lang === 'gl' ? `/es/blog/${post.data.translationSlug}` : `/blog/${post.data.translationSlug}`}
+            class="text-sm text-pharma-accent hover:text-pharma-dark transition-colors underline"
+          >
+            {lang === 'gl' ? 'Versión en español' : 'Versión en galego'}
+          </a>
+        )}
+      </div>
 
       {/* Header del post */}
       <header class="mb-8">
@@ -154,10 +208,10 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {previousPost && (
               <a 
-                href={`/blog/${previousPost.slug}`}
+                href={lang === 'gl' ? `/blog/${previousPost.data.translationSlug || previousPost.slug}` : `/es/blog/${previousPost.data.translationSlug || previousPost.slug}`}
                 class="group p-4 border border-gray-200 rounded-lg hover:border-pharma-accent transition-colors"
               >
-                <div class="text-sm text-pharma-grey mb-2">← Post anterior</div>
+                <div class="text-sm text-pharma-grey mb-2">{lang === 'gl' ? '← Post anterior' : '← Post anterior'}</div>
                 <div class="font-semibold text-pharma-dark group-hover:text-pharma-accent transition-colors">
                   {previousPost.data.title}
                 </div>
@@ -165,10 +219,10 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
             )}
             {nextPost && (
               <a 
-                href={`/blog/${nextPost.slug}`}
+                href={lang === 'gl' ? `/blog/${nextPost.data.translationSlug || nextPost.slug}` : `/es/blog/${nextPost.data.translationSlug || nextPost.slug}`}
                 class="group p-4 border border-gray-200 rounded-lg hover:border-pharma-accent transition-colors text-right md:text-left"
               >
-                <div class="text-sm text-pharma-grey mb-2">Post siguiente →</div>
+                <div class="text-sm text-pharma-grey mb-2">{lang === 'gl' ? 'Post seguinte →' : 'Post siguiente →'}</div>
                 <div class="font-semibold text-pharma-dark group-hover:text-pharma-accent transition-colors">
                   {nextPost.data.title}
                 </div>

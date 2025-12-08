@@ -9,11 +9,15 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
 const allPosts = await getCollection('blog');
-// Filtrar solo posts desde hoy en adelante
+// Filtrar solo posts desde hoy en adelante y del idioma correspondiente
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 const posts = allPosts
-  .filter(post => post.data.date >= today)
+  .filter(post => {
+    const hasDate = post.data.date >= today;
+    const postLang = post.data.lang || 'gl';
+    return hasDate && postLang === lang;
+  })
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 

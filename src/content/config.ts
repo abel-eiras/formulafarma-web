@@ -9,6 +9,8 @@ const blog = defineCollection({
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
     category: z.enum(['Cultura Maker', 'Teatro & Raíces', 'Outras merdas']).optional(),
+    lang: z.enum(['gl', 'es']).optional().default('gl'),
+    translationSlug: z.string().optional(), // Slug del post traducido (para vincular posts bilingües)
   }),
 });
 
