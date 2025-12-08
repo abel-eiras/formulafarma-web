@@ -60,16 +60,16 @@ const translations = {
             renderComments(data.comments);
             loadingEl.style.display = 'none';
           } else {
-            loadingEl.textContent = translations.empty || 'Aún no hay comentarios. ¡Sé el primero en comentar!';
+            loadingEl.textContent = translations.empty || 'Aínda non hai comentarios. ¡Sé o primeiro en comentar!';
             loadingEl.className = 'text-center py-8 italic font-tech';
           }
         } else {
-          loadingEl.textContent = translations.errorLoad || 'Error al cargar los comentarios.';
+          loadingEl.textContent = translations.errorLoad || 'Erro ao cargar os comentarios.';
           loadingEl.className = 'text-center text-red-600 py-8 font-tech';
         }
       } catch (error) {
         console.error('Error cargando comentarios:', error);
-        loadingEl.textContent = translations.errorConnection || 'Error de conexión. Intenta recargar la página.';
+        loadingEl.textContent = translations.errorConnection || 'Erro de conexión. Tenta recargar a páxina.';
         loadingEl.className = 'text-center text-red-600 py-8 font-tech';
       }
     }

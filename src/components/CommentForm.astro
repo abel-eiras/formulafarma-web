@@ -22,6 +22,7 @@ const translations = {
   characters: t('comments.form.characters'),
   submit: t('comments.form.submit'),
   sending: t('comments.form.sending'),
+  sendingComment: t('comments.form.sending.comment'),
   success: t('comments.form.success'),
   errorSubmit: t('comments.form.error.submit'),
   errorConnection: t('comments.form.error.connection'),
@@ -132,19 +133,19 @@ const translations = {
       
       // Validación básica
       if (!data.author_name || data.author_name.trim().length < 2) {
-        showMessage(translations.errorName || 'El nombre debe tener al menos 2 caracteres', 'error');
+        showMessage(translations.errorName || 'O nome debe ter polo menos 2 caracteres', 'error');
         return;
       }
       
       if (!data.content || data.content.trim().length < 10) {
-        showMessage(translations.errorContent || 'El comentario debe tener al menos 10 caracteres', 'error');
+        showMessage(translations.errorContent || 'O comentario debe ter polo menos 10 caracteres', 'error');
         return;
       }
       
       isLoading = true;
       submitBtn.disabled = true;
       submitBtn.textContent = translations.sending || 'Enviando...';
-      showMessage(translations.sending || 'Enviando comentario...', 'info');
+      showMessage(translations.sendingComment || 'Enviando comentario...', 'info');
       
       try {
         const response = await fetch('/api/comments.php', {
@@ -175,14 +176,14 @@ const translations = {
             }
           }, 500);
         } else {
-          showMessage(result.message || translations.errorSubmit || 'Error al enviar el comentario', 'error');
+          showMessage(result.message || translations.errorSubmit || 'Erro ao enviar o comentario', 'error');
           if (result.errors) {
             console.error('Errores de validación:', result.errors);
           }
         }
       } catch (error) {
         console.error('Error enviando comentario:', error);
-        showMessage(translations.errorConnection || 'Error de conexión. Intenta de nuevo.', 'error');
+        showMessage(translations.errorConnection || 'Erro de conexión. Tenta de novo.', 'error');
       } finally {
         isLoading = false;
         submitBtn.disabled = false;
