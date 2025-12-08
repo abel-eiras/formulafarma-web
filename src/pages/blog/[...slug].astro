@@ -8,17 +8,13 @@ import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
-  // Solo generar páginas para posts desde hoy en adelante
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const visiblePosts = allPosts.filter(post => post.data.date >= today);
   
   // Generar rutas: para gallego (/) y español (/es/)
   const paths = [];
-  const slugMap = new Map<string, { gl?: typeof visiblePosts[0], es?: typeof visiblePosts[0] }>();
+  const slugMap = new Map<string, { gl?: typeof allPosts[0], es?: typeof allPosts[0] }>();
   
   // Agrupar posts por translationSlug o slug
-  for (const post of visiblePosts) {
+  for (const post of allPosts) {
     const postLang = post.data.lang || 'gl';
     const urlSlug = post.data.translationSlug || post.slug;
     
@@ -78,14 +74,11 @@ const postImage = post.data.image
   ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, Astro.site || 'https://formulafarma.com').href)
   : new URL('/logo.webp', Astro.site || 'https://formulafarma.com').href;
 
-// Obtener posts para navegación (solo desde hoy y del mismo idioma)
-const today = new Date();
-today.setHours(0, 0, 0, 0);
+// Obtener posts para navegación (del mismo idioma)
 const allPosts = await getCollection('blog');
 const visiblePosts = allPosts.filter(p => {
-  const hasDate = p.data.date >= today;
   const postLang = p.data.lang || 'gl';
-  return hasDate && postLang === lang;
+  return postLang === lang;
 });
 const sortedPosts = visiblePosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);

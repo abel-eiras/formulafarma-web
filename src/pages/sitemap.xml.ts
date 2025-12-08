@@ -3,10 +3,7 @@ import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
   const allPosts = await getCollection('blog');
-  // Solo incluir posts desde hoy en adelante
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const posts = allPosts.filter(post => post.data.date >= today);
+  const posts = allPosts;
   const baseURL = site?.href || 'https://formulafarma.com';
   
   // Páginas estáticas (gallego - idioma principal)
