@@ -1,8 +1,8 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import PostCard from '../../../components/PostCard.astro';
+import Layout from '../../../../layouts/Layout.astro';
+import PostCard from '../../../../components/PostCard.astro';
 import { getCollection } from 'astro:content';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../../../i18n/utils';
 
 export async function getStaticPaths() {
   // Mapeo de slugs a nombres de categorías
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const lang = getLangFromUrl(Astro.url);
+const lang = 'es'; // Siempre español en esta ruta
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
@@ -32,7 +32,7 @@ const { slug } = Astro.params;
 const categoryName = slug ? categoryMap[slug] : null;
 
 if (!categoryName) {
-  return Astro.redirect('/blog');
+  return Astro.redirect('/es/blog');
 }
 
 const allPosts = await getCollection('blog');
@@ -66,13 +66,13 @@ const categoryTitle = categoryTitles[categoryName]?.[lang] || categoryName;
 
 <Layout 
   title={`${categoryTitle} - Blog - Fórmula Farma`}
-  description={`Posts da categoría ${categoryTitle} do blog de Fórmula Farma`}
+  description={`Posts de la categoría ${categoryTitle} del blog de Fórmula Farma`}
   lang={lang}
 >
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-6xl mx-auto">
       <header class="mb-12 text-center">
-        <a href={translatePath('/blog')} class="inline-flex items-center text-pharma-accent hover:text-pharma-dark transition-colors mb-8">
+        <a href="/es/blog" class="inline-flex items-center text-pharma-accent hover:text-pharma-dark transition-colors mb-8">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
@@ -83,8 +83,8 @@ const categoryTitle = categoryTitles[categoryName]?.[lang] || categoryName;
         </h1>
         <p class="text-xl max-w-2xl mx-auto text-pharma-grey">
           {posts.length === 0 
-            ? (lang === 'gl' ? 'Aínda non hai publicaciones nesta categoría.' : 'Aún no hay publicaciones en esta categoría.')
-            : (lang === 'gl' ? `${posts.length} publicación${posts.length === 1 ? '' : 's'}` : `${posts.length} publicación${posts.length === 1 ? '' : 'es'}`)
+            ? 'Aún no hay publicaciones en esta categoría.'
+            : `${posts.length} publicación${posts.length === 1 ? '' : 'es'}`
           }
         </p>
       </header>
@@ -106,7 +106,7 @@ const categoryTitle = categoryTitles[categoryName]?.[lang] || categoryName;
       ) : (
         <div class="text-center py-12">
           <p class="text-lg text-pharma-grey">
-            {lang === 'gl' ? 'Non hai posts dispoñibles nesta categoría aínda.' : 'No hay posts disponibles en esta categoría aún.'}
+            No hay posts disponibles en esta categoría aún.
           </p>
         </div>
       )}
