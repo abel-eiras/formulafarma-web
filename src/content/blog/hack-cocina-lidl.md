@@ -10,7 +10,7 @@ tags:
   - "electronica"
 category: "Cultura Maker"
 lang: "gl"
-translationSlug: "hack-cocina-lidl-es"
+translationSlug: "hack-cocina-lidl"
 image: "/images/blog/hack-lidl/presentando.webp"
 ---
 

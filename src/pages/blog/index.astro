@@ -42,8 +42,9 @@ const posts = allPosts
               date={post.data.date}
               excerpt={post.data.excerpt}
               tags={post.data.tags}
-              slug={post.slug}
+              slug={post.data.translationSlug || post.slug}
               image={post.data.image}
+              lang={lang}
             />
           ))}
         </div>

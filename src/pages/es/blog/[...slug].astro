@@ -1,22 +1,22 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import RatingCapsules from '../../components/RatingCapsules.astro';
-import Comments from '../../components/Comments.astro';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import RatingCapsules from '../../../components/RatingCapsules.astro';
+import Comments from '../../../components/Comments.astro';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
   
-  // Solo generar rutas para posts en gallego (los posts en español se manejan en /es/blog/[...slug].astro)
+  // Solo generar rutas para posts en español
   const paths = [];
   const slugMap = new Map<string, typeof allPosts[0]>();
   
-  // Agrupar posts por translationSlug o slug (solo en gallego)
+  // Agrupar posts por translationSlug o slug (solo en español)
   for (const post of allPosts) {
     const postLang = post.data.lang || 'gl';
-    if (postLang === 'gl') {
+    if (postLang === 'es') {
       const urlSlug = post.data.translationSlug || post.slug;
       // Si ya existe un post con este slug, usar el más reciente
       if (!slugMap.has(urlSlug) || post.data.date > slugMap.get(urlSlug)!.data.date) {
@@ -25,11 +25,11 @@ export async function getStaticPaths() {
     }
   }
   
-  // Generar rutas para cada slug en gallego
+  // Generar rutas para cada slug en español
   for (const [urlSlug, post] of slugMap.entries()) {
     paths.push({
       params: { slug: urlSlug },
-      props: { post, lang: 'gl' },
+      props: { post, lang: 'es' },
     });
   }
   
@@ -38,26 +38,23 @@ export async function getStaticPaths() {
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  lang: 'gl' | 'es';
 }
 
 const { post, lang: postLang } = Astro.props;
 const { Content } = await post.render();
 
-// Usar el idioma del post (siempre gallego en esta ruta)
-const lang = postLang || 'gl';
+const lang = postLang || 'es';
 const t = useTranslations(lang);
 
-// Verificar que el post sea en gallego (si no, redirigir a la versión en español)
+// Verificar que el post sea en español
 const actualPostLang = post.data.lang || 'gl';
-if (actualPostLang !== 'gl') {
-  // Redirigir al post en español
-  return Astro.redirect(`/es/blog/${post.data.translationSlug || post.slug}`);
+if (actualPostLang !== 'es') {
+  // Redirigir al post en gallego
+  return Astro.redirect(`/blog/${post.data.translationSlug || post.slug}`);
 }
 
-// Obtener slug de la URL para construir rutas correctas
-const urlSlug = Astro.params.slug || '';
-
-const formattedDate = new Intl.DateTimeFormat('gl-ES', {
+const formattedDate = new Intl.DateTimeFormat('es-ES', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -65,16 +62,16 @@ const formattedDate = new Intl.DateTimeFormat('gl-ES', {
 
 // URLs para SEO
 const postURLSlug = post.data.translationSlug || post.slug;
-const postURL = new URL(`/blog/${postURLSlug}`, Astro.site || 'https://formulafarma.com').href;
+const postURL = new URL(`/es/blog/${postURLSlug}`, Astro.site || 'https://formulafarma.com').href;
 const postImage = post.data.image 
   ? (post.data.image.startsWith('http') ? post.data.image : new URL(post.data.image, Astro.site || 'https://formulafarma.com').href)
   : new URL('/logo.webp', Astro.site || 'https://formulafarma.com').href;
 
-// Obtener posts para navegación (solo en gallego)
+// Obtener posts para navegación (solo en español)
 const allPosts = await getCollection('blog');
 const visiblePosts = allPosts.filter(p => {
   const postLang = p.data.lang || 'gl';
-  return postLang === 'gl';
+  return postLang === 'es';
 });
 const sortedPosts = visiblePosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
@@ -94,11 +91,11 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
   <article class="container mx-auto px-4 py-12">
     <div class="max-w-4xl mx-auto">
       {/* Botón volver */}
-      <a href="/blog" class="inline-flex items-center text-pharma-accent hover:text-pharma-dark transition-colors mb-8">
+      <a href="/es/blog" class="inline-flex items-center text-pharma-accent hover:text-pharma-dark transition-colors mb-8">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-        Volver ao blog
+        Volver al blog
       </a>
 
       {/* Header del post */}
@@ -153,9 +150,8 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
         "author": {
           "@type": "Person",
           "name": "Abel Eiras Espiño",
-          "url": "https://formulafarma.com/sobre-min"
+          "url": "https://formulafarma.com/es/sobre-mi"
         },
-        "inLanguage": "gl",
         "publisher": {
           "@type": "Person",
           "name": "Abel Eiras Espiño",
@@ -187,7 +183,7 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {previousPost && (
               <a 
-                href={`/blog/${previousPost.data.translationSlug || previousPost.slug}`}
+                href={`/es/blog/${previousPost.data.translationSlug || previousPost.slug}`}
                 class="group p-4 border border-gray-200 rounded-lg hover:border-pharma-accent transition-colors"
               >
                 <div class="text-sm text-pharma-grey mb-2">← Post anterior</div>
@@ -198,10 +194,10 @@ const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
             )}
             {nextPost && (
               <a 
-                href={`/blog/${nextPost.data.translationSlug || nextPost.slug}`}
+                href={`/es/blog/${nextPost.data.translationSlug || nextPost.slug}`}
                 class="group p-4 border border-gray-200 rounded-lg hover:border-pharma-accent transition-colors text-right md:text-left"
               >
-                <div class="text-sm text-pharma-grey mb-2">Post seguinte →</div>
+                <div class="text-sm text-pharma-grey mb-2">Post siguiente →</div>
                 <div class="font-semibold text-pharma-dark group-hover:text-pharma-accent transition-colors">
                   {nextPost.data.title}
                 </div>

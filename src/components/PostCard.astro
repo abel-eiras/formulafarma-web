@@ -6,18 +6,21 @@ interface Props {
   tags?: string[];
   slug: string;
   image?: string;
+  lang?: 'gl' | 'es';
 }
 
-const { title, date, excerpt, tags = [], slug, image } = Astro.props;
+const { title, date, excerpt, tags = [], slug, image, lang = 'gl' } = Astro.props;
 
-const formattedDate = new Intl.DateTimeFormat('es-ES', {
+const formattedDate = new Intl.DateTimeFormat(lang === 'gl' ? 'gl-ES' : 'es-ES', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 }).format(date);
+
+const blogPath = lang === 'gl' ? '/blog' : '/es/blog';
 ---
 
-<a href={`/blog/${slug}`} class="block group">
+<a href={`${blogPath}/${slug}`} class="block group">
   <article class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 overflow-hidden h-full">
     {image && (
       <div class="w-full h-48 bg-pharma-soft overflow-hidden">
