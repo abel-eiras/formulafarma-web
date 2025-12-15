@@ -31,37 +31,50 @@ const baseClasses = 'inline-block border-2 border-black shadow-[6px_6px_0px_#000
 const getVariantClasses = (variant: 'primary' | 'secondary') => 
   variant === 'primary' ? 'bg-white text-black' : 'bg-black text-white';
 
-const renderButton = (
-  text: string, 
-  href: string | undefined, 
-  external: boolean, 
-  variant: 'primary' | 'secondary'
-) => {
-  const isExternal = external || (href && (href.startsWith('http://') || href.startsWith('https://')));
-  const finalClasses = `${baseClasses} ${getVariantClasses(variant)}`;
+// Determinar se son enlaces externos
+const button1IsExternal = button1External || (button1Href && (button1Href.startsWith('http://') || button1Href.startsWith('https://')));
+const button2IsExternal = button2External || (button2Href && (button2Href.startsWith('http://') || button2Href.startsWith('https://')));
 
-  return href ? (
+// Classes finais para cada botón
+const button1Classes = `${baseClasses} ${getVariantClasses(button1Variant)}`;
+const button2Classes = `${baseClasses} ${getVariantClasses(button2Variant)}`;
+---
+
+<div class={`flex flex-wrap ${gap} my-8 ${className}`}>
+  {button1Href ? (
     <a 
-      href={href}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      class={finalClasses}
+      href={button1Href}
+      target={button1IsExternal ? "_blank" : undefined}
+      rel={button1IsExternal ? "noopener noreferrer" : undefined}
+      class={button1Classes}
     >
-      {text}
+      {button1Text}
     </a>
   ) : (
     <button 
       type="button"
-      class={finalClasses}
+      class={button1Classes}
     >
-      {text}
+      {button1Text}
     </button>
-  );
-};
----
-
-<div class={`flex flex-wrap ${gap} my-8 ${className}`}>
-  {renderButton(button1Text, button1Href, button1External, button1Variant)}
-  {renderButton(button2Text, button2Href, button2External, button2Variant)}
+  )}
+  
+  {button2Href ? (
+    <a 
+      href={button2Href}
+      target={button2IsExternal ? "_blank" : undefined}
+      rel={button2IsExternal ? "noopener noreferrer" : undefined}
+      class={button2Classes}
+    >
+      {button2Text}
+    </a>
+  ) : (
+    <button 
+      type="button"
+      class={button2Classes}
+    >
+      {button2Text}
+    </button>
+  )}
 </div>
 
