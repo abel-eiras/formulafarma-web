@@ -1,19 +1,4 @@
----
-title: "A arquitectura do invisible: Do teatro ao código"
-date: 2025-12-15
-excerpt: "Unha reflexión sobre o poder da linguaxe como ferramenta de creación pura. Como as palabras, sexan nun guión de teatro ou nun IDE, teñen a capacidade de xerar vida da nada."
-author: "Abel Eiras"
-image: "/images/blog/teatro-codigo/telon-e-codigo.webp"
-category: "Teatro & Raíces"
-tags:
-  - "filosofia"
-  - "teatro"
-  - "programacion"
-  - "lingua"
-  - "reflexion"
-lang: "gl"
-translationSlug: "palabras-que-crean"
----
+## **layout: ../../layouts/BlogPostLayout.astro title: "A arquitectura do invisible: Do teatro ao código" date: 2025-02-15 description: "Unha reflexión sobre o poder da linguaxe como ferramenta de creación pura. Como as palabras, sexan nun guión de teatro ou nun IDE, teñen a capacidade de xerar vida da nada." author: "Abel Eiras" image: "/images/blog/teatro/montelongo.webp" category: "Teatro & Raíces" tags: \["filosofia", "teatro", "programacion", "lingua", "reflexion"\] lang: "gl"**
 
 Que terán as palabras que me fascinan tanto?  
 Non me refiro á capacidade de acumular vocabulario, de ser un dicionario con pernas ou de gañar concursos. Non falo da erudición. Refírome ao poder latente que teñen. Á enerxía cinética que gardan dentro.  

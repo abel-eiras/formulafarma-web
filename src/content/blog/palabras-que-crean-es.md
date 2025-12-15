@@ -3,7 +3,7 @@ title: "La arquitectura de lo invisible: Del teatro al código"
 date: 2025-12-15
 excerpt: "Una reflexión sobre el poder del lenguaje como herramienta de creación pura. Cómo las palabras, sean en un guión de teatro o en un IDE, tienen la capacidad de generar vida de la nada."
 author: "Abel Eiras"
-image: "/images/blog/teatro-codigo/telon-e-codigo.webp"
+image: "/images/blog/teatro/montelongo.webp"
 category: "Teatro & Raíces"
 tags:
   - "filosofia"
