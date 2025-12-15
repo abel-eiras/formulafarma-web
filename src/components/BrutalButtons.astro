@@ -1,0 +1,67 @@
+---
+interface Props {
+  button1Text: string;
+  button1Href?: string;
+  button1External?: boolean;
+  button1Variant?: 'primary' | 'secondary';
+  button2Text: string;
+  button2Href?: string;
+  button2External?: boolean;
+  button2Variant?: 'primary' | 'secondary';
+  class?: string;
+  gap?: string;
+}
+
+const { 
+  button1Text,
+  button1Href,
+  button1External = false,
+  button1Variant = 'primary',
+  button2Text,
+  button2Href,
+  button2External = false,
+  button2Variant = 'primary',
+  class: className = '',
+  gap = 'gap-4'
+} = Astro.props;
+
+// Clases base do estilo brutal
+const baseClasses = 'inline-block border-2 border-black shadow-[6px_6px_0px_#000] font-semibold transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#000] px-6 py-4 min-w-[120px] text-center';
+
+const getVariantClasses = (variant: 'primary' | 'secondary') => 
+  variant === 'primary' ? 'bg-white text-black' : 'bg-black text-white';
+
+const renderButton = (
+  text: string, 
+  href: string | undefined, 
+  external: boolean, 
+  variant: 'primary' | 'secondary'
+) => {
+  const isExternal = external || (href && (href.startsWith('http://') || href.startsWith('https://')));
+  const finalClasses = `${baseClasses} ${getVariantClasses(variant)}`;
+
+  return href ? (
+    <a 
+      href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      class={finalClasses}
+    >
+      {text}
+    </a>
+  ) : (
+    <button 
+      type="button"
+      class={finalClasses}
+    >
+      {text}
+    </button>
+  );
+};
+---
+
+<div class={`flex flex-wrap ${gap} my-8 ${className}`}>
+  {renderButton(button1Text, button1Href, button1External, button1Variant)}
+  {renderButton(button2Text, button2Href, button2External, button2Variant)}
+</div>
+
