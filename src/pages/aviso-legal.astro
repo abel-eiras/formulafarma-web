@@ -6,77 +6,97 @@ import Footer from '@/components/Footer.astro';
 
 <Layout 
   title="Aviso Legal | Fórmula Farma"
-  description="Aviso legal y condiciones de uso de Fórmula Farma."
+  description="Aviso legal y condiciones de uso de Fórmula Farma. La letra pequeña, explicada sin rodeos."
 >
   <Navbar />
   <main class="pt-24 pb-16">
     <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
-      <h1 class="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
         Aviso Legal
       </h1>
+      <p class="font-body text-xl text-muted-foreground mb-12">
+        La letra pequeña, explicada sin rodeos.
+      </p>
 
       <div class="prose prose-lg max-w-none font-body text-muted-foreground">
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">1. Datos identificativos</h2>
+        <p class="text-lg mb-8">
+          Como cualquier proyecto en internet, necesita unas reglas del juego claras. Aquí están las mías.
+        </p>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">1. Mis datos (los justos y necesarios)</h2>
           <p>
-            En cumplimiento del deber de información recogido en el artículo 10 de la Ley 34/2002, 
-            de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, 
-            a continuación se reflejan los siguientes datos:
+            La ley me pide que me identifique. Aquí tienes quién está detrás de este proyecto:
           </p>
           <ul class="list-disc pl-6 mt-4 space-y-2">
-            <li><strong class="text-foreground">Titular:</strong> Fórmula Farma Tech</li>
-            <li><strong class="text-foreground">Domicilio:</strong> [Dirección fiscal]</li>
-            <li><strong class="text-foreground">Email:</strong> hola@formulafarma.com</li>
+            <li><strong class="text-foreground">Titular del sitio web:</strong> Abel Eiras Espiño</li>
+            <li><strong class="text-foreground">Nombre del dominio:</strong> <code class="bg-muted px-2 py-1 rounded text-sm">formulafarma.com</code></li>
+            <li><strong class="text-foreground">Email de contacto:</strong> <a href="mailto:abel@formulafarma.com" class="text-primary hover:underline">abel@formulafarma.com</a></li>
+          </ul>
+          <p class="mt-4 text-sm italic">
+            (Nota honesta: La ley en España (LSSI) es estricta y pide publicar el NIF y un domicilio. 
+            Como esto es un proyecto personal y valoro mi privacidad tanto como la tuya, he decidido 
+            omitirlos. Si esto te supone un problema, escríbeme y lo hablamos como personas civilizadas.)
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">2. Las reglas de uso</h2>
+          <p>
+            Al entrar y usar <code class="bg-muted px-2 py-1 rounded text-sm">formulafarma.com</code>, 
+            aceptas estas condiciones. Básicamente, se resumen en usar el sentido común:
+          </p>
+          <ul class="list-disc pl-6 mt-4 space-y-4">
+            <li>
+              <strong class="text-foreground">Tú eres responsable de lo que haces:</strong> 
+              Eres libre de usar el software y los servicios, pero siempre con respeto. 
+              No se tolerará spam, intentos de hackeo ni actividades ilegales.
+            </li>
+            <li>
+              <strong class="text-foreground">Esto es software, no magia:</strong> 
+              Fórmula Care y las herramientas que desarrollo son ayudas para tu trabajo, no sustitutos 
+              de tu criterio profesional. Úsalas como lo que son: herramientas.
+            </li>
+            <li>
+              <strong class="text-foreground">Soy farmacéutico, pero esto no es una consulta:</strong> 
+              El contenido informativo de esta web es divulgativo. 
+              <strong>JAMÁS sustituye el consejo de un profesional sanitario que conozca tu caso particular.</strong>
+            </li>
           </ul>
         </section>
 
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">2. Objeto</h2>
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">3. Propiedad intelectual</h2>
           <p>
-            El presente aviso legal regula el uso y utilización del sitio web formulafarma.com, 
-            del que es titular Fórmula Farma Tech.
+            El código, diseño y contenidos originales de esta web son míos. Dicho esto, no soy 
+            especialmente celoso con estas cosas. Si quieres reutilizar algo, pregúntame y 
+            probablemente te diga que sí.
           </p>
           <p class="mt-4">
-            La navegación por el sitio web atribuye la condición de usuario del mismo e implica 
-            la aceptación plena y sin reservas de todas y cada una de las disposiciones incluidas 
-            en este Aviso Legal.
+            Los logos, marcas comerciales y contenidos de terceros (capturas de pantalla, 
+            integraciones, etc.) pertenecen a sus respectivos propietarios.
           </p>
         </section>
 
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">3. Condiciones de uso</h2>
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">4. Exclusión de responsabilidad</h2>
           <p>
-            El usuario se compromete a utilizar el sitio web, sus servicios y contenidos sin 
-            contravenir la legislación vigente, la buena fe y el orden público.
+            Pongo todo mi esfuerzo en que la web y el software funcionen bien y sean útiles. 
+            Sin embargo, no puedo garantizar al 100% que todo esté siempre disponible o que 
+            no haya algún bug. La tecnología es así de caprichosa.
+          </p>
+          <p class="mt-4">
+            Si encuentras un error, avísame. Lo arreglaré lo antes posible. Pero no me hagas 
+            responsable de los daños y perjuicios derivados de usar (o no poder usar) algo 
+            que ofrezco gratis o en beta.
           </p>
         </section>
 
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">4. Propiedad intelectual</h2>
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">5. Legislación aplicable</h2>
           <p>
-            Todos los contenidos del sitio web, incluyendo textos, fotografías, gráficos, imágenes, 
-            iconos, tecnología, software, links y demás contenidos audiovisuales o sonoros, así como 
-            su diseño gráfico y códigos fuente, son propiedad intelectual de Fórmula Farma Tech o de 
-            terceros, sin que puedan entenderse cedidos al usuario ninguno de los derechos de explotación.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">5. Exclusión de responsabilidad</h2>
-          <p>
-            Fórmula Farma Tech no se hace responsable, en ningún caso, de los daños y perjuicios 
-            de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones 
-            en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas 
-            maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas 
-            tecnológicas necesarias para evitarlo.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">6. Legislación aplicable</h2>
-          <p>
-            Para la resolución de todas las controversias o cuestiones relacionadas con el presente 
-            sitio web, será de aplicación la legislación española.
+            Para cualquier controversia relacionada con este sitio web, será de aplicación 
+            la legislación española. Aunque prefiero que lo hablemos antes de llegar a eso.
           </p>
         </section>
       </div>

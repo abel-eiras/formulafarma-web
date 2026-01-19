@@ -1,0 +1,152 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout 
+  title="Política de Cookies | Fórmula Farma"
+  description="La política de cookies más corta y honesta que verás. Spoiler: no te rastreo."
+>
+  <Navbar />
+  <main class="pt-24 pb-16">
+    <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+        Política de Cookies
+      </h1>
+      <p class="font-body text-xl text-muted-foreground mb-12">
+        La política de cookies más corta y honesta que verás.
+      </p>
+
+      <div class="prose prose-lg max-w-none font-body text-muted-foreground">
+        
+        <p class="text-lg mb-8">
+          Odio los banners de cookies tanto como tú. Sobre todo, los que te dicen 
+          "¿Quieres ver mi contenido? Acepta las cookies o págame". Es como para salirse al momento.
+        </p>
+
+        <p class="text-lg mb-8">
+          Por eso, mi política es radicalmente simple:
+        </p>
+
+        <div class="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-10">
+          <p class="text-foreground font-semibold text-xl mb-0">
+            <code class="bg-primary/10 px-2 py-1 rounded">formulafarma.com</code> NO utiliza 
+            cookies de análisis, de publicidad ni de ningún tipo de rastreo.
+          </p>
+        </div>
+
+        <p>
+          No uso Google Analytics ni Metricool ni nada por el estilo. No me interesa saber 
+          de dónde vienes, cuánto tiempo te quedas ni en qué haces clic. Quiero que navegues 
+          con total tranquilidad, sabiendo que tu visita es completamente anónima desde mi lado.
+        </p>
+
+        <section class="mb-10 mt-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">Entonces, ¿hay alguna cookie?</h2>
+          <p>
+            Sí, las mínimas e imprescindibles para que la web funcione. Son las llamadas 
+            <strong class="text-foreground">cookies técnicas o funcionales</strong>. 
+            Astro (el sistema con el que está hecha esta web) las usa para cosas básicas como:
+          </p>
+          <ul class="list-disc pl-6 mt-4 space-y-2">
+            <li>Gestionar el formulario de contacto (para evitar spam y mantener la sesión durante el envío)</li>
+            <li>Mantener tu sesión si usas Fórmula Care</li>
+            <li>Recordar preferencias básicas de navegación</li>
+          </ul>
+          <p class="mt-4">
+            Estas cookies no recogen información personal tuya y son esenciales para la navegación. 
+            Sin ellas, la web no funcionaría correctamente.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">¿Aún así quieres desactivarlas?</h2>
+          <p>
+            Estás en tu derecho. Puedes configurar tu navegador para que no acepte ninguna cookie, 
+            aunque algunas webs (y algunas funciones de esta) podrían dejar de funcionar bien.
+          </p>
+          <p class="mt-4">
+            Aquí te dejo las guías para los navegadores más comunes:
+          </p>
+          <ul class="list-disc pl-6 mt-4 space-y-2">
+            <li>
+              <a href="https://support.google.com/chrome/answer/95647?hl=es" target="_blank" rel="noopener" class="text-primary hover:underline">
+                Google Chrome
+              </a>
+            </li>
+            <li>
+              <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener" class="text-primary hover:underline">
+                Mozilla Firefox
+              </a>
+            </li>
+            <li>
+              <a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener" class="text-primary hover:underline">
+                Safari
+              </a>
+            </li>
+            <li>
+              <a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener" class="text-primary hover:underline">
+                Microsoft Edge
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">Resumen para vagos</h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-full border border-border rounded-lg overflow-hidden">
+              <thead class="bg-muted">
+                <tr>
+                  <th class="px-4 py-3 text-left font-display font-bold text-foreground">Tipo de cookie</th>
+                  <th class="px-4 py-3 text-left font-display font-bold text-foreground">¿La uso?</th>
+                  <th class="px-4 py-3 text-left font-display font-bold text-foreground">¿Para qué?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-border">
+                  <td class="px-4 py-3">Técnicas / Funcionales</td>
+                  <td class="px-4 py-3 text-primary font-medium">Sí</td>
+                  <td class="px-4 py-3">Que la web funcione</td>
+                </tr>
+                <tr class="border-t border-border bg-muted/30">
+                  <td class="px-4 py-3">De análisis</td>
+                  <td class="px-4 py-3 text-destructive font-medium">No</td>
+                  <td class="px-4 py-3">—</td>
+                </tr>
+                <tr class="border-t border-border">
+                  <td class="px-4 py-3">Publicitarias</td>
+                  <td class="px-4 py-3 text-destructive font-medium">No</td>
+                  <td class="px-4 py-3">—</td>
+                </tr>
+                <tr class="border-t border-border bg-muted/30">
+                  <td class="px-4 py-3">De rastreo</td>
+                  <td class="px-4 py-3 text-destructive font-medium">No</td>
+                  <td class="px-4 py-3">—</td>
+                </tr>
+                <tr class="border-t border-border">
+                  <td class="px-4 py-3">De terceros sospechosos</td>
+                  <td class="px-4 py-3 text-destructive font-medium">No</td>
+                  <td class="px-4 py-3">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <p class="text-lg mt-10">
+          Y eso es todo. <strong class="text-foreground">Navega con libertad.</strong>
+        </p>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border">
+        <p class="text-sm text-muted-foreground">
+          Última actualización: Enero 2026
+        </p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

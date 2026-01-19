@@ -1,11 +1,11 @@
 ---
-import { Beaker, Menu, X } from 'lucide-astro';
+import { Menu, X } from 'lucide-astro';
 import Button from '@/components/ui/Button.astro';
 
 const navItems = [
   { label: 'Funcionalidades', href: '#funcionalidades' },
   { label: 'Cómo Funciona', href: '#como-funciona' },
-  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Sobre mí', href: '#sobre-mi' },
   { label: 'Beta', href: '#beta' },
 ];
 ---
@@ -15,9 +15,11 @@ const navItems = [
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href="/formula-care" class="flex items-center gap-2">
-        <div class="w-10 h-10 rounded-xl bg-gradient-hero flex items-center justify-center">
-          <Beaker class="w-5 h-5 text-primary-foreground" />
-        </div>
+        <img 
+          src="/logo.webp" 
+          alt="Fórmula Farma" 
+          class="w-10 h-10 rounded-xl"
+        />
         <div class="flex flex-col">
           <span class="font-display text-xl font-bold text-foreground leading-tight">
             FormulaFarma

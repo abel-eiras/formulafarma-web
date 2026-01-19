@@ -5,6 +5,7 @@ const pages = [
   { url: '/formula-care', priority: '0.9', changefreq: 'weekly' },
   { url: '/aviso-legal', priority: '0.3', changefreq: 'yearly' },
   { url: '/privacidad', priority: '0.3', changefreq: 'yearly' },
+  { url: '/cookies', priority: '0.3', changefreq: 'yearly' },
 ];
 
 export const GET: APIRoute = async ({ site }) => {

@@ -6,97 +6,135 @@ import Footer from '@/components/Footer.astro';
 
 <Layout 
   title="Política de Privacidad | Fórmula Farma"
-  description="Política de privacidad y protección de datos de Fórmula Farma."
+  description="Política de privacidad de Fórmula Farma. Tus datos son tuyos, yo solo los uso para responderte."
 >
   <Navbar />
   <main class="pt-24 pb-16">
     <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
-      <h1 class="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
         Política de Privacidad
       </h1>
+      <p class="font-body text-xl text-muted-foreground mb-12">
+        Tus datos son tuyos. Yo solo los uso para responderte.
+      </p>
 
       <div class="prose prose-lg max-w-none font-body text-muted-foreground">
-        <section class="mb-8">
+        
+        <section class="mb-10">
           <h2 class="font-display text-2xl font-bold text-foreground mb-4">1. Responsable del tratamiento</h2>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong class="text-foreground">Identidad:</strong> Fórmula Farma Tech</li>
-            <li><strong class="text-foreground">Dirección:</strong> [Dirección fiscal]</li>
-            <li><strong class="text-foreground">Email:</strong> hola@formulafarma.com</li>
-          </ul>
+          <p>
+            El responsable del tratamiento de tus datos personales es Abel Eiras Espiño, 
+            titular del sitio web <code class="bg-muted px-2 py-1 rounded text-sm">formulafarma.com</code>.
+          </p>
+          <p class="mt-2">
+            Email de contacto: <a href="mailto:abel@formulafarma.com" class="text-primary hover:underline">abel@formulafarma.com</a>
+          </p>
         </section>
 
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">2. Finalidad del tratamiento</h2>
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">2. Datos que recopilo</h2>
           <p>
-            Los datos personales que nos facilites a través de los formularios de contacto serán 
-            tratados con las siguientes finalidades:
+            Solo lo que me digas a través de los formularios, nada más:
           </p>
           <ul class="list-disc pl-6 mt-4 space-y-2">
-            <li>Gestionar las consultas y solicitudes de información.</li>
-            <li>Gestionar las solicitudes de acceso a la beta de Fórmula Care.</li>
-            <li>Enviar comunicaciones comerciales si has dado tu consentimiento.</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">3. Legitimación</h2>
-          <p>
-            La base legal para el tratamiento de tus datos es:
-          </p>
-          <ul class="list-disc pl-6 mt-4 space-y-2">
-            <li>El consentimiento del interesado para el tratamiento de sus datos personales.</li>
-            <li>El interés legítimo del responsable para la gestión de solicitudes.</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">4. Conservación de datos</h2>
-          <p>
-            Los datos personales proporcionados se conservarán mientras se mantenga la relación 
-            comercial o durante los años necesarios para cumplir con las obligaciones legales.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">5. Destinatarios</h2>
-          <p>
-            Los datos no se cederán a terceros salvo obligación legal o cuando sea necesario 
-            para la prestación del servicio.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">6. Derechos del interesado</h2>
-          <p>
-            Puedes ejercer los siguientes derechos:
-          </p>
-          <ul class="list-disc pl-6 mt-4 space-y-2">
-            <li><strong class="text-foreground">Acceso:</strong> Conocer qué datos personales tenemos sobre ti.</li>
-            <li><strong class="text-foreground">Rectificación:</strong> Solicitar la corrección de datos inexactos.</li>
-            <li><strong class="text-foreground">Supresión:</strong> Solicitar la eliminación de tus datos.</li>
-            <li><strong class="text-foreground">Oposición:</strong> Oponerte al tratamiento de tus datos.</li>
-            <li><strong class="text-foreground">Portabilidad:</strong> Recibir tus datos en formato estructurado.</li>
+            <li><strong class="text-foreground">Nombre:</strong> Para poder dirigirme a ti en la respuesta</li>
+            <li><strong class="text-foreground">Email:</strong> Para poder responderte</li>
+            <li><strong class="text-foreground">Nombre de tu farmacia:</strong> Para entender mejor tu contexto (opcional)</li>
+            <li><strong class="text-foreground">Mensaje:</strong> El contenido de tu consulta</li>
           </ul>
           <p class="mt-4">
-            Para ejercer estos derechos, puedes contactarnos en: 
-            <a href="mailto:hola@formulafarma.com" class="text-primary hover:underline">hola@formulafarma.com</a>
+            Si usas Fórmula Care, los datos que introduzcas en la plataforma (fichas de pacientes, etc.) 
+            también se almacenan, pero son <strong class="text-foreground">tuyos</strong>. Tú decides 
+            qué pones y puedes exportarlos o eliminarlos cuando quieras.
           </p>
         </section>
 
-        <section class="mb-8">
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">3. Finalidad del tratamiento</h2>
+          <p>
+            <strong class="text-foreground">Tus datos de contacto solo se utilizarán para responder 
+            al mensaje que me envíes y nunca con otros fines.</strong>
+          </p>
+          <p class="mt-4">No utilizaré tus datos para:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2">
+            <li>Enviar comunicaciones comerciales o publicitarias (salvo que me lo pidas)</li>
+            <li>Compartirlos con terceros</li>
+            <li>Crear perfiles de usuario para vendértelos a nadie</li>
+            <li>Cualquier otro fin que no sea responder a tu mensaje</li>
+          </ul>
+          <p class="mt-4 italic text-sm">
+            Creo que ya lo he dicho varias veces. Espero que se haya entendido.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">4. Base legal</h2>
+          <p>
+            El tratamiento de tus datos se basa en tu consentimiento explícito al enviar el 
+            formulario de contacto o al registrarte en Fórmula Care.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">5. Conservación de los datos</h2>
+          <p>
+            Los datos del formulario de contacto se conservarán únicamente durante el tiempo 
+            necesario para responder a tu mensaje y gestionar la comunicación derivada.
+          </p>
+          <p class="mt-4">
+            Los datos de Fórmula Care se conservan mientras mantengas tu cuenta activa. 
+            Si decides irte, puedes exportar todo y solicitar la eliminación completa.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">6. Tus derechos</h2>
+          <p>Tienes derecho a:</p>
+          <ul class="list-disc pl-6 mt-4 space-y-2">
+            <li><strong class="text-foreground">Acceder</strong> a tus datos personales</li>
+            <li><strong class="text-foreground">Rectificar</strong> datos inexactos</li>
+            <li><strong class="text-foreground">Solicitar la supresión</strong> de tus datos</li>
+            <li><strong class="text-foreground">Oponerte</strong> al tratamiento</li>
+            <li><strong class="text-foreground">Limitar</strong> el tratamiento</li>
+            <li><strong class="text-foreground">Portabilidad</strong> de los datos</li>
+          </ul>
+          <p class="mt-4">
+            Para ejercer estos derechos, puedes contactarme en 
+            <a href="mailto:abel@formulafarma.com" class="text-primary hover:underline">abel@formulafarma.com</a>. 
+            Te respondo yo directamente, no un bot.
+          </p>
+        </section>
+
+        <section class="mb-10">
           <h2 class="font-display text-2xl font-bold text-foreground mb-4">7. Cookies</h2>
           <p>
-            Este sitio web utiliza cookies técnicas necesarias para su funcionamiento. 
-            Para más información, consulta nuestra política de cookies.
+            Ya he escrito suficiente sobre esto y no voy a repetirlo aquí. Para más información 
+            sobre el uso de cookies en este sitio web, consulta la 
+            <a href="/cookies" class="text-primary hover:underline">Política de Cookies</a>.
+          </p>
+          <p class="mt-2 text-sm italic">
+            Spoiler: no uso cookies de rastreo. Navega tranquilo.
           </p>
         </section>
 
-        <section class="mb-8">
+        <section class="mb-10">
           <h2 class="font-display text-2xl font-bold text-foreground mb-4">8. Seguridad</h2>
           <p>
-            Hemos adoptado las medidas de seguridad técnicas y organizativas necesarias para 
-            garantizar la seguridad de tus datos personales y evitar su alteración, pérdida, 
-            tratamiento o acceso no autorizado.
+            Implemento medidas técnicas y organizativas apropiadas para proteger tus datos 
+            personales contra el acceso no autorizado, la pérdida o la destrucción. 
+            Encriptación, backups, lo que toca.
+          </p>
+          <p class="mt-4 text-sm italic">
+            Pero tampoco te flipes: si me mandas cosas que no debes, la culpa es tuya. 
+            Yo soy discreto, pero no me metas en líos.
+          </p>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">9. Cambios en esta política</h2>
+          <p>
+            No creo que pase, pero me reservo el derecho de modificar esta política de privacidad. 
+            Cualquier cambio será publicado en esta página con la fecha de actualización.
           </p>
         </section>
       </div>
