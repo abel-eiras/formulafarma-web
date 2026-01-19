@@ -1,0 +1,92 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout 
+  title="Aviso Legal | Fórmula Farma"
+  description="Aviso legal y condiciones de uso de Fórmula Farma."
+>
+  <Navbar />
+  <main class="pt-24 pb-16">
+    <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">
+        Aviso Legal
+      </h1>
+
+      <div class="prose prose-lg max-w-none font-body text-muted-foreground">
+        <section class="mb-8">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">1. Datos identificativos</h2>
+          <p>
+            En cumplimiento del deber de información recogido en el artículo 10 de la Ley 34/2002, 
+            de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, 
+            a continuación se reflejan los siguientes datos:
+          </p>
+          <ul class="list-disc pl-6 mt-4 space-y-2">
+            <li><strong class="text-foreground">Titular:</strong> Fórmula Farma Tech</li>
+            <li><strong class="text-foreground">Domicilio:</strong> [Dirección fiscal]</li>
+            <li><strong class="text-foreground">Email:</strong> hola@formulafarma.com</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">2. Objeto</h2>
+          <p>
+            El presente aviso legal regula el uso y utilización del sitio web formulafarma.com, 
+            del que es titular Fórmula Farma Tech.
+          </p>
+          <p class="mt-4">
+            La navegación por el sitio web atribuye la condición de usuario del mismo e implica 
+            la aceptación plena y sin reservas de todas y cada una de las disposiciones incluidas 
+            en este Aviso Legal.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">3. Condiciones de uso</h2>
+          <p>
+            El usuario se compromete a utilizar el sitio web, sus servicios y contenidos sin 
+            contravenir la legislación vigente, la buena fe y el orden público.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">4. Propiedad intelectual</h2>
+          <p>
+            Todos los contenidos del sitio web, incluyendo textos, fotografías, gráficos, imágenes, 
+            iconos, tecnología, software, links y demás contenidos audiovisuales o sonoros, así como 
+            su diseño gráfico y códigos fuente, son propiedad intelectual de Fórmula Farma Tech o de 
+            terceros, sin que puedan entenderse cedidos al usuario ninguno de los derechos de explotación.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">5. Exclusión de responsabilidad</h2>
+          <p>
+            Fórmula Farma Tech no se hace responsable, en ningún caso, de los daños y perjuicios 
+            de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones 
+            en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas 
+            maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas 
+            tecnológicas necesarias para evitarlo.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">6. Legislación aplicable</h2>
+          <p>
+            Para la resolución de todas las controversias o cuestiones relacionadas con el presente 
+            sitio web, será de aplicación la legislación española.
+          </p>
+        </section>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border">
+        <p class="text-sm text-muted-foreground">
+          Última actualización: Enero 2026
+        </p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

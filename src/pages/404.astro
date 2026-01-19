@@ -1,0 +1,40 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Button from '@/components/ui/Button.astro';
+import { Home, ArrowLeft } from 'lucide-astro';
+---
+
+<Layout 
+  title="Página no encontrada | Fórmula Farma"
+  description="La página que buscas no existe."
+>
+  <main class="min-h-screen flex items-center justify-center bg-gradient-mesh">
+    <div class="container mx-auto px-4 text-center">
+      <div class="max-w-lg mx-auto">
+        <!-- 404 Number -->
+        <div class="text-9xl font-display font-bold text-gradient-primary mb-4">
+          404
+        </div>
+        
+        <h1 class="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+          Página no encontrada
+        </h1>
+        
+        <p class="font-body text-lg text-muted-foreground mb-8">
+          Lo sentimos, la página que buscas no existe o ha sido movida.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button variant="hero" href="/">
+            <Home class="w-5 h-5" />
+            Ir al inicio
+          </Button>
+          <Button variant="outline" href="javascript:history.back()">
+            <ArrowLeft class="w-5 h-5" />
+            Volver atrás
+          </Button>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
