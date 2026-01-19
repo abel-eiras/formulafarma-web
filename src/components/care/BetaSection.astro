@@ -1,0 +1,87 @@
+---
+import { Sparkles, CheckCircle, Clock, HeartPulse } from 'lucide-astro';
+
+const betaFeatures = [
+  {
+    icon: 'heartpulse',
+    title: 'Servicios Asistenciales',
+    description: 'Registra asesoramientos dermocosméticos, análisis de parámetros y más. Todo en un solo lugar.',
+  },
+  {
+    icon: 'clock',
+    title: 'Historial Completo',
+    description: 'Cada paciente con su ficha, evolución temporal y recomendaciones anteriores siempre a mano.',
+  },
+  {
+    icon: 'check',
+    title: 'Fácil de Usar',
+    description: 'Interfaz limpia y clara. No necesitas formación. Si sabes usar un móvil, sabes usar Fórmula Care.',
+  },
+];
+
+const promises = [
+  'Sin tarjeta de crédito',
+  'Sin compromiso',
+  'Cancela cuando quieras',
+];
+---
+
+<section id="beta" class="py-24 bg-secondary">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-block px-4 py-2 rounded-full bg-accent/20 text-accent-foreground text-sm font-medium mb-4">
+        <Sparkles class="w-4 h-4 inline mr-2" />
+        Beta Abierta
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        ¿Por qué unirte a la beta?
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Fórmula Care está casi listo. Pero antes de lanzar, queremos 
+        perfeccionarlo con farmacias reales como la tuya.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      {betaFeatures.map((feature, index) => (
+        <div
+          class="animate-fade-up bg-card rounded-2xl p-8 shadow-soft border border-border hover:shadow-elevated transition-all duration-300 text-center"
+          style={`animation-delay: ${0.1 + index * 0.1}s;`}
+        >
+          <div class="w-16 h-16 rounded-2xl bg-gradient-hero flex items-center justify-center mb-6 mx-auto">
+            {feature.icon === 'heartpulse' && <HeartPulse class="w-8 h-8 text-primary-foreground" />}
+            {feature.icon === 'clock' && <Clock class="w-8 h-8 text-primary-foreground" />}
+            {feature.icon === 'check' && <CheckCircle class="w-8 h-8 text-primary-foreground" />}
+          </div>
+
+          <h3 class="font-display text-xl font-bold text-foreground mb-3">
+            {feature.title}
+          </h3>
+          <p class="font-body text-muted-foreground leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Beta Promise -->
+    <div class="animate-fade-up bg-card rounded-2xl p-8 md:p-12 shadow-soft border border-border max-w-3xl mx-auto text-center" style="animation-delay: 0.4s;">
+      <h3 class="font-display text-2xl font-bold text-foreground mb-4">
+        Nuestra promesa beta
+      </h3>
+      <p class="font-body text-muted-foreground mb-6 leading-relaxed">
+        Durante la beta tendrás acceso gratuito a todas las funcionalidades. 
+        A cambio, solo te pedimos que nos cuentes qué funciona y qué podemos mejorar. 
+        Cuando lancemos la versión final, los usuarios beta tendrán <strong class="text-primary">condiciones especiales</strong>.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+        {promises.map((promise) => (
+          <span class="flex items-center gap-2">
+            <CheckCircle class="w-4 h-4 text-primary" />
+            {promise}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import CareNavbar from '@/components/care/CareNavbar.astro';
+import CareHero from '@/components/care/CareHero.astro';
+import CareServices from '@/components/care/CareServices.astro';
+import HowItWorks from '@/components/care/HowItWorks.astro';
+import About from '@/components/care/About.astro';
+import BetaSection from '@/components/care/BetaSection.astro';
+import CareCTA from '@/components/care/CareCTA.astro';
+import CareFooter from '@/components/care/CareFooter.astro';
+---
+
+<Layout 
+  title="Fórmula Care | Gestión de Servicios Asistenciales para Farmacias"
+  description="La plataforma para el seguimiento y registro de servicios asistenciales en tu farmacia. Asesoramiento dermocosmético, análisis de parámetros bioquímicos y mucho más."
+>
+  <CareNavbar />
+  <main>
+    <CareHero />
+    <CareServices />
+    <HowItWorks />
+    <About />
+    <BetaSection />
+    <CareCTA />
+  </main>
+  <CareFooter />
+</Layout>

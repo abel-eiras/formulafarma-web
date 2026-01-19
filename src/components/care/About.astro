@@ -1,0 +1,86 @@
+---
+import { Shield, Rocket, Target, Code } from 'lucide-astro';
+
+const values = [
+  {
+    icon: 'target',
+    title: 'Hecho para Farmacias',
+    description: 'No es una herramienta genérica adaptada. Fórmula Care está diseñado desde cero pensando en los servicios asistenciales de la farmacia.',
+  },
+  {
+    icon: 'shield',
+    title: 'Simple y Potente',
+    description: 'Interfaz intuitiva que no requiere formación. Configura tus servicios, registra consultas y consulta historiales en segundos.',
+  },
+  {
+    icon: 'rocket',
+    title: 'En Constante Mejora',
+    description: 'Estamos en beta porque queremos perfeccionarlo contigo. Cada sugerencia de usuarios reales nos hace mejorar.',
+  },
+  {
+    icon: 'code',
+    title: 'Tecnología Moderna',
+    description: 'Construido con las últimas tecnologías. Rápido, seguro y accesible desde cualquier dispositivo.',
+  },
+];
+---
+
+<section id="nosotros" class="py-24 bg-background">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Content -->
+      <div class="animate-fade-up">
+        <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          Sobre FormulaFarma
+        </span>
+        <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+          Software pensado para farmacias que quieren más
+        </h2>
+        <p class="font-body text-lg text-muted-foreground mb-8 leading-relaxed">
+          FormulaFarma nace con una misión: crear herramientas digitales que 
+          realmente sirvan a las farmacias. Nada de software genérico. Nada de 
+          funciones que nunca usarás.
+        </p>
+        <p class="font-body text-lg text-muted-foreground mb-8 leading-relaxed">
+          <strong class="text-foreground">Fórmula Care</strong> es nuestro primer producto: una plataforma 
+          para gestionar servicios asistenciales de forma sencilla. Y esto es solo el principio.
+        </p>
+
+        <!-- Vision -->
+        <div class="bg-secondary rounded-xl p-6">
+          <p class="font-body text-foreground italic">
+            "Queremos que cada farmacia tenga acceso a tecnología de primer nivel, 
+            sin complicaciones y a un precio justo. Estamos en beta porque queremos 
+            construir esto contigo."
+          </p>
+          <p class="font-display font-bold text-primary mt-4">
+            — El equipo de FormulaFarma
+          </p>
+        </div>
+      </div>
+
+      <!-- Values Grid -->
+      <div class="grid sm:grid-cols-2 gap-6">
+        {values.map((value, index) => (
+          <div
+            class="animate-fade-up bg-card rounded-2xl p-6 shadow-soft border border-border hover:border-primary/30 transition-all duration-300"
+            style={`animation-delay: ${0.1 + index * 0.1}s;`}
+          >
+            <div class="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center mb-4">
+              {value.icon === 'target' && <Target class="w-6 h-6 text-primary-foreground" />}
+              {value.icon === 'shield' && <Shield class="w-6 h-6 text-primary-foreground" />}
+              {value.icon === 'rocket' && <Rocket class="w-6 h-6 text-primary-foreground" />}
+              {value.icon === 'code' && <Code class="w-6 h-6 text-primary-foreground" />}
+            </div>
+            <h3 class="font-display text-lg font-bold text-foreground mb-2">
+              {value.title}
+            </h3>
+            <p class="font-body text-sm text-muted-foreground leading-relaxed">
+              {value.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

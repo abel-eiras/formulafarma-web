@@ -1,0 +1,101 @@
+---
+import { Stethoscope, Droplets, Settings, FileText, BarChart3, Users } from 'lucide-astro';
+
+const features = [
+  {
+    icon: 'stethoscope',
+    title: 'Asesoramiento Dermocosmético',
+    description: 'Registra consultas de piel, recomienda productos y haz seguimiento de la evolución de cada paciente con fichas personalizadas.',
+    highlight: 'Disponible',
+  },
+  {
+    icon: 'droplets',
+    title: 'Parámetros Bioquímicos',
+    description: 'Análisis de glucosa, colesterol, tensión y más. Historial completo, alertas personalizadas y gráficos de evolución.',
+    highlight: 'Disponible',
+  },
+  {
+    icon: 'filetext',
+    title: 'Fichas de Paciente',
+    description: 'Cada paciente con su historial completo. Notas, recomendaciones, productos utilizados y seguimiento temporal.',
+    highlight: 'Personalizable',
+  },
+  {
+    icon: 'barchart',
+    title: 'Informes y Estadísticas',
+    description: 'Visualiza tendencias, servicios más demandados y evolución de tus pacientes. Datos que te ayudan a mejorar.',
+    highlight: 'Próximamente',
+  },
+  {
+    icon: 'settings',
+    title: '100% Configurable',
+    description: 'Adapta campos, formularios y flujos a tu forma de trabajar. Sin rigidez, sin complicaciones.',
+    highlight: 'Flexible',
+  },
+  {
+    icon: 'users',
+    title: 'Multiusuario',
+    description: 'Todo tu equipo puede usar la plataforma. Cada farmacéutico con su acceso, todos los datos centralizados.',
+    highlight: 'Colaborativo',
+  },
+];
+---
+
+<section id="funcionalidades" class="py-24 bg-secondary">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+        Fórmula Care
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Todo lo que necesitas para tus servicios asistenciales
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Una plataforma pensada para farmacias que quieren ofrecer 
+        servicios profesionales y llevar un registro impecable.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div
+          class="animate-fade-up group relative bg-card rounded-2xl p-8 shadow-soft hover:shadow-elevated transition-all duration-300 border border-border hover:border-primary/30"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <!-- Highlight Badge -->
+          <div class="absolute -top-3 right-6">
+            <span class="inline-block px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold">
+              {feature.highlight}
+            </span>
+          </div>
+
+          <div class="w-14 h-14 rounded-xl bg-gradient-hero flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            {feature.icon === 'stethoscope' && <Stethoscope class="w-7 h-7 text-primary-foreground" />}
+            {feature.icon === 'droplets' && <Droplets class="w-7 h-7 text-primary-foreground" />}
+            {feature.icon === 'filetext' && <FileText class="w-7 h-7 text-primary-foreground" />}
+            {feature.icon === 'barchart' && <BarChart3 class="w-7 h-7 text-primary-foreground" />}
+            {feature.icon === 'settings' && <Settings class="w-7 h-7 text-primary-foreground" />}
+            {feature.icon === 'users' && <Users class="w-7 h-7 text-primary-foreground" />}
+          </div>
+
+          <h3 class="font-display text-xl font-bold text-foreground mb-3">
+            {feature.title}
+          </h3>
+          <p class="font-body text-muted-foreground leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Note -->
+    <div class="mt-16 text-center animate-fade-up" style="animation-delay: 0.5s;">
+      <p class="text-muted-foreground mb-2">
+        ¿Echas algo en falta? Estamos en beta.
+      </p>
+      <p class="text-foreground font-medium">
+        Tu feedback nos ayuda a construir exactamente lo que necesitas.
+      </p>
+    </div>
+  </div>
+</section>
