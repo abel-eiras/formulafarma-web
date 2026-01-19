@@ -1,0 +1,97 @@
+---
+import { ArrowRight, HeartPulse, Sparkles } from 'lucide-astro';
+import Button from '@/components/ui/Button.astro';
+
+const features = [
+  'Asesoramiento dermocosmético personalizado',
+  'Control de parámetros bioquímicos',
+  'Fichas de paciente completas',
+  '100% personalizable',
+];
+---
+
+<section id="producto" class="py-24 bg-background">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="animate-fade-up">
+      <div class="relative bg-card rounded-3xl overflow-hidden shadow-elevated border border-border">
+        <!-- Background gradient -->
+        <div class="absolute inset-0 bg-gradient-mesh opacity-50"></div>
+        
+        <div class="relative p-8 md:p-12 lg:p-16">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Content -->
+            <div>
+              <!-- Beta Badge -->
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-accent-foreground text-sm font-bold mb-6">
+                <Sparkles class="w-4 h-4" />
+                BETA PRIVADA
+              </div>
+
+              <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                Fórmula Care
+              </h2>
+
+              <p class="font-body text-lg text-muted-foreground mb-8 leading-relaxed">
+                Gestión integral de servicios dermocosméticos y control de parámetros 
+                de salud. <strong class="text-foreground">Sin diagnósticos, solo asistencia 
+                farmacéutica de calidad.</strong>
+              </p>
+
+              <ul class="space-y-3 mb-8">
+                {features.map((feature) => (
+                  <li class="flex items-center gap-3 text-muted-foreground">
+                    <div class="w-2 h-2 rounded-full bg-primary"></div>
+                    <span class="font-body">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Button variant="hero" size="lg" href="/formula-care">
+                Solicitar Acceso Anticipado
+                <ArrowRight class="w-5 h-5" />
+              </Button>
+            </div>
+
+            <!-- Visual Mockup -->
+            <div class="relative">
+              <div class="absolute -top-4 -right-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+              <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-accent/10 rounded-full blur-3xl"></div>
+              
+              <div class="relative bg-gradient-hero rounded-2xl p-8 shadow-glow">
+                <div class="bg-card/10 backdrop-blur rounded-xl p-6 space-y-4">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 rounded-xl bg-primary-foreground/20 flex items-center justify-center">
+                      <HeartPulse class="w-6 h-6 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <p class="font-display font-bold text-primary-foreground">Fórmula Care</p>
+                      <p class="text-sm text-primary-foreground/70">Panel de control</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Mock UI Elements -->
+                  <div class="space-y-3">
+                    <div class="h-3 bg-primary-foreground/20 rounded-full w-full"></div>
+                    <div class="h-3 bg-primary-foreground/20 rounded-full w-4/5"></div>
+                    <div class="h-3 bg-primary-foreground/20 rounded-full w-3/5"></div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3 mt-6">
+                    <div class="bg-primary-foreground/10 rounded-lg p-3">
+                      <p class="text-xs text-primary-foreground/70">Pacientes</p>
+                      <p class="font-display font-bold text-xl text-primary-foreground">127</p>
+                    </div>
+                    <div class="bg-primary-foreground/10 rounded-lg p-3">
+                      <p class="text-xs text-primary-foreground/70">Consultas</p>
+                      <p class="font-display font-bold text-xl text-primary-foreground">342</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,103 @@
+---
+import { Beaker, Linkedin, Twitter, Instagram, Mail } from 'lucide-astro';
+
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { icon: 'linkedin', href: '#', label: 'LinkedIn' },
+  { icon: 'twitter', href: '#', label: 'Twitter' },
+  { icon: 'instagram', href: '#', label: 'Instagram' },
+];
+
+const products = [
+  { label: 'Fórmula Care', href: '/formula-care' },
+  { label: 'Más productos (próximamente)', href: '#', disabled: true },
+];
+
+const legalLinks = [
+  { label: 'Aviso Legal', href: '/aviso-legal' },
+  { label: 'Política de Privacidad', href: '/privacidad' },
+];
+---
+
+<footer class="bg-foreground text-background py-16">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <!-- Brand -->
+      <div class="lg:col-span-2">
+        <a href="/" class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+            <Beaker class="w-6 h-6 text-primary-foreground" />
+          </div>
+          <span class="font-display text-2xl font-bold">
+            FormulaFarma
+          </span>
+        </a>
+        <p class="text-background/70 max-w-md mb-6 font-body leading-relaxed">
+          Hub de Innovación y Tecnología Farmacéutica. Creamos herramientas 
+          digitales y ofrecemos consultoría para modernizar tu farmacia.
+        </p>
+        
+        <!-- Social Links -->
+        <div class="flex items-center gap-4">
+          {socialLinks.map((social) => (
+            <a
+              href={social.href}
+              aria-label={social.label}
+              class="w-10 h-10 rounded-lg bg-background/10 flex items-center justify-center hover:bg-primary transition-colors"
+            >
+              {social.icon === 'linkedin' && <Linkedin class="w-5 h-5" />}
+              {social.icon === 'twitter' && <Twitter class="w-5 h-5" />}
+              {social.icon === 'instagram' && <Instagram class="w-5 h-5" />}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div>
+        <h4 class="font-display font-bold text-lg mb-4">Productos</h4>
+        <ul class="space-y-3 text-background/70 font-body">
+          {products.map((product) => (
+            <li>
+              {product.disabled ? (
+                <span class="text-background/40">{product.label}</span>
+              ) : (
+                <a href={product.href} class="hover:text-primary transition-colors">
+                  {product.label}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="font-display font-bold text-lg mb-4">Contacto</h4>
+        <ul class="space-y-3 text-background/70 font-body">
+          <li class="flex items-center gap-2">
+            <Mail class="w-4 h-4" />
+            <span>hola@formulafarma.com</span>
+          </li>
+          {legalLinks.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-primary transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-background/10 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-background/60 text-sm font-body">
+          © {currentYear} Fórmula Farma Tech. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

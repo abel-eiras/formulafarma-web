@@ -1,0 +1,62 @@
+---
+import { Code, Zap, Users } from 'lucide-astro';
+
+const services = [
+  {
+    icon: 'code',
+    title: 'Desarrollo a Medida',
+    description: 'Diseñamos el software que tu farmacia necesita y que no existe en el mercado. Soluciones únicas para problemas únicos.',
+  },
+  {
+    icon: 'zap',
+    title: 'Automatizaciones',
+    description: 'Optimiza procesos repetitivos. Recupera tiempo para tus pacientes. Flujos automáticos que trabajan mientras tú no.',
+  },
+  {
+    icon: 'users',
+    title: 'Mentorías 1 a 1',
+    description: 'Aprende a digitalizar tu farmacia con estrategias probadas. Sesiones personalizadas con resultados medibles.',
+  },
+];
+---
+
+<section id="servicios" class="py-24 bg-muted/30">
+  <div class="container mx-auto px-4 lg:px-8">
+    <!-- Header -->
+    <div class="animate-fade-up text-center mb-16">
+      <span class="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4">
+        Nuestros Servicios
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Más allá del software
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Soluciones completas para modernizar tu farmacia. Desde herramientas 
+        digitales hasta formación personalizada.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      {services.map((service, index) => (
+        <div 
+          class="animate-fade-up group relative bg-card rounded-2xl p-8 shadow-soft hover:shadow-elevated transition-all duration-300 border border-border hover:border-primary/30 h-full"
+          style={`animation-delay: ${0.1 + index * 0.1}s;`}
+        >
+          <div class="w-14 h-14 rounded-xl bg-gradient-hero flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            {service.icon === 'code' && <Code class="w-7 h-7 text-primary-foreground" />}
+            {service.icon === 'zap' && <Zap class="w-7 h-7 text-primary-foreground" />}
+            {service.icon === 'users' && <Users class="w-7 h-7 text-primary-foreground" />}
+          </div>
+
+          <h3 class="font-display text-xl font-bold text-foreground mb-3">
+            {service.title}
+          </h3>
+          <p class="font-body text-muted-foreground leading-relaxed">
+            {service.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

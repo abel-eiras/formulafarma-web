@@ -1,0 +1,51 @@
+---
+import { cn } from '@/lib/utils';
+
+interface Props {
+  variant?: 'default' | 'outline' | 'hero' | 'accent' | 'ghost';
+  size?: 'default' | 'sm' | 'lg' | 'xl';
+  href?: string;
+  class?: string;
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const { 
+  variant = 'default', 
+  size = 'default', 
+  href, 
+  class: className,
+  type = 'button',
+  ...props 
+} = Astro.props;
+
+const baseStyles = 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium font-body ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
+
+const variants = {
+  default: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-elevated',
+  outline: 'border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground',
+  hero: 'bg-gradient-hero text-primary-foreground shadow-elevated hover:shadow-glow hover:scale-[1.02] active:scale-[0.98]',
+  accent: 'bg-gradient-accent text-accent-foreground shadow-soft hover:shadow-elevated hover:scale-[1.02]',
+  ghost: 'hover:bg-muted hover:text-foreground',
+};
+
+const sizes = {
+  default: 'h-10 px-4 py-2',
+  sm: 'h-9 rounded-md px-3',
+  lg: 'h-12 rounded-lg px-8 text-base',
+  xl: 'h-14 rounded-xl px-10 text-lg',
+};
+
+const classes = cn(baseStyles, variants[variant], sizes[size], className);
+
+const Element = href ? 'a' : 'button';
+---
+
+{href ? (
+  <a href={href} class={classes} {...props}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} {...props}>
+    <slot />
+  </button>
+)}

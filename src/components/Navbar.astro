@@ -1,0 +1,128 @@
+---
+import { Beaker, Menu, X } from 'lucide-astro';
+import Button from '@/components/ui/Button.astro';
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { label: 'Producto', href: '#producto' },
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Contacto', href: '#contacto' },
+];
+---
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3">
+        <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-hero flex items-center justify-center shadow-soft">
+          <Beaker class="w-5 h-5 lg:w-6 lg:h-6 text-primary-foreground" />
+        </div>
+        <span class="font-display text-xl lg:text-2xl font-bold text-foreground">
+          FormulaFarma
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="font-body text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- CTA Button (Desktop) -->
+      <div class="hidden md:block">
+        <Button variant="hero" href="#contacto">
+          Contactar
+        </Button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 text-foreground"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+      >
+        <Menu id="menu-icon-open" class="w-6 h-6" />
+        <X id="menu-icon-close" class="w-6 h-6 hidden" />
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-border bg-background">
+      <div class="flex flex-col gap-4">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="mobile-nav-link font-body text-base font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+          >
+            {item.label}
+          </a>
+        ))}
+        <Button variant="hero" href="#contacto" class="mt-2">
+          Contactar
+        </Button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Scroll effect
+  const navbar = document.getElementById('navbar');
+  
+  function updateNavbar() {
+    if (window.scrollY > 20) {
+      navbar?.classList.add('bg-background/95', 'backdrop-blur-lg', 'shadow-soft', 'border-b', 'border-border');
+      navbar?.classList.remove('bg-transparent');
+    } else {
+      navbar?.classList.remove('bg-background/95', 'backdrop-blur-lg', 'shadow-soft', 'border-b', 'border-border');
+      navbar?.classList.add('bg-transparent');
+    }
+  }
+  
+  window.addEventListener('scroll', updateNavbar);
+  updateNavbar();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+  
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.contains('hidden');
+    
+    if (isOpen) {
+      mobileMenu?.classList.remove('hidden');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+      menuBtn?.setAttribute('aria-expanded', 'true');
+    } else {
+      mobileMenu?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+      menuBtn?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close menu on link click
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+      menuBtn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
