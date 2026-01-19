@@ -1,37 +1,47 @@
 ---
-import { Menu, X } from 'lucide-astro';
+import { Menu, X, ArrowLeft } from 'lucide-astro';
 import Button from '@/components/ui/Button.astro';
 
 const navItems = [
   { label: 'Funcionalidades', href: '#funcionalidades' },
   { label: 'Cómo Funciona', href: '#como-funciona' },
-  { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'Beta', href: '#beta' },
+  { label: 'FAQ', href: '#faq' },
 ];
 ---
 
 <nav id="care-navbar" class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
   <div class="container mx-auto px-4 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a href="/formula-care" class="flex items-center gap-2">
-        <img 
-          src="/logo.webp" 
-          alt="Fórmula Farma" 
-          class="w-10 h-10 rounded-xl"
-        />
-        <div class="flex flex-col">
-          <span class="font-display text-xl font-bold text-foreground leading-tight">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo - siempre enlaza al home -->
+      <div class="flex items-center gap-4">
+        <a href="/" class="flex items-center gap-3 group">
+          <img 
+            src="/logo.webp" 
+            alt="Fórmula Farma" 
+            class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl shadow-soft"
+          />
+          <span class="font-display text-xl lg:text-2xl font-bold text-foreground">
             FormulaFarma
           </span>
-          <span class="text-xs text-primary font-medium -mt-1">
-            Fórmula Care Beta
-          </span>
+        </a>
+        <!-- Breadcrumb / Indicador de sección -->
+        <div class="hidden sm:flex items-center gap-2 text-muted-foreground">
+          <span class="text-border">/</span>
+          <span class="text-sm font-medium text-primary">Fórmula Care</span>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-accent/20 text-accent font-semibold">Beta</span>
         </div>
-      </a>
+      </div>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-8">
+      <div class="hidden md:flex items-center gap-6">
+        <a
+          href="/"
+          class="font-body text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+        >
+          <ArrowLeft class="w-4 h-4" />
+          Inicio
+        </a>
+        <span class="text-border">|</span>
         {navItems.map((item) => (
           <a
             href={item.href}
@@ -42,10 +52,13 @@ const navItems = [
         ))}
       </div>
 
-      <!-- CTA Button (Desktop) -->
-      <div class="hidden md:block">
-        <Button variant="hero" href="#cta">
+      <!-- CTA Buttons (Desktop) -->
+      <div class="hidden md:flex items-center gap-3">
+        <Button variant="outline" size="sm" href="#cta">
           Solicitar Acceso
+        </Button>
+        <Button variant="hero" size="sm" href="https://formula-care.vercel.app/" target="_blank" rel="noopener">
+          Probar App
         </Button>
       </div>
 
@@ -64,17 +77,31 @@ const navItems = [
     <!-- Mobile Navigation -->
     <div id="care-mobile-menu" class="hidden md:hidden py-4 border-t border-border">
       <div class="flex flex-col gap-4">
-        {navItems.map((item) => (
-          <a
-            href={item.href}
-            class="care-mobile-nav-link font-body text-base font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-          >
-            {item.label}
-          </a>
-        ))}
-        <Button variant="hero" href="#cta" class="mt-2">
-          Solicitar Acceso
-        </Button>
+        <a
+          href="/"
+          class="care-mobile-nav-link font-body text-base font-medium text-primary transition-colors py-2 flex items-center gap-2"
+        >
+          <ArrowLeft class="w-4 h-4" />
+          Volver a Inicio
+        </a>
+        <div class="border-t border-border pt-4">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              class="care-mobile-nav-link font-body text-base font-medium text-muted-foreground hover:text-primary transition-colors py-2 block"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+        <div class="flex flex-col gap-2 mt-2">
+          <Button variant="hero" href="https://formula-care.vercel.app/" target="_blank" rel="noopener">
+            Probar App
+          </Button>
+          <Button variant="outline" href="#cta">
+            Solicitar Acceso
+          </Button>
+        </div>
       </div>
     </div>
   </div>

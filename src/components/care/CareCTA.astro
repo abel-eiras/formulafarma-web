@@ -24,10 +24,27 @@ import Button from '@/components/ui/Button.astro';
         <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
           ¿Quieres probar Fórmula Care?
         </h2>
-        <p class="font-body text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto">
+        <p class="font-body text-lg md:text-xl text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
           Estoy seleccionando farmacias para la fase beta. Acceso gratuito, 
           funcionalidades completas y un canal directo para darme tu opinión.
         </p>
+        
+        <!-- Botón directo a la app -->
+        <div class="mb-10">
+          <a 
+            href="https://formula-care.vercel.app/" 
+            target="_blank" 
+            rel="noopener"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary-foreground text-primary font-bold text-lg hover:bg-primary-foreground/90 transition-all hover:scale-105 shadow-lg"
+          >
+            <Sparkles class="w-5 h-5" />
+            Probar Fórmula Care ahora
+            <ArrowRight class="w-5 h-5" />
+          </a>
+          <p class="text-primary-foreground/60 text-sm mt-3">
+            ¿No tienes cuenta? Solicita acceso con el formulario de abajo.
+          </p>
+        </div>
       </div>
 
       <!-- Form -->
