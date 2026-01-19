@@ -5,37 +5,37 @@ const features = [
   {
     icon: 'stethoscope',
     title: 'Asesoramiento Dermocosmético',
-    description: 'Registra consultas de piel, recomienda productos y haz seguimiento de la evolución de cada paciente con fichas personalizadas.',
+    description: 'Registra consultas, recomienda productos y haz seguimiento sin perder el hilo. ¿Que vuelve en 2 semanas? Lo tendrás todo a mano.',
     highlight: 'Disponible',
   },
   {
     icon: 'droplets',
     title: 'Parámetros Bioquímicos',
-    description: 'Análisis de glucosa, colesterol, tensión y más. Historial completo, alertas personalizadas y gráficos de evolución.',
+    description: 'Glucosa, colesterol, tensión... Y sí, también recordamos al paciente que dijo que "iba a empezar la dieta el lunes". Gráficos que hasta tu madre entendería.',
     highlight: 'Disponible',
   },
   {
     icon: 'filetext',
     title: 'Fichas de Paciente',
-    description: 'Cada paciente con su historial completo. Notas, recomendaciones, productos utilizados y seguimiento temporal.',
+    description: 'Historial completo, notas, recomendaciones... Todo en un sitio. Adiós al "espera que busco en qué papel lo apunté".',
     highlight: 'Personalizable',
   },
   {
     icon: 'barchart',
     title: 'Informes y Estadísticas',
-    description: 'Visualiza tendencias, servicios más demandados y evolución de tus pacientes. Datos que te ayudan a mejorar.',
+    description: 'Datos bonitos que te ayudan a entender qué funciona y qué no. Para cuando te pregunten "¿y esto para qué sirve?".',
     highlight: 'Próximamente',
   },
   {
     icon: 'settings',
     title: '100% Configurable',
-    description: 'Adapta campos, formularios y flujos a tu forma de trabajar. Sin rigidez, sin complicaciones.',
+    description: '¿Cada farmacia es un mundo? Exacto. Por eso puedes configurar TODO. Campos, formularios, flujos... Si lo necesitas, lo tienes.',
     highlight: 'Flexible',
   },
   {
     icon: 'users',
     title: 'Multiusuario',
-    description: 'Todo tu equipo puede usar la plataforma. Cada farmacéutico con su acceso, todos los datos centralizados.',
+    description: 'Todo el equipo conectado. Cada uno con su acceso, todos los datos centralizados. Sin "¿dónde guardaste eso?".',
     highlight: 'Colaborativo',
   },
 ];
@@ -45,31 +45,31 @@ const features = [
   <div class="container mx-auto px-4 lg:px-8">
     <div class="text-center mb-16 animate-fade-up">
       <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-        Fórmula Care
+        Funcionalidades
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-        Todo lo que necesitas para tus servicios asistenciales
+        Todo lo que necesitas (sin lo que no necesitas)
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Una plataforma pensada para farmacias que quieren ofrecer 
-        servicios profesionales y llevar un registro impecable.
+        Nada de módulos que nunca usarás. Solo herramientas útiles para 
+        ofrecer servicios profesionales sin volverte loco.
       </p>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature, index) => (
         <div
-          class="animate-fade-up group relative bg-card rounded-2xl p-8 shadow-soft hover:shadow-elevated transition-all duration-300 border border-border hover:border-primary/30"
+          class="animate-fade-up group relative bg-card rounded-2xl p-8 shadow-soft hover:shadow-elevated transition-all duration-300 border border-border hover:border-primary/30 hover-lift icon-wiggle"
           style={`animation-delay: ${0.1 + index * 0.05}s;`}
         >
           <!-- Highlight Badge -->
           <div class="absolute -top-3 right-6">
-            <span class="inline-block px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold">
+            <span class="inline-block px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold group-hover:animate-bounce-subtle">
               {feature.highlight}
             </span>
           </div>
 
-          <div class="w-14 h-14 rounded-xl bg-gradient-hero flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <div class="w-14 h-14 rounded-xl bg-gradient-hero flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
             {feature.icon === 'stethoscope' && <Stethoscope class="w-7 h-7 text-primary-foreground" />}
             {feature.icon === 'droplets' && <Droplets class="w-7 h-7 text-primary-foreground" />}
             {feature.icon === 'filetext' && <FileText class="w-7 h-7 text-primary-foreground" />}
@@ -91,10 +91,10 @@ const features = [
     <!-- Bottom Note -->
     <div class="mt-16 text-center animate-fade-up" style="animation-delay: 0.5s;">
       <p class="text-muted-foreground mb-2">
-        ¿Echas algo en falta? Estamos en beta.
+        ¿Falta algo? Dinos.
       </p>
       <p class="text-foreground font-medium">
-        Tu feedback nos ayuda a construir exactamente lo que necesitas.
+        Literalmente estamos construyendo esto contigo. (Y no lo decimos por decir, de verdad leemos todos los mensajes)
       </p>
     </div>
   </div>

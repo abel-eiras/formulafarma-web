@@ -1,0 +1,80 @@
+---
+import { ChevronDown, HelpCircle } from 'lucide-astro';
+
+const faqs = [
+  {
+    question: '¿Es gratis durante la beta?',
+    answer: 'Sí. Y no hay letra pequeña. Ni grande. Ni mediana. Simplemente gratis.',
+  },
+  {
+    question: '¿Tengo que instalar algo?',
+    answer: 'Nope. Funciona en el navegador. Si puedes leer esto, puedes usar Fórmula Care. (Bueno, y si tienes internet. Pero eso ya lo tienes, ¿no?)',
+  },
+  {
+    question: '¿Y si no me gusta?',
+    answer: 'Nos lo dices, mejoramos, y tan amigos. Sin dramas, sin emails pasivo-agresivos, sin "sentimos que nos dejes". Prometido.',
+  },
+  {
+    question: '¿Mis datos están seguros?',
+    answer: 'Más seguros que el último trozo de tarta en la nevera de la farmacia. Encriptación, backups, cumplimiento RGPD... Lo típico, pero bien hecho.',
+  },
+  {
+    question: '¿Puedo sugerir funcionalidades?',
+    answer: 'No solo puedes, es que QUEREMOS que lo hagas. Estamos construyendo esto contigo. Literalmente. Cada sugerencia la leemos. De verdad.',
+  },
+  {
+    question: '¿Por qué debería fiarme de vosotros?',
+    answer: 'Buena pregunta. Somos farmacéuticos que programan, no programadores que googlean "qué es una farmacia". Conocemos tus problemas porque los hemos sufrido.',
+  },
+];
+---
+
+<section id="faq" class="py-24 bg-muted/30">
+  <div class="container mx-auto px-4 lg:px-8">
+    <!-- Header -->
+    <div class="animate-fade-up text-center mb-16">
+      <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+        FAQ
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Preguntas que probablemente te estás haciendo
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Y algunas que no, pero que quedan bien aquí.
+      </p>
+    </div>
+
+    <!-- FAQ Grid -->
+    <div class="max-w-3xl mx-auto space-y-4">
+      {faqs.map((faq, index) => (
+        <details 
+          class="animate-fade-up group bg-card rounded-xl border border-border hover:border-primary/30 transition-all duration-300 overflow-hidden"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none font-display font-semibold text-foreground hover:text-primary transition-colors">
+            <div class="flex items-center gap-3">
+              <HelpCircle class="w-5 h-5 text-primary flex-shrink-0" />
+              <span>{faq.question}</span>
+            </div>
+            <ChevronDown class="w-5 h-5 text-muted-foreground group-open:rotate-180 transition-transform duration-300 flex-shrink-0" />
+          </summary>
+          <div class="px-6 pb-6 pt-0">
+            <p class="font-body text-muted-foreground leading-relaxed pl-8">
+              {faq.answer}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="animate-fade-up text-center mt-12" style="animation-delay: 0.5s;">
+      <p class="text-muted-foreground mb-2">
+        ¿Tienes otra pregunta?
+      </p>
+      <a href="#contacto" class="text-primary font-medium hover:underline">
+        Escríbenos y te contestamos (de verdad, lo hacemos)
+      </a>
+    </div>
+  </div>
+</section>

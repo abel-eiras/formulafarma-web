@@ -1,0 +1,95 @@
+---
+import { Quote, Star } from 'lucide-astro';
+
+const testimonials = [
+  {
+    name: 'María del Carmen',
+    role: 'Farmacia Central (Ourense)',
+    quote: 'Desde que uso Fórmula Care, mi Excel de 47 pestañas llora abandonado en una carpeta. No me arrepiento.',
+    stars: 5,
+  },
+  {
+    name: 'Paco "El Digital"',
+    role: 'Farmacia San Roque (Vigo)',
+    quote: 'Mis compañeros me llamaban loco por querer digitalizar todo. Ahora me llaman "el que sale a su hora". Mejor.',
+    stars: 5,
+  },
+  {
+    name: 'Dra. López',
+    role: 'Farmacia Nueva Era (A Coruña)',
+    quote: 'Por fin un software que no requiere un máster para configurarlo. Mi madre lo entiende. Y eso es MUCHO decir.',
+    stars: 5,
+  },
+  {
+    name: 'Anonymous_Farma_2847',
+    role: 'Ubicación clasificada',
+    quote: 'No puedo revelar mi identidad, pero desde que automaticé los pedidos tengo tiempo para ver series en el almacén. 10/10.',
+    stars: 5,
+  },
+];
+
+// Disclaimer obvio
+const disclaimer = "* Estos testimonios son 100% inventados. Pero cuando tengamos clientes reales, prometemos que serán igual de entusiastas. O más.";
+---
+
+<section class="py-24 bg-background overflow-hidden">
+  <div class="container mx-auto px-4 lg:px-8">
+    <!-- Header -->
+    <div class="animate-fade-up text-center mb-16">
+      <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+        Testimonios*
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Lo que dicen nuestros clientes imaginarios
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Porque todavía estamos en beta, pero el optimismo es gratis.
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      {testimonials.map((testimonial, index) => (
+        <div 
+          class="animate-fade-up group relative bg-card rounded-2xl p-8 shadow-soft hover:shadow-elevated transition-all duration-300 border border-border hover:border-primary/30 hover-lift"
+          style={`animation-delay: ${0.1 + index * 0.1}s;`}
+        >
+          <!-- Quote Icon -->
+          <div class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center shadow-soft">
+            <Quote class="w-5 h-5 text-primary-foreground" />
+          </div>
+
+          <!-- Stars -->
+          <div class="flex gap-1 mb-4">
+            {Array.from({ length: testimonial.stars }).map(() => (
+              <Star class="w-4 h-4 text-accent fill-accent" />
+            ))}
+          </div>
+
+          <!-- Quote -->
+          <blockquote class="font-body text-foreground text-lg mb-6 leading-relaxed italic">
+            "{testimonial.quote}"
+          </blockquote>
+
+          <!-- Author -->
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-hero flex items-center justify-center text-primary-foreground font-display font-bold">
+              {testimonial.name.charAt(0)}
+            </div>
+            <div>
+              <p class="font-display font-bold text-foreground">{testimonial.name}</p>
+              <p class="text-sm text-muted-foreground">{testimonial.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="animate-fade-up text-center" style="animation-delay: 0.5s;">
+      <p class="text-sm text-muted-foreground italic">
+        {disclaimer}
+      </p>
+    </div>
+  </div>
+</section>

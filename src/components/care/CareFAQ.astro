@@ -1,0 +1,88 @@
+---
+import { ChevronDown, HelpCircle } from 'lucide-astro';
+
+const faqs = [
+  {
+    question: '¿Es realmente gratis durante la beta?',
+    answer: 'Sí. Cero euros. Sin tarjeta de crédito. Sin "prueba gratis de 14 días y luego te cobramos". Gratis de verdad hasta que salgamos de beta.',
+  },
+  {
+    question: '¿Y después de la beta qué pasa?',
+    answer: 'Tendremos planes de pago, pero los beta testers tendréis condiciones especiales de por vida. Por aguantarnos cuando aún teníamos bugs.',
+  },
+  {
+    question: '¿Necesito instalar algo?',
+    answer: 'Nope. Abre el navegador, entra en la web, y listo. Funciona en el ordenador de la farmacia, en tu móvil, en la tablet... Si tiene internet, funciona.',
+  },
+  {
+    question: '¿Y si cambio de idea? ¿Puedo sacar mis datos?',
+    answer: 'Tus datos son TUYOS. Siempre. Exportación completa cuando quieras. Sin dramas, sin retenciones, sin "espera 30 días hábiles".',
+  },
+  {
+    question: '¿Esto cumple con la RGPD y todo eso?',
+    answer: 'Por supuesto. Encriptación, servidores en Europa, política de privacidad clara... Todo lo que tiene que estar, está. Y bien hecho.',
+  },
+  {
+    question: '¿Puedo usarlo en varias farmacias?',
+    answer: 'Sí, pero cada farmacia tendría su cuenta separada. Si tienes un grupo de farmacias, escríbenos y lo hablamos. Tenemos soluciones.',
+  },
+  {
+    question: '¿Y si tengo una idea para mejorar el software?',
+    answer: 'Nos la cuentas. En serio, leemos TODO. Muchas funciones que tenemos ahora vienen de sugerencias de usuarios. Tú mandas.',
+  },
+  {
+    question: '¿Por qué debería fiarme de un software nuevo?',
+    answer: 'Porque lo hacemos farmacéuticos que entienden tus problemas. No somos una startup random que cree que las farmacias son "como tiendas, ¿no?".',
+  },
+];
+---
+
+<section id="faq" class="py-24 bg-background">
+  <div class="container mx-auto px-4 lg:px-8">
+    <!-- Header -->
+    <div class="animate-fade-up text-center mb-16">
+      <span class="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4">
+        Dudas razonables
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Preguntas frecuentes (y algunas infrecuentes)
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Todo lo que querías saber pero no te atrevías a preguntar. O sí.
+      </p>
+    </div>
+
+    <!-- FAQ Grid -->
+    <div class="max-w-3xl mx-auto space-y-4">
+      {faqs.map((faq, index) => (
+        <details 
+          class="animate-fade-up group bg-card rounded-xl border border-border hover:border-accent/30 transition-all duration-300 overflow-hidden"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none font-display font-semibold text-foreground hover:text-accent transition-colors">
+            <div class="flex items-center gap-3">
+              <HelpCircle class="w-5 h-5 text-accent flex-shrink-0" />
+              <span>{faq.question}</span>
+            </div>
+            <ChevronDown class="w-5 h-5 text-muted-foreground group-open:rotate-180 transition-transform duration-300 flex-shrink-0" />
+          </summary>
+          <div class="px-6 pb-6 pt-0">
+            <p class="font-body text-muted-foreground leading-relaxed pl-8">
+              {faq.answer}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="animate-fade-up text-center mt-12" style="animation-delay: 0.6s;">
+      <p class="text-muted-foreground mb-2">
+        ¿Sigues con dudas?
+      </p>
+      <a href="#cta" class="text-accent font-medium hover:underline">
+        Escríbenos y te contestamos personalmente
+      </a>
+    </div>
+  </div>
+</section>

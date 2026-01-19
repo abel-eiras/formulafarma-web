@@ -2,21 +2,25 @@
 import Layout from '@/layouts/Layout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Hero from '@/components/Hero.astro';
+import Testimonials from '@/components/Testimonials.astro';
 import FeaturedProduct from '@/components/FeaturedProduct.astro';
 import ServicesSection from '@/components/ServicesSection.astro';
+import FAQ from '@/components/FAQ.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import Footer from '@/components/Footer.astro';
 ---
 
 <Layout 
-  title="Fórmula Farma | Hub de Innovación Farmacéutica"
-  description="Herramientas digitales, automatizaciones y mentoría creadas por farmacéuticos para farmacéuticos. Transforma tu farmacia con tecnología real."
+  title="Fórmula Farma | Menos Excel. Más pacientes."
+  description="Software y automatizaciones creadas por farmacéuticos hartos de lo mismo que tú. Herramientas digitales para farmacias que funcionan de verdad."
 >
   <Navbar />
   <main>
     <Hero />
+    <Testimonials />
     <FeaturedProduct />
     <ServicesSection />
+    <FAQ />
     <ContactForm />
   </main>
   <Footer />
