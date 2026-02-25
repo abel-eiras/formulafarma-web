@@ -3,52 +3,54 @@ import { ChevronDown, HelpCircle } from 'lucide-astro';
 
 const faqs = [
   {
-    question: '¿Es gratis durante la beta?',
-    answer: 'Sí. Y no hay letra pequeña. Ni grande. Ni mediana. Simplemente gratis.',
+    question: '¿Es gratis durante la beta o me vais a colar una suscripción?',
+    answer: 'Sí. Cero euros. Sin tarjeta de crédito. Sin "prueba gratis de 14 días y luego te cobramos". Gratis de verdad hasta que salgamos de beta. Lo juro por mi Excel abandonado.',
   },
   {
-    question: '¿Tengo que instalar algo?',
-    answer: 'Nope. Funciona en el navegador. Si puedes leer esto, puedes usar Fórmula Care. (Bueno, y si tienes internet. Pero eso ya lo tienes, ¿no?)',
+    question: '¿Tengo que instalar algo? ¿Un CD? ¿Un pendrive?',
+    answer: 'Nope. Funciona en el navegador. Si puedes leer esto, puedes usar Fórmula Care. (Bueno, y si tienes internet. Pero eso ya lo tienes, ¿no? No me hagas dudar.)',
   },
   {
-    question: '¿Y si no me gusta?',
-    answer: 'Me lo dices, mejoro, y tan amigos. Sin dramas, sin emails pasivo-agresivos, sin "siento que me dejes". Prometido.',
+    question: '¿Y si no me gusta? ¿Me mandáis 47 emails de "siento que me dejes"?',
+    answer: 'Me lo dices, mejoro, y tan amigos. Sin dramas, sin emails pasivo-agresivos, sin "siento que me dejes". Prometido. Y si quieres irte, te vas. Así de simple.',
   },
   {
-    question: '¿Mis datos están seguros?',
-    answer: 'Más seguros que el último trozo de tarta en la nevera de la farmacia. Encriptación, backups, cumplimiento RGPD... Lo típico, pero bien hecho.',
+    question: '¿Mis datos están seguros o los vendéis al mejor postor?',
+    answer: 'Más seguros que el último trozo de tarta en la nevera de la farmacia. Encriptación, backups, cumplimiento RGPD... Lo típico, pero bien hecho. No vendo tus datos. No tengo tiempo ni ganas.',
   },
   {
-    question: '¿Puedo sugerir funcionalidades?',
-    answer: 'No solo puedes, es que QUIERO que lo hagas. Estoy construyendo esto contigo. Literalmente. Cada sugerencia la leo. De verdad.',
+    question: '¿Puedo sugerir funcionalidades o solo quejarme en el vacío?',
+    answer: 'No solo puedes, es que QUIERO que lo hagas. Estoy construyendo esto contigo. Literalmente. Cada sugerencia la leo. De verdad. Incluso las que dicen "¿y si añadís un botón rosa?". (Ese no, pero el resto sí.)',
   },
   {
-    question: '¿Por qué debería fiarme de ti?',
-    answer: 'Buena pregunta. Soy farmacéutico que programa, no un programador que googlea "qué es una farmacia". Conozco tus problemas porque los he sufrido.',
+    question: '¿Por qué debería fiarme de un tipo que hace webs en su tiempo libre?',
+    answer: 'Buena pregunta. Soy farmacéutico que programa, no un programador que googlea "qué es una farmacia". Conozco tus problemas porque los he sufrido. Detrás del mostrador, no en una oficina con table de ping-pong.',
+  },
+  {
+    question: '¿Esto es otra startup que desaparecerá en dos años?',
+    answer: 'No soy una startup. Soy un tío con un portátil y demasiado café. No tengo inversores que contentar ni roadmap de "crecer un 300%". Tengo ganas de hacer herramientas que funcionen. Y de dormir. A veces.',
   },
 ];
 ---
 
 <section id="faq" class="py-24 bg-muted/30">
   <div class="container mx-auto px-4 lg:px-8">
-    <!-- Header -->
     <div class="animate-fade-up text-center mb-16">
-      <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-        FAQ
+      <span class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-4">
+        Dudas razonables
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
         Preguntas que probablemente te estás haciendo
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Y algunas que no, pero que quedan bien aquí.
+        Y algunas que no, pero que quedan bien aquí. (Y de paso aclaro que no vendo humo.)
       </p>
     </div>
 
-    <!-- FAQ Grid -->
     <div class="max-w-3xl mx-auto space-y-4">
       {faqs.map((faq, index) => (
         <details 
-          class="animate-fade-up group bg-card rounded-xl border border-border hover:border-primary/30 transition-all duration-300 overflow-hidden"
+          class="animate-fade-up group bg-card brutal-border overflow-hidden"
           style={`animation-delay: ${0.1 + index * 0.05}s;`}
         >
           <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none font-display font-semibold text-foreground hover:text-primary transition-colors">
@@ -67,13 +69,12 @@ const faqs = [
       ))}
     </div>
 
-    <!-- Bottom CTA -->
     <div class="animate-fade-up text-center mt-12" style="animation-delay: 0.5s;">
       <p class="text-muted-foreground mb-2">
-        ¿Tienes otra pregunta?
+        ¿Tienes otra pregunta? (Incluso la tonta.)
       </p>
       <a href="#contacto" class="text-primary font-medium hover:underline">
-        Escríbeme y te contesto (de verdad, lo hago)
+        Escríbeme y te contesto (de verdad, lo hago. No es un bot.)
       </a>
     </div>
   </div>

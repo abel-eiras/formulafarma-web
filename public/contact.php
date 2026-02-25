@@ -154,9 +154,10 @@ if (!empty($pharmacy)) {
 }
 if (!empty($interest)) {
     $interest_labels = [
-        'software' => 'Software (Fórmula Care)',
-        'consultoria' => 'Consultoría',
-        'ambos' => 'Software + Consultoría'
+        'software' => 'El software ese (Fórmula Care)',
+        'consultoria' => 'Consultoría / Mentoría',
+        'automatizacion' => 'Automatizar mi vida',
+        'ambos' => 'Todo. Lo quiero todo.'
     ];
     $email_body .= "Interés: " . ($interest_labels[$interest] ?? $interest) . "\n";
 }

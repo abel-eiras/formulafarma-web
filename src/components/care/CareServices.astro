@@ -44,7 +44,7 @@ const features = [
 <section id="funcionalidades" class="py-24 bg-secondary">
   <div class="container mx-auto px-4 lg:px-8">
     <div class="text-center mb-16 animate-fade-up">
-      <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+      <span class="inline-block px-4 py-2 bg-accent text-accent-foreground font-body text-xs font-bold uppercase tracking-widest mb-4">
         Funcionalidades
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -59,23 +59,22 @@ const features = [
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature, index) => (
         <div
-          class="animate-fade-up group relative bg-card rounded-2xl p-8 shadow-soft hover:shadow-elevated transition-all duration-300 border border-border hover:border-primary/30 hover-lift icon-wiggle"
+          class="animate-fade-up group relative bg-card brutal-border p-8 brutal-hover"
           style={`animation-delay: ${0.1 + index * 0.05}s;`}
         >
-          <!-- Highlight Badge -->
           <div class="absolute -top-3 right-6">
-            <span class="inline-block px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold group-hover:animate-bounce-subtle">
+            <span class="inline-block px-3 py-1 bg-accent text-accent-foreground text-xs font-bold uppercase">
               {feature.highlight}
             </span>
           </div>
 
-          <div class="w-14 h-14 rounded-xl bg-gradient-hero flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-            {feature.icon === 'stethoscope' && <Stethoscope class="w-7 h-7 text-primary-foreground" />}
-            {feature.icon === 'droplets' && <Droplets class="w-7 h-7 text-primary-foreground" />}
-            {feature.icon === 'filetext' && <FileText class="w-7 h-7 text-primary-foreground" />}
-            {feature.icon === 'barchart' && <BarChart3 class="w-7 h-7 text-primary-foreground" />}
-            {feature.icon === 'settings' && <Settings class="w-7 h-7 text-primary-foreground" />}
-            {feature.icon === 'users' && <Users class="w-7 h-7 text-primary-foreground" />}
+          <div class="w-14 h-14 bg-foreground flex items-center justify-center mb-6">
+            {feature.icon === 'stethoscope' && <Stethoscope class="w-7 h-7 text-background" />}
+            {feature.icon === 'droplets' && <Droplets class="w-7 h-7 text-background" />}
+            {feature.icon === 'filetext' && <FileText class="w-7 h-7 text-background" />}
+            {feature.icon === 'barchart' && <BarChart3 class="w-7 h-7 text-background" />}
+            {feature.icon === 'settings' && <Settings class="w-7 h-7 text-background" />}
+            {feature.icon === 'users' && <Users class="w-7 h-7 text-background" />}
           </div>
 
           <h3 class="font-display text-xl font-bold text-foreground mb-3">

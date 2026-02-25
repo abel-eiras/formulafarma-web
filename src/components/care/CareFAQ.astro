@@ -41,7 +41,7 @@ const faqs = [
   <div class="container mx-auto px-4 lg:px-8">
     <!-- Header -->
     <div class="animate-fade-up text-center mb-16">
-      <span class="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4">
+      <span class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-4">
         Dudas razonables
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -56,7 +56,7 @@ const faqs = [
     <div class="max-w-3xl mx-auto space-y-4">
       {faqs.map((faq, index) => (
         <details 
-          class="animate-fade-up group bg-card rounded-xl border border-border hover:border-accent/30 transition-all duration-300 overflow-hidden"
+          class="animate-fade-up group bg-card brutal-border overflow-hidden"
           style={`animation-delay: ${0.1 + index * 0.05}s;`}
         >
           <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none font-display font-semibold text-foreground hover:text-accent transition-colors">

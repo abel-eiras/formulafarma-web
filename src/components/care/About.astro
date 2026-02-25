@@ -30,7 +30,7 @@ const values = [
     <div class="grid lg:grid-cols-2 gap-16 items-center">
       <!-- Content -->
       <div class="animate-fade-up">
-        <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+        <span class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-4">
           Quién está detrás
         </span>
         <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -46,7 +46,7 @@ const values = [
         </p>
 
         <!-- Vision -->
-        <div class="bg-secondary rounded-xl p-6">
+        <div class="bg-secondary brutal-border p-6">
           <p class="font-body text-foreground italic">
             "Quiero que cada farmacia tenga acceso a tecnología de primer nivel, 
             sin complicaciones y a un precio justo. Estoy en beta porque quiero 
@@ -62,14 +62,14 @@ const values = [
       <div class="grid sm:grid-cols-2 gap-6">
         {values.map((value, index) => (
           <div
-            class="animate-fade-up bg-card rounded-2xl p-6 shadow-soft border border-border hover:border-primary/30 transition-all duration-300"
+            class="animate-fade-up bg-card brutal-border p-6 brutal-hover"
             style={`animation-delay: ${0.1 + index * 0.1}s;`}
           >
-            <div class="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center mb-4">
-              {value.icon === 'target' && <Target class="w-6 h-6 text-primary-foreground" />}
-              {value.icon === 'shield' && <Shield class="w-6 h-6 text-primary-foreground" />}
-              {value.icon === 'rocket' && <Rocket class="w-6 h-6 text-primary-foreground" />}
-              {value.icon === 'code' && <Code class="w-6 h-6 text-primary-foreground" />}
+            <div class="w-12 h-12 bg-foreground flex items-center justify-center mb-4">
+              {value.icon === 'target' && <Target class="w-6 h-6 text-background" />}
+              {value.icon === 'shield' && <Shield class="w-6 h-6 text-background" />}
+              {value.icon === 'rocket' && <Rocket class="w-6 h-6 text-background" />}
+              {value.icon === 'code' && <Code class="w-6 h-6 text-background" />}
             </div>
             <h3 class="font-display text-lg font-bold text-foreground mb-2">
               {value.title}
