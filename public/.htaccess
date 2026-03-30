@@ -1,0 +1,41 @@
+# ============================================================
+# Seguridad HTTP - Fórmula Farma
+# ============================================================
+
+# Evitar clickjacking
+Header always set X-Frame-Options "SAMEORIGIN"
+
+# Evitar MIME type sniffing
+Header always set X-Content-Type-Options "nosniff"
+
+# Control de referrer
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Permisos de APIs del navegador
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+# Forzar HTTPS mediante HSTS (actívalo solo cuando el certificado SSL sea estable)
+# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+# Content Security Policy
+# Permite: propio origen, Google Fonts, Vercel (para el demo de Fórmula Care)
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none';"
+
+# Ocultar versión de servidor Apache
+ServerSignature Off
+
+# ============================================================
+# Proteger archivos sensibles
+# ============================================================
+
+# Bloquear acceso a archivos de configuración PHP
+<Files "smtp-config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Bloquear acceso al directorio de rate limiting
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^rate_limits/ - [F,L]
+</IfModule>
