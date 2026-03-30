@@ -43,6 +43,7 @@ $email    = isset($_POST["email"])    ? trim(htmlspecialchars($_POST["email"])) 
 $pharmacy = isset($_POST["pharmacy"]) ? sanitizeField($_POST["pharmacy"]) : "";
 $interest = isset($_POST["interest"]) ? sanitizeField($_POST["interest"]) : "";
 $message  = isset($_POST["message"])  ? trim(strip_tags($_POST["message"])) : "";
+$source   = isset($_POST["source"])   ? sanitizeField($_POST["source"])   : "";
 $bot_field = isset($_POST["bot-field"]) ? $_POST["bot-field"] : "";
 
 // Validación básica
@@ -150,7 +151,8 @@ if (!empty($errors)) {
 }
 
 // Preparar el email
-$subject = $subject_prefix . " - " . $name;
+$is_beta = ($source === 'beta');
+$subject = ($is_beta ? "[BETA] " : "") . $subject_prefix . " - " . $name;
 $email_body = "Has recibido un nuevo mensaje desde el formulario de contacto de Fórmula Farma.\n\n";
 $email_body .= "Nombre: " . $name . "\n";
 $email_body .= "Email: " . $email . "\n";
@@ -413,6 +415,39 @@ if (isset($smtp_config['use_smtp']) && $smtp_config['use_smtp'] === true) {
     
     if (!$mail_sent) {
         $error_message = "Error al enviar con mail() de PHP.";
+    }
+}
+
+// Enviar auto-reply al usuario si el email principal se envió bien
+if ($mail_sent) {
+    $reply_subject = $is_beta
+        ? "Solicitud de acceso beta recibida — Fórmula Care"
+        : "Hemos recibido tu mensaje — Fórmula Farma";
+
+    $reply_body  = "Hola " . $name . ",\n\n";
+    if ($is_beta) {
+        $reply_body .= "He recibido tu solicitud de acceso a la beta de Fórmula Care.\n";
+        $reply_body .= "Te escribo en cuanto tenga un hueco para darte acceso y contarte los detalles.\n\n";
+        $reply_body .= "Si tienes cualquier pregunta mientras tanto, responde a este email.\n\n";
+    } else {
+        $reply_body .= "He recibido tu mensaje y te responderé lo antes posible.\n";
+        $reply_body .= "Si es urgente, escríbeme directamente a abel@formulafarma.com.\n\n";
+    }
+    $reply_body .= "Un saludo,\nAbel\nFórmula Farma — https://formulafarma.com\n";
+
+    if (isset($smtp_config['use_smtp']) && $smtp_config['use_smtp'] === true) {
+        sendEmailSMTP(
+            $smtp_config,
+            $email,
+            $reply_subject,
+            $reply_body,
+            $smtp_config['from_email'],
+            $smtp_config['from_name']
+        );
+    } else {
+        $reply_headers  = "From: " . $smtp_config['from_name'] . " <" . $smtp_config['from_email'] . ">\r\n";
+        $reply_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        @mail($email, $reply_subject, $reply_body, $reply_headers);
     }
 }
 

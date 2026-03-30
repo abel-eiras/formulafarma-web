@@ -1,0 +1,45 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Button from '@/components/ui/Button.astro';
+import { Home, ArrowRight, Sparkles } from 'lucide-astro';
+---
+
+<Layout
+  title="¡Mensaje recibido! | Fórmula Farma"
+  description="Hemos recibido tu mensaje. Te contestamos pronto."
+>
+  <main class="min-h-screen flex items-center justify-center bg-background">
+    <div class="container mx-auto px-4 text-center">
+      <div class="max-w-lg mx-auto">
+
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-accent brutal-border mb-8">
+          <Sparkles class="w-10 h-10 text-accent-foreground" />
+        </div>
+
+        <h1 class="font-display text-4xl md:text-5xl font-bold text-foreground mb-4 leading-[0.95]">
+          ¡Recibido!
+        </h1>
+
+        <p class="font-body text-lg text-muted-foreground mb-3">
+          Te he enviado un email de confirmación.
+        </p>
+        <p class="font-body text-base text-muted-foreground mb-10">
+          Te escribo en cuanto pueda.
+          Mientras tanto, échale un ojo a Fórmula Care si no lo has hecho ya.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button variant="hero" href="/">
+            <Home class="w-5 h-5" />
+            Volver al inicio
+          </Button>
+          <Button variant="outline" href="/formula-care">
+            Ver Fórmula Care
+            <ArrowRight class="w-5 h-5" />
+          </Button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</Layout>

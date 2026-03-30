@@ -1,4 +1,39 @@
 # ============================================================
+# HTTPS forzado
+# ============================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ============================================================
+# Caché de assets estáticos
+# ============================================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp              "access plus 1 year"
+    ExpiresByType image/jpeg              "access plus 1 year"
+    ExpiresByType image/png               "access plus 1 year"
+    ExpiresByType image/svg+xml           "access plus 1 year"
+    ExpiresByType text/css                "access plus 1 month"
+    ExpiresByType application/javascript  "access plus 1 month"
+    ExpiresByType font/woff2              "access plus 1 year"
+    ExpiresByType font/woff               "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(webp|jpg|jpeg|png|svg|woff2|woff)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+</IfModule>
+
+# ============================================================
 # Seguridad HTTP - Fórmula Farma
 # ============================================================
 
@@ -14,8 +49,8 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 # Permisos de APIs del navegador
 Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
-# Forzar HTTPS mediante HSTS (actívalo solo cuando el certificado SSL sea estable)
-# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+# Forzar HTTPS mediante HSTS
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
 # Content Security Policy
 # Permite: propio origen, Google Fonts, Vercel (para el demo de Fórmula Care)
