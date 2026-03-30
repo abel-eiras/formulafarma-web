@@ -23,7 +23,7 @@ import Button from '@/components/ui/Button.astro';
           <a 
             href="https://formula-care.vercel.app/" 
             target="_blank" 
-            rel="noopener"
+            rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-8 py-4 bg-background text-foreground font-bold text-lg uppercase tracking-wide brutal-border brutal-hover"
           >
             <Sparkles class="w-5 h-5" />
@@ -37,7 +37,9 @@ import Button from '@/components/ui/Button.astro';
       </div>
 
       <div class="animate-fade-up brutal-border-thick bg-background p-8 md:p-10 mb-10" style="animation-delay: 0.1s;">
-        <form id="care-contact-form" class="space-y-6">
+        <form id="care-contact-form" action="/contact.php" method="post" class="space-y-6">
+          <input type="hidden" name="interest" value="software" />
+          <input type="text" name="bot-field" class="hidden" tabindex="-1" autocomplete="off" />
           <div class="grid md:grid-cols-2 gap-6">
             <div class="space-y-2">
               <label for="care-name" class="font-body text-xs font-bold uppercase tracking-widest text-foreground">
@@ -132,9 +134,20 @@ import Button from '@/components/ui/Button.astro';
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    console.log('Care beta form submitted:', data);
-    form.classList.add('hidden');
-    successMessage?.classList.remove('hidden');
+    try {
+      const res = await fetch(form.getAttribute('action') || '/contact.php', {
+        method: 'POST',
+        body: formData,
+      });
+      if (res.ok) {
+        form.classList.add('hidden');
+        successMessage?.classList.remove('hidden');
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error || 'Error al enviar. Escríbenos a abel@formulafarma.com');
+      }
+    } catch {
+      alert('Error de conexión. Escríbenos a abel@formulafarma.com');
+    }
   });
 </script>

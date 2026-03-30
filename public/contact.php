@@ -33,11 +33,16 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 // Obtener y limpiar datos del formulario
-$name = isset($_POST["name"]) ? trim(htmlspecialchars($_POST["name"])) : "";
-$email = isset($_POST["email"]) ? trim(htmlspecialchars($_POST["email"])) : "";
-$pharmacy = isset($_POST["pharmacy"]) ? trim(htmlspecialchars($_POST["pharmacy"])) : "";
-$interest = isset($_POST["interest"]) ? trim(htmlspecialchars($_POST["interest"])) : "";
-$message = isset($_POST["message"]) ? trim(htmlspecialchars($_POST["message"])) : "";
+// strip_tags elimina HTML; preg_replace elimina saltos de línea para prevenir header injection
+function sanitizeField($value) {
+    return trim(htmlspecialchars(preg_replace('/[\r\n\t]/', ' ', strip_tags($value))));
+}
+
+$name     = isset($_POST["name"])     ? sanitizeField($_POST["name"])     : "";
+$email    = isset($_POST["email"])    ? trim(htmlspecialchars($_POST["email"])) : "";
+$pharmacy = isset($_POST["pharmacy"]) ? sanitizeField($_POST["pharmacy"]) : "";
+$interest = isset($_POST["interest"]) ? sanitizeField($_POST["interest"]) : "";
+$message  = isset($_POST["message"])  ? trim(strip_tags($_POST["message"])) : "";
 $bot_field = isset($_POST["bot-field"]) ? $_POST["bot-field"] : "";
 
 // Validación básica
@@ -178,9 +183,9 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     
     $context_options = [
         'ssl' => [
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true,
+            'verify_peer' => true,
+            'verify_peer_name' => true,
+            'allow_self_signed' => false,
             'crypto_method' => STREAM_CRYPTO_METHOD_TLS_CLIENT
         ]
     ];
@@ -402,7 +407,6 @@ if (isset($smtp_config['use_smtp']) && $smtp_config['use_smtp'] === true) {
 } else {
     $headers = "From: " . $smtp_config['from_name'] . " <" . $smtp_config['from_email'] . ">\r\n";
     $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
     
     $mail_sent = @mail($to_email, $subject, $email_body, $headers);
