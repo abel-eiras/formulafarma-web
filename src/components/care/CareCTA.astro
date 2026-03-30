@@ -39,6 +39,7 @@ import Button from '@/components/ui/Button.astro';
       <div class="animate-fade-up brutal-border-thick bg-background p-8 md:p-10 mb-10" style="animation-delay: 0.1s;">
         <form id="care-contact-form" action="/contact.php" method="post" class="space-y-6">
           <input type="hidden" name="interest" value="software" />
+          <input type="hidden" name="source" value="beta" />
           <input type="text" name="bot-field" class="hidden" tabindex="-1" autocomplete="off" />
           <div class="grid md:grid-cols-2 gap-6">
             <div class="space-y-2">
@@ -140,8 +141,7 @@ import Button from '@/components/ui/Button.astro';
         body: formData,
       });
       if (res.ok) {
-        form.classList.add('hidden');
-        successMessage?.classList.remove('hidden');
+        window.location.href = '/gracias';
       } else {
         const data = await res.json().catch(() => ({}));
         alert(data.error || 'Error al enviar. Escríbenos a abel@formulafarma.com');

@@ -6,6 +6,7 @@ const pages = [
   { url: '/aviso-legal', priority: '0.3', changefreq: 'yearly' },
   { url: '/privacidad', priority: '0.3', changefreq: 'yearly' },
   { url: '/cookies', priority: '0.3', changefreq: 'yearly' },
+  { url: '/gracias', priority: '0.1', changefreq: 'yearly' },
 ];
 
 export const GET: APIRoute = async ({ site }) => {

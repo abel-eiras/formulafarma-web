@@ -132,8 +132,7 @@ const interestOptions = [
         body: formData,
       });
       if (res.ok) {
-        form.classList.add('hidden');
-        successMessage?.classList.remove('hidden');
+        window.location.href = '/gracias';
       } else {
         const data = await res.json().catch(() => ({}));
         alert(data.error || 'Error al enviar. Prueba por email: abel@formulafarma.com');
