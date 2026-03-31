@@ -1,12 +1,11 @@
 ---
-import { Linkedin, Twitter, Instagram, Mail } from 'lucide-astro';
+import { Linkedin, Github, Mail } from 'lucide-astro';
 
 const currentYear = new Date().getFullYear();
 
 const socialLinks = [
-  { icon: 'linkedin', href: '#', label: 'LinkedIn' },
-  { icon: 'twitter', href: '#', label: 'Twitter' },
-  { icon: 'instagram', href: '#', label: 'Instagram' },
+  { icon: 'linkedin', href: 'https://www.linkedin.com/in/abel-eiras/', label: 'LinkedIn' },
+  { icon: 'github', href: 'https://github.com/abel-eiras', label: 'GitHub' },
 ];
 
 const products = [
@@ -54,8 +53,7 @@ const legalLinks = [
               class="w-10 h-10 border-2 border-background/30 flex items-center justify-center hover:bg-primary hover:border-primary transition-colors"
             >
               {social.icon === 'linkedin' && <Linkedin class="w-5 h-5" />}
-              {social.icon === 'twitter' && <Twitter class="w-5 h-5" />}
-              {social.icon === 'instagram' && <Instagram class="w-5 h-5" />}
+              {social.icon === 'github' && <Github class="w-5 h-5" />}
             </a>
           ))}
         </div>
