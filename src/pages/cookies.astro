@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.astro';
 
 <Layout 
   title="Política de Cookies | Fórmula Farma"
-  description="La política de cookies más corta y honesta que verás. Spoiler: no te rastreo."
+  description="La política de cookies más corta y honesta que verás. Con o sin analytics, tú decides."
 >
   <Navbar />
   <main class="pt-24 pb-16">
@@ -15,48 +15,54 @@ import Footer from '@/components/Footer.astro';
         Política de Cookies
       </h1>
       <p class="font-body text-xl text-muted-foreground mb-12">
-        La política de cookies más corta y honesta que verás.
+        Con o sin analytics, tú decides. Sin trampa.
       </p>
 
       <div class="prose prose-lg max-w-none font-body text-muted-foreground">
-        
+
         <p class="text-lg mb-8">
-          Odio los banners de cookies tanto como tú. Sobre todo, los que te dicen 
+          Odio los banners de cookies tanto como tú. Sobre todo, los que te dicen
           "¿Quieres ver mi contenido? Acepta las cookies o págame". Es como para salirse al momento.
         </p>
 
         <p class="text-lg mb-8">
-          Por eso, mi política es radicalmente simple:
+          Por eso, mi política es simple y honesta:
         </p>
 
         <div class="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-10">
           <p class="text-foreground font-semibold text-xl mb-0">
-            <code class="bg-primary/10 px-2 py-1 rounded">formulafarma.com</code> NO utiliza 
-            cookies de análisis, de publicidad ni de ningún tipo de rastreo.
+            <code class="bg-primary/10 px-2 py-1 rounded">formulafarma.com</code> usa
+            <strong>Google Analytics 4</strong> solo si tú lo aceptas expresamente.
+            Si rechazas, no se carga. Así de simple.
           </p>
         </div>
 
         <p>
-          No uso Google Analytics ni Metricool ni nada por el estilo. No me interesa saber 
-          de dónde vienes, cuánto tiempo te quedas ni en qué haces clic. Quiero que navegues 
-          con total tranquilidad, sabiendo que tu visita es completamente anónima desde mi lado.
+          No tengo publicidad, no vendo tus datos, no uso cookies de remarketing ni nada de eso.
+          Google Analytics me sirve únicamente para saber si alguien visita la web o si solo
+          me la veo yo. Nada más.
         </p>
 
         <section class="mb-10 mt-10">
-          <h2 class="font-display text-2xl font-bold text-foreground mb-4">Entonces, ¿hay alguna cookie?</h2>
+          <h2 class="font-display text-2xl font-bold text-foreground mb-4">¿Qué cookies hay exactamente?</h2>
           <p>
-            Sí, las mínimas e imprescindibles para que la web funcione. Son las llamadas 
-            <strong class="text-foreground">cookies técnicas o funcionales</strong>. 
-            Astro (el sistema con el que está hecha esta web) las usa para cosas básicas como:
+            Dos tipos, y solo uno de ellos es opcional:
           </p>
           <ul class="list-disc pl-6 mt-4 space-y-2">
-            <li>Gestionar el formulario de contacto (para evitar spam y mantener la sesión durante el envío)</li>
-            <li>Mantener tu sesión si usas Fórmula Care</li>
-            <li>Recordar preferencias básicas de navegación</li>
+            <li>
+              <strong class="text-foreground">Técnicas / funcionales</strong> — Las mínimas para que
+              la web funcione: formulario de contacto, sesión en Fórmula Care, preferencias básicas.
+              No recogen datos personales. No se pueden desactivar sin romper la web.
+            </li>
+            <li>
+              <strong class="text-foreground">Analytics (Google Analytics 4)</strong> — Solo se activan
+              si pulsas "Aceptar" en el banner. Permiten saber cuántas visitas recibe la web, desde dónde
+              y qué páginas se visitan más. Puedes cambiar de opinión en cualquier momento borrando
+              las cookies del navegador.
+            </li>
           </ul>
           <p class="mt-4">
-            Estas cookies no recogen información personal tuya y son esenciales para la navegación. 
-            Sin ellas, la web no funcionaría correctamente.
+            Tu preferencia se guarda en el almacenamiento local de tu navegador, no en un servidor.
           </p>
         </section>
 
@@ -112,8 +118,8 @@ import Footer from '@/components/Footer.astro';
                 </tr>
                 <tr class="border-t border-border bg-muted/30">
                   <td class="px-4 py-3">De análisis</td>
-                  <td class="px-4 py-3 text-destructive font-medium">No</td>
-                  <td class="px-4 py-3">—</td>
+                  <td class="px-4 py-3 text-primary font-medium">Solo con consentimiento</td>
+                  <td class="px-4 py-3">Google Analytics 4 (estadísticas anónimas)</td>
                 </tr>
                 <tr class="border-t border-border">
                   <td class="px-4 py-3">Publicitarias</td>
@@ -136,14 +142,14 @@ import Footer from '@/components/Footer.astro';
         </section>
 
         <p class="text-lg mt-10">
-          Y eso es todo. <strong class="text-foreground">Navega con libertad.</strong>
+          Y eso es todo. <strong class="text-foreground">Tú decides, yo respeto.</strong>
         </p>
 
       </div>
 
       <div class="mt-12 pt-8 border-t border-border">
         <p class="text-sm text-muted-foreground">
-          Última actualización: Enero 2026
+          Última actualización: Marzo 2026
         </p>
       </div>
     </div>
