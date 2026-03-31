@@ -4,7 +4,7 @@
       "command": "analytics-mcp",
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\Abel\\.claude\\projects\\gcloud\\formulafarma-52ad94cd82eb.json",
-        "GOOGLE_PROJECT_ID": "formulafarma-52ad94cd82eb"
+        "GOOGLE_CLOUD_PROJECT": "formulafarma"
       }
     }
   }
