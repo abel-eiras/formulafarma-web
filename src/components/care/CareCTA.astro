@@ -144,10 +144,10 @@ import Button from '@/components/ui/Button.astro';
         window.location.href = '/gracias';
       } else {
         const data = await res.json().catch(() => ({}));
-        alert(data.error || 'Error al enviar. Escríbenos a abel@formulafarma.com');
+        alert(data.error || 'Error al enviar. Escríbeme a abel@formulafarma.com');
       }
     } catch {
-      alert('Error de conexión. Escríbenos a abel@formulafarma.com');
+      alert('Error de conexión. Escríbeme a abel@formulafarma.com');
     }
   });
 </script>
