@@ -1,0 +1,73 @@
+---
+// Banner de consentimiento de cookies — GDPR compliant
+// GA4 solo se carga si el usuario acepta
+---
+
+<div
+  id="cookie-banner"
+  class="fixed bottom-0 left-0 right-0 z-50 hidden"
+  role="dialog"
+  aria-label="Consentimiento de cookies"
+>
+  <div class="border-t-4 border-foreground bg-background">
+    <div class="container mx-auto px-4 lg:px-8 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <p class="font-body text-sm text-foreground max-w-2xl">
+        Uso <strong>Google Analytics</strong> para saber si alguien visita esto o solo lo veo yo.
+        Los datos son anónimos. Puedes negarte sin que pase nada malo.
+        <a href="/cookies" class="underline font-bold hover:no-underline">Política de cookies</a>.
+      </p>
+      <div class="flex gap-3 shrink-0">
+        <button
+          id="cookie-reject"
+          class="font-body text-sm font-bold uppercase px-4 py-2 border-2 border-foreground bg-background hover:bg-muted transition-colors"
+        >
+          Rechazar
+        </button>
+        <button
+          id="cookie-accept"
+          class="font-body text-sm font-bold uppercase px-4 py-2 border-2 border-foreground bg-foreground text-background hover:bg-primary hover:border-primary transition-colors"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'cookie-consent';
+  const banner = document.getElementById('cookie-banner');
+
+  function loadGA() {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XHYTWKJR9Q';
+    document.head.appendChild(script);
+    script.onload = () => {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      function gtag(...args: any[]) { (window as any).dataLayer.push(args); }
+      (window as any).gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-XHYTWKJR9Q');
+    };
+  }
+
+  const consent = localStorage.getItem(CONSENT_KEY);
+
+  if (consent === 'accepted') {
+    loadGA();
+  } else if (!consent) {
+    banner?.classList.remove('hidden');
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'accepted');
+    banner?.classList.add('hidden');
+    loadGA();
+  });
+
+  document.getElementById('cookie-reject')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'rejected');
+    banner?.classList.add('hidden');
+  });
+</script>
