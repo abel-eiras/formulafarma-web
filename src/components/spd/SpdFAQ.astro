@@ -1,0 +1,77 @@
+---
+import { ChevronDown, HelpCircle } from 'lucide-astro';
+
+const faqs = [
+  {
+    question: '¿Esto ya funciona?',
+    answer: 'No todavía. El repositorio existe y el diseño avanza, pero no hay una app usable ahora mismo. Esta página está aquí para que sepas que se está cociendo, y puedas seguirlo o meterle mano si te apetece.',
+  },
+  {
+    question: '¿Por qué solo para farmacias gallegas?',
+    answer: 'Porque la legislación de SPD varía por comunidad, y la gallega es la que sufro y conozco de primera mano. Nada impide adaptarlo a otras normativas si alguien le mete mano — o me cuenta cómo funciona la suya.',
+  },
+  {
+    question: '¿Me sirve si tengo máquina semiautomática de emblistado?',
+    answer: 'Probablemente no lo necesites: los fabricantes de esas máquinas suelen incluir su propio software de gestión documental. Esto es para quien lo hace a mano, que hoy no tiene nada.',
+  },
+  {
+    question: '¿Va a costar dinero?',
+    answer: 'No. Como Fórmula Care, es y seguirá siendo software libre. Cero coste por usarlo.',
+  },
+  {
+    question: '¿Cómo puedo ayudar ya, si aún no hay nada que probar?',
+    answer: 'Cuéntame cómo haces SPD hoy: en papel, en Excel, con plantillas propias. Qué documento te consume más tiempo, dónde metes la pata más a menudo. Eso vale tanto como una línea de código en esta fase.',
+  },
+  {
+    question: '¿Y si programas y quieres meterte ya?',
+    answer: 'Escríbeme. El repo aún no está listo para recibir colaboraciones externas de forma ordenada, pero puedo contarte por dónde va e ir avisándote según avance.',
+  },
+];
+---
+
+<section id="faq" class="py-24 bg-secondary">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="animate-fade-up text-center mb-16">
+      <span class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-4">
+        Dudas razonables
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Preguntas frecuentes (para un proyecto que casi no existe)
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Justo porque está tan verde, prefiero contarte demasiado a contarte de menos.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-4">
+      {faqs.map((faq, index) => (
+        <details
+          class="animate-fade-up group bg-card brutal-border overflow-hidden"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none font-display font-semibold text-foreground hover:text-primary transition-colors">
+            <div class="flex items-center gap-3">
+              <HelpCircle class="w-5 h-5 text-primary flex-shrink-0" />
+              <span>{faq.question}</span>
+            </div>
+            <ChevronDown class="w-5 h-5 text-muted-foreground group-open:rotate-180 transition-transform duration-300 flex-shrink-0" />
+          </summary>
+          <div class="px-6 pb-6 pt-0">
+            <p class="font-body text-muted-foreground leading-relaxed pl-8">
+              {faq.answer}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="animate-fade-up text-center mt-12" style="animation-delay: 0.5s;">
+      <p class="text-muted-foreground mb-2">
+        ¿Tienes otra pregunta?
+      </p>
+      <a href="#cta" class="text-primary font-medium hover:underline">
+        Escríbeme y te contesto (de verdad, lo hago. No es un bot.)
+      </a>
+    </div>
+  </div>
+</section>

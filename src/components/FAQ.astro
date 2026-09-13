@@ -3,32 +3,36 @@ import { ChevronDown, HelpCircle } from 'lucide-astro';
 
 const faqs = [
   {
-    question: '¿Es gratis durante la beta o me vas a colar una suscripción?',
-    answer: 'Sí. Cero euros. Sin tarjeta de crédito. Sin "prueba gratis de 14 días y luego te cobramos". Gratis de verdad hasta que salgamos de beta. Lo juro por mi Excel abandonado.',
+    question: '¿Cuánto cuesta esto?',
+    answer: 'Nada. Cero euros. No hay plan de pago escondido esperando a que te enganches. El software es libre — lo usas, y punto.',
   },
   {
-    question: '¿Tengo que instalar algo? ¿Un CD? ¿Un pendrive?',
-    answer: 'Nope. Funciona en el navegador. Si puedes leer esto, puedes usar Fórmula Care. (Bueno, y si tienes internet. Pero eso ya lo tienes, ¿no? No me hagas dudar.)',
+    question: '¿Qué licencia tiene el código?',
+    answer: 'AGPLv3, o algo parecido según el programa. En cristiano: puedes usarlo, tocarlo, incluso ofrecerlo como servicio, pero si lo mejoras, esas mejoras también tienen que quedar públicas. Así nadie se queda la versión buena para sí.',
   },
   {
-    question: '¿Y si no me gusta? ¿Me mandáis 47 emails de "siento que me dejes"?',
-    answer: 'Me lo dices, mejoro, y tan amigos. Sin dramas, sin emails pasivo-agresivos, sin "siento que me dejes". Prometido. Y si quieres irte, te vas. Así de simple.',
+    question: '¿Tengo que saber programar para usarlo?',
+    answer: 'No. Fórmula Care funciona desde el navegador, sin instalar nada. Cuando el código sea público, autoalojarlo requerirá algo más de maña técnica — o pedirle ayuda a alguien que la tenga.',
+  },
+  {
+    question: '¿Y si encuentro un bug o me falta algo?',
+    answer: 'Me lo cuentas y lo leo, de verdad. En cuanto los repos sean públicos, mejor aún: abre un issue en GitHub. Muchas de las cosas que ya existen nacieron de que alguien las pidió.',
+  },
+  {
+    question: '¿Vas a cobrar en el futuro?',
+    answer: 'Por el software, no. Nunca. Si algún día ofrezco algo de pago será ayuda para instalarlo o adaptarlo a tu caso — el programa en sí sigue siendo libre siempre.',
   },
   {
     question: '¿Mis datos están seguros o los vendes al mejor postor?',
-    answer: 'Más seguros que el último trozo de tarta en la nevera de la farmacia. Encriptación, backups, cumplimiento RGPD... Lo típico, pero bien hecho. No vendo tus datos. No tengo tiempo ni ganas.',
+    answer: 'No los veo, no los guardo, no los vendo. Cuando te autoalojas el software, los datos de tus pacientes se quedan donde tú decidas — en tu servidor, bajo tu control.',
   },
   {
-    question: '¿Puedo sugerir funcionalidades o solo quejarme en el vacío?',
-    answer: 'No solo puedes, es que QUIERO que lo hagas. Estoy construyendo esto contigo. Literalmente. Cada sugerencia la leo. De verdad. Incluso las que dicen "¿y si añades un botón rosa?". (Ese no, pero el resto sí.)',
+    question: '¿Por qué debería fiarme de un tipo que programa en su tiempo libre?',
+    answer: 'Buena pregunta. Soy farmacéutico que programa, no un programador que googlea "qué es una farmacia". Conozco los problemas porque los he sufrido detrás del mostrador, no en una sala de reuniones.',
   },
   {
-    question: '¿Por qué debería fiarme de un tipo que hace webs en su tiempo libre?',
-    answer: 'Buena pregunta. Soy farmacéutico que programa, no un programador que googlea "qué es una farmacia". Conozco tus problemas porque los he sufrido. Detrás del mostrador, no en una oficina con table de ping-pong.',
-  },
-  {
-    question: '¿Esto es otra startup que desaparecerá en dos años?',
-    answer: 'No soy una startup. Soy un tío con un portátil y demasiado café. No tengo inversores que contentar ni roadmap de "crecer un 300%". Tengo ganas de hacer herramientas que funcionen. Y de dormir. A veces.',
+    question: '¿Esto es una startup que desaparecerá en dos años?',
+    answer: 'No. No tengo inversores que contentar ni un roadmap de "crecer un 300%". Y aunque algún día lo deje, el código no desaparece conmigo — sigue siendo tuyo, de quien quiera seguirlo.',
   },
 ];
 ---
@@ -43,13 +47,13 @@ const faqs = [
         Preguntas que probablemente te estás haciendo
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Y algunas que no, pero que quedan bien aquí. (Y de paso aclaro que no vendo humo.)
+        Y algunas que no, pero que quedan bien aquí. (Y de paso aclaro que no vendo humo. Ni nada.)
       </p>
     </div>
 
     <div class="max-w-3xl mx-auto space-y-4">
       {faqs.map((faq, index) => (
-        <details 
+        <details
           class="animate-fade-up group bg-card brutal-border overflow-hidden"
           style={`animation-delay: ${0.1 + index * 0.05}s;`}
         >

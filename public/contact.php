@@ -151,8 +151,8 @@ if (!empty($errors)) {
 }
 
 // Preparar el email
-$is_beta = ($source === 'beta');
-$subject = ($is_beta ? "[BETA] " : "") . $subject_prefix . " - " . $name;
+$is_program_page = ($source === 'ficha-programa');
+$subject = ($is_program_page ? "[" . strtoupper($interest) . "] " : "") . $subject_prefix . " - " . $name;
 $email_body = "Has recibido un nuevo mensaje desde el formulario de contacto de Fórmula Farma.\n\n";
 $email_body .= "Nombre: " . $name . "\n";
 $email_body .= "Email: " . $email . "\n";
@@ -161,10 +161,12 @@ if (!empty($pharmacy)) {
 }
 if (!empty($interest)) {
     $interest_labels = [
-        'software' => 'El software ese (Fórmula Care)',
-        'consultoria' => 'Consultoría / Mentoría',
-        'automatizacion' => 'Automatizar mi vida',
-        'ambos' => 'Todo. Lo quiero todo.'
+        'usar' => 'Quiere usar Fórmula Care o SPD',
+        'contribuir' => 'Quiere contribuir código',
+        'caso' => 'Quiere contar su caso',
+        'difundir' => 'Quiere ayudar a difundir esto',
+        'formula-care' => 'Fórmula Care (ficha de programa)',
+        'spd' => 'SPD (ficha de programa)'
     ];
     $email_body .= "Interés: " . ($interest_labels[$interest] ?? $interest) . "\n";
 }

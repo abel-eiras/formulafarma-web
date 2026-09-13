@@ -1,42 +1,42 @@
 ---
-import { UserPlus, TestTube, MessageSquare, Rocket, CheckCircle, Sparkles } from 'lucide-astro';
+import { MousePointerClick, MessageSquare, Code2, GitFork, CheckCircle, Sparkles } from 'lucide-astro';
 
 const steps = [
   {
-    icon: 'userplus',
+    icon: 'click',
     step: '01',
-    title: 'Solicita Acceso',
-    description: 'Rellena el formulario de acceso a la beta. Te contamos todo sobre la plataforma y cómo puede ayudarte.',
-    highlight: 'Sin compromiso',
-  },
-  {
-    icon: 'testtube',
-    step: '02',
-    title: 'Prueba Fórmula Care',
-    description: 'Accede a todas las funcionalidades durante el período de prueba. Explora, configura y registra tus primeros servicios.',
-    highlight: 'Acceso completo',
+    title: 'Pruébalo',
+    description: 'Entra en la app, sin registro previo ni formularios. Explora, configura y regístrate directamente si te convence.',
+    highlight: 'Sin dar de alta nada',
   },
   {
     icon: 'message',
-    step: '03',
-    title: 'Comparte tu Feedback',
-    description: 'Tu opinión es oro. Me cuentas qué funciona, qué falta y qué mejorar. Lo construimos juntos.',
+    step: '02',
+    title: 'Cuéntame qué falla',
+    description: 'Bugs, cosas que no entiendes, funciones que echas en falta. Todo eso lo leo yo, no un buzón de sugerencias que nadie mira.',
     highlight: 'Tu voz importa',
   },
   {
-    icon: 'rocket',
+    icon: 'code',
+    step: '03',
+    title: 'Sigue el código',
+    description: 'Estoy preparando el repositorio para publicarlo: limpiar configuración, escribir documentación, elegir licencia. En camino.',
+    highlight: 'Próximamente en GitHub',
+  },
+  {
+    icon: 'fork',
     step: '04',
-    title: 'Ventajas Exclusivas',
-    description: 'Los usuarios beta tendrán condiciones especiales cuando lancemos la versión final. Tu confianza tiene recompensa.',
-    highlight: 'Precio especial',
+    title: 'Contribuye si te apetece',
+    description: 'Cuando el repo sea público, cualquier mejora es bienvenida — programes mucho o programes poco pero conozcas bien el oficio.',
+    highlight: 'Opcional, no obligatorio',
   },
 ];
 
-const benefits = [
-  'Acceso gratuito durante la beta',
-  'Todas las funcionalidades incluidas',
-  'Soporte directo y personalizado',
-  'Precio especial al lanzamiento',
+const honesties = [
+  'Sin letra pequeña',
+  'Sin "contacta con ventas"',
+  'Sin límite de pacientes convertido en muro de pago',
+  'Sin fecha de caducidad para lo gratis',
 ];
 ---
 
@@ -45,14 +45,14 @@ const benefits = [
     <div class="text-center mb-16 animate-fade-up">
       <span class="inline-block px-4 py-2 bg-accent text-accent-foreground font-body text-xs font-bold uppercase tracking-widest mb-4">
         <Sparkles class="w-4 h-4 inline mr-2" />
-        Únete a la Beta
+        Cómo funciona esto
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-        Sé de los primeros en probarlo
+        Ni funnel, ni truco
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Estoy buscando farmacias que quieran probar Fórmula Care antes del
-        lanzamiento oficial. Plazas limitadas.
+        No hay "plazas limitadas" ni cuenta atrás. Fórmula Care se usa ya,
+        se sigue mejorando con quien lo usa, y el código va camino de hacerse público.
       </p>
     </div>
 
@@ -73,10 +73,10 @@ const benefits = [
 
             <div class="flex items-center gap-4 mb-4 mt-2">
               <div class="w-12 h-12 bg-foreground flex items-center justify-center">
-                {step.icon === 'userplus' && <UserPlus class="w-6 h-6 text-background" />}
-                {step.icon === 'testtube' && <TestTube class="w-6 h-6 text-background" />}
+                {step.icon === 'click' && <MousePointerClick class="w-6 h-6 text-background" />}
                 {step.icon === 'message' && <MessageSquare class="w-6 h-6 text-background" />}
-                {step.icon === 'rocket' && <Rocket class="w-6 h-6 text-background" />}
+                {step.icon === 'code' && <Code2 class="w-6 h-6 text-background" />}
+                {step.icon === 'fork' && <GitFork class="w-6 h-6 text-background" />}
               </div>
               <span class="font-display text-4xl font-bold text-primary/20">
                 {step.step}
@@ -94,17 +94,17 @@ const benefits = [
       ))}
     </div>
 
-    <!-- Benefits Box -->
+    <!-- Honesty Box -->
     <div class="animate-fade-up bg-foreground text-background brutal-border-thick p-8 md:p-12" style="animation-delay: 0.5s;">
       <div class="max-w-3xl mx-auto text-center">
         <h3 class="font-display text-2xl md:text-3xl font-bold text-background mb-6 uppercase">
-          ¿Qué ganas siendo usuario beta?
+          Lo que no vas a encontrar aquí
         </h3>
         <div class="grid sm:grid-cols-2 gap-4">
-          {benefits.map((benefit) => (
+          {honesties.map((honesty) => (
             <div class="flex items-center gap-3 text-background/90">
               <CheckCircle class="w-5 h-5 text-accent flex-shrink-0" />
-              <span class="font-body">{benefit}</span>
+              <span class="font-body">{honesty}</span>
             </div>
           ))}
         </div>
