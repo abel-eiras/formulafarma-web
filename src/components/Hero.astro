@@ -1,13 +1,13 @@
 ---
-import { ArrowRight, Sparkles } from 'lucide-astro';
+import { ArrowRight, BookOpen } from 'lucide-astro';
 import Button from '@/components/ui/Button.astro';
 ---
 
 <section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-background">
   <!-- Brutalist grid lines -->
   <div class="absolute inset-0 z-0 opacity-[0.04]">
-    <div 
-      class="absolute inset-0" 
+    <div
+      class="absolute inset-0"
       style="background-image: repeating-linear-gradient(0deg, hsl(0 0% 5%) 0px, hsl(0 0% 5%) 1px, transparent 1px, transparent 80px), repeating-linear-gradient(90deg, hsl(0 0% 5%) 0px, hsl(0 0% 5%) 1px, transparent 1px, transparent 80px);"
     />
   </div>
@@ -21,7 +21,7 @@ import Button from '@/components/ui/Button.astro';
       <!-- Badge -->
       <div class="animate-fade-up" style="animation-delay: 0s;">
         <div class="inline-block px-4 py-2 bg-foreground text-background font-body text-sm font-bold uppercase tracking-widest mb-8">
-          Sí, soy farmacéutico. Sí, hago software. No, no estoy bien.
+          Sí, soy farmacéutico. Sí, programo. No, no te voy a cobrar por ello.
         </div>
       </div>
 
@@ -36,30 +36,34 @@ import Button from '@/components/ui/Button.astro';
 
       <!-- Description -->
       <div class="animate-fade-up" style="animation-delay: 0.2s;">
-        <p class="font-body text-base md:text-lg text-muted-foreground mb-12 max-w-2xl leading-relaxed">
-          Hago herramientas digitales que deberían existir pero nadie se molestó en crear.{" "}
+        <p class="font-body text-base md:text-lg text-muted-foreground mb-4 max-w-2xl leading-relaxed">
+          Programo las herramientas que a mi farmacia le hacían falta y nadie se molestaba en crear.{" "}
           <strong class="text-foreground underline decoration-primary decoration-4">
-            Porque los informáticos no saben lo que es una fórmula magistral. Y yo me harté de esperar.
+            Y las suelto en abierto, gratis, código incluido.
           </strong>
+        </p>
+        <p class="font-body text-base text-muted-foreground mb-12 max-w-2xl leading-relaxed">
+          Nada de "contacta con ventas". El software que usas con tus pacientes no debería ser un secreto de nadie.
         </p>
       </div>
 
       <!-- CTA Buttons -->
       <div class="animate-fade-up" style="animation-delay: 0.3s;">
         <div class="flex flex-col sm:flex-row gap-4">
-          <Button variant="hero" size="xl" href="/formula-care">
-            Enséñame el invento
+          <Button variant="hero" size="xl" href="#programas">
+            Ver los programas
             <ArrowRight class="w-5 h-5" />
           </Button>
-          <Button variant="outline" size="xl" href="#contacto">
-            Necesito ayuda (gratis)
+          <Button variant="outline" size="xl" href="#manifiesto">
+            <BookOpen class="w-5 h-5" />
+            Léeme el rollo (el porqué)
           </Button>
         </div>
       </div>
 
       <div class="animate-fade-up" style="animation-delay: 0.4s;">
         <p class="font-body text-xs text-muted-foreground mt-10">
-          * No, no vendo homeopatía digital.
+          * No vendo homeopatía digital. Tampoco vendo esto, de hecho.
         </p>
       </div>
     </div>

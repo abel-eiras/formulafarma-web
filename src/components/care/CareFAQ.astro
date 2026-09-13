@@ -3,12 +3,12 @@ import { ChevronDown, HelpCircle } from 'lucide-astro';
 
 const faqs = [
   {
-    question: '¿Es realmente gratis durante la beta?',
-    answer: 'Sí. Cero euros. Sin tarjeta de crédito. Sin "prueba gratis de 14 días y luego te cobramos". Gratis de verdad hasta que salgamos de beta.',
+    question: '¿Es realmente gratis, o hay truco?',
+    answer: 'Es gratis. Sin truco. Sin "prueba 14 días y luego te cobramos". Y no va a dejar de serlo cuando salga de beta — el software en sí nunca tendrá coste.',
   },
   {
-    question: '¿Y después de la beta qué pasa?',
-    answer: 'Tendré planes de pago, pero los beta testers tendréis condiciones especiales de por vida. Por aguantarme cuando aún tenía bugs.',
+    question: '¿Y el código? ¿Es de verdad libre?',
+    answer: 'Está en camino de serlo. Estoy preparando el repositorio (limpiar configuración, elegir licencia, escribir documentación) para publicarlo. Cuando lo esté, podrás autoalojarlo tú mismo si quieres.',
   },
   {
     question: '¿Necesito instalar algo?',
@@ -24,11 +24,11 @@ const faqs = [
   },
   {
     question: '¿Puedo usarlo en varias farmacias?',
-    answer: 'Sí, pero cada farmacia tendría su cuenta separada. Si tienes un grupo de farmacias, escríbeme y lo hablamos. Tengo soluciones.',
+    answer: 'Sí, pero cada farmacia tendría su cuenta separada por ahora. Si tienes un grupo de farmacias, escríbeme y lo hablamos.',
   },
   {
     question: '¿Y si tengo una idea para mejorar el software?',
-    answer: 'Me la cuentas. En serio, leo TODO. Muchas funciones que tengo ahora vienen de sugerencias de usuarios. Tú mandas.',
+    answer: 'Me la cuentas. En serio, leo TODO. Muchas funciones que tengo ahora vienen de sugerencias de usuarios. Y cuando el repo sea público, hasta puedes proponerla tú mismo en el código.',
   },
   {
     question: '¿Por qué debería fiarme de un software nuevo?',
@@ -55,7 +55,7 @@ const faqs = [
     <!-- FAQ Grid -->
     <div class="max-w-3xl mx-auto space-y-4">
       {faqs.map((faq, index) => (
-        <details 
+        <details
           class="animate-fade-up group bg-card brutal-border overflow-hidden"
           style={`animation-delay: ${0.1 + index * 0.05}s;`}
         >

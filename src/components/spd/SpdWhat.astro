@@ -1,0 +1,99 @@
+---
+import { FileCheck, CalendarClock, Users, FileWarning, History, FolderCog } from 'lucide-astro';
+
+const features = [
+  {
+    icon: 'filecheck',
+    title: 'Hoja de Instauración',
+    description: 'El documento que abre el servicio para cada paciente, generado sin rellenar el mismo dato tres veces.',
+    highlight: 'Planificado',
+  },
+  {
+    icon: 'calendar',
+    title: 'Seguimiento del Servicio',
+    description: 'Registro de revisiones y cambios de tratamiento a lo largo del tiempo, sin perder el hilo del historial.',
+    highlight: 'Planificado',
+  },
+  {
+    icon: 'warning',
+    title: 'Incidencias',
+    description: 'Errores de envasado, devoluciones, avisos al paciente o a su cuidador — documentados como exige la norma.',
+    highlight: 'Planificado',
+  },
+  {
+    icon: 'users',
+    title: 'Fichas de Paciente Polimedicado',
+    description: 'Un sitio único con la medicación activa, alergias y observaciones de cada paciente en SPD.',
+    highlight: 'En diseño',
+  },
+  {
+    icon: 'folder',
+    title: 'Documentos Listos para Inspección',
+    description: 'La legislación gallega exige tener todo esto a mano y en orden. La idea es que lo tengas sin pelear con carpetas.',
+    highlight: 'En diseño',
+  },
+  {
+    icon: 'history',
+    title: 'Historial Exportable',
+    description: 'Todo lo generado, exportable cuando lo necesites — para una inspección, para un cambio de sistema, para lo que sea.',
+    highlight: 'Planificado',
+  },
+];
+---
+
+<section id="que-es" class="py-24 bg-secondary">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-block px-4 py-2 bg-accent text-accent-foreground font-body text-xs font-bold uppercase tracking-widest mb-4">
+        Qué va a hacer
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        La documentación que la ley te exige, sin volverte loco
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Nada de esto existe todavía como app terminada — es el plan de trabajo,
+        con el estado real de cada pieza. Sin promesas que luego no se cumplan.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div
+          class="animate-fade-up group relative bg-card brutal-border p-8 brutal-hover"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <div class="absolute -top-3 right-6">
+            <span class="inline-block px-3 py-1 bg-accent text-accent-foreground text-xs font-bold uppercase">
+              {feature.highlight}
+            </span>
+          </div>
+
+          <div class="w-14 h-14 bg-foreground flex items-center justify-center mb-6">
+            {feature.icon === 'filecheck' && <FileCheck class="w-7 h-7 text-background" />}
+            {feature.icon === 'calendar' && <CalendarClock class="w-7 h-7 text-background" />}
+            {feature.icon === 'warning' && <FileWarning class="w-7 h-7 text-background" />}
+            {feature.icon === 'users' && <Users class="w-7 h-7 text-background" />}
+            {feature.icon === 'folder' && <FolderCog class="w-7 h-7 text-background" />}
+            {feature.icon === 'history' && <History class="w-7 h-7 text-background" />}
+          </div>
+
+          <h3 class="font-display text-xl font-bold text-foreground mb-3">
+            {feature.title}
+          </h3>
+          <p class="font-body text-muted-foreground leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center animate-fade-up" style="animation-delay: 0.5s;">
+      <p class="text-muted-foreground mb-2">
+        ¿Haces SPD a mano y hay algo aquí que no encaja con tu día a día?
+      </p>
+      <p class="text-foreground font-medium">
+        Dímelo antes de que lo construya mal. Es mucho más fácil cambiar un plan que una app terminada.
+      </p>
+    </div>
+  </div>
+</section>

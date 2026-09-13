@@ -1,13 +1,13 @@
 ---
-import { ArrowRight, HeartPulse, Sparkles, Users, Shield } from 'lucide-astro';
+import { ArrowRight, FileStack, Mail } from 'lucide-astro';
 import Button from '@/components/ui/Button.astro';
 ---
 
 <section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-background">
   <!-- Grid -->
   <div class="absolute inset-0 z-0 opacity-[0.04]">
-    <div 
-      class="absolute inset-0" 
+    <div
+      class="absolute inset-0"
       style="background-image: repeating-linear-gradient(0deg, hsl(0 0% 5%) 0px, hsl(0 0% 5%) 1px, transparent 1px, transparent 80px), repeating-linear-gradient(90deg, hsl(0 0% 5%) 0px, hsl(0 0% 5%) 1px, transparent 1px, transparent 80px);"
     />
   </div>
@@ -20,56 +20,44 @@ import Button from '@/components/ui/Button.astro';
       <div class="max-w-2xl">
         <div class="animate-fade-up" style="animation-delay: 0s;">
           <div class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-6">
-            En desarrollo activo — código en camino a ser público
+            El repo ya existe. La app está naciendo.
           </div>
         </div>
 
         <div class="animate-fade-up" style="animation-delay: 0.1s;">
           <h1 class="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[0.95] mb-6">
-            Adiós Excel.{" "}
-            <span class="text-primary italic">Hola cordura.</span>
+            Adiós papeleo.{" "}
+            <span class="text-primary italic">Hola SPD sin dolor.</span>
           </h1>
         </div>
 
         <div class="animate-fade-up" style="animation-delay: 0.2s;">
           <p class="font-body text-base md:text-lg text-muted-foreground mb-4 leading-relaxed">
-            Asesoramiento dermocosmético, parámetros bioquímicos, fichas de paciente...{" "}
-            <strong class="text-foreground">Todo en un sitio. Todo bonito. Todo fácil.</strong>
+            Si envasas la medicación a mano —sin máquina semiautomática de emblistado—
+            ya sabes lo que cuesta cumplir con la legislación gallega de Sistemas
+            Personalizados de Dosificación.{" "}
+            <strong class="text-foreground">Toda esa documentación es lo que quiero resolverte.</strong>
           </p>
         </div>
 
         <div class="animate-fade-up" style="animation-delay: 0.25s;">
           <p class="font-body text-base text-muted-foreground mb-8">
-            El software de servicios asistenciales que NO te va a vender tu proveedor de siempre.{" "}
-            <span class="text-primary font-medium">Va a ser libre, código incluido, en cuanto esté listo para publicarse.</span>
+            Las farmacias con envasadora ya tienen su propia app para esto, más o menos
+            cómoda. Las que lo hacen a mano —la mayoría de las de barrio— no tienen nada.{" "}
+            <span class="text-primary font-medium">Ese hueco es el que quiero llenar.</span>
           </p>
         </div>
 
         <div class="animate-fade-up" style="animation-delay: 0.3s;">
           <div class="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button variant="hero" size="xl" href="https://formula-care.vercel.app/" target="_blank" rel="noopener">
-              Probar Fórmula Care
+            <Button variant="hero" size="xl" href="#cta">
+              <Mail class="w-5 h-5" />
+              Avísame cuando esté listo
+            </Button>
+            <Button variant="outline" size="xl" href="#que-es">
+              Qué hace exactamente
               <ArrowRight class="w-5 h-5" />
             </Button>
-            <Button variant="outline" size="xl" href="#como-funciona">
-              <HeartPulse class="w-5 h-5" />
-              Cómo va esto
-            </Button>
-          </div>
-        </div>
-
-        <div class="animate-fade-up flex flex-wrap gap-6" style="animation-delay: 0.4s;">
-          <div class="flex items-center gap-2 text-muted-foreground">
-            <Shield class="w-5 h-5 text-primary" />
-            <span class="text-sm font-medium">Gratis. Y libre, no solo gratis</span>
-          </div>
-          <div class="flex items-center gap-2 text-muted-foreground">
-            <Users class="w-5 h-5 text-primary" />
-            <span class="text-sm font-medium">Feedback directo</span>
-          </div>
-          <div class="flex items-center gap-2 text-muted-foreground">
-            <Sparkles class="w-5 h-5 text-primary" />
-            <span class="text-sm font-medium">Código abierto (pronto)</span>
           </div>
         </div>
       </div>
@@ -80,11 +68,11 @@ import Button from '@/components/ui/Button.astro';
             <div class="border-4 border-background/30 p-6 space-y-6">
               <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-primary flex items-center justify-center">
-                  <HeartPulse class="w-6 h-6 text-primary-foreground" />
+                  <FileStack class="w-6 h-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <p class="font-display font-bold text-background text-lg">Fórmula Care</p>
-                  <p class="text-xs text-background/50 font-body uppercase tracking-widest">Panel de control</p>
+                  <p class="font-display font-bold text-background text-lg">SPD</p>
+                  <p class="text-xs text-background/50 font-body uppercase tracking-widest">Gestión documental</p>
                 </div>
               </div>
               <div class="space-y-2">
@@ -94,12 +82,12 @@ import Button from '@/components/ui/Button.astro';
               </div>
               <div class="grid grid-cols-2 gap-3">
                 <div class="border-2 border-background/30 p-4">
-                  <p class="text-xs text-background/50 font-body uppercase">Pacientes</p>
-                  <p class="font-display font-bold text-3xl text-accent">127</p>
+                  <p class="text-xs text-background/50 font-body uppercase">Hoja instauración</p>
+                  <p class="font-display font-bold text-lg text-accent">✓</p>
                 </div>
                 <div class="border-2 border-background/30 p-4">
-                  <p class="text-xs text-background/50 font-body uppercase">Consultas</p>
-                  <p class="font-display font-bold text-3xl text-accent">342</p>
+                  <p class="text-xs text-background/50 font-body uppercase">Seguimiento</p>
+                  <p class="font-display font-bold text-lg text-accent">✓</p>
                 </div>
               </div>
             </div>
@@ -107,11 +95,11 @@ import Button from '@/components/ui/Button.astro';
           <div class="absolute -bottom-4 -left-4 brutal-border bg-card p-4 shadow-elevated">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 bg-foreground flex items-center justify-center">
-                <HeartPulse class="w-5 h-5 text-background" />
+                <FileStack class="w-5 h-5 text-background" />
               </div>
               <div>
-                <div class="font-display text-xl font-bold text-foreground">Beta</div>
-                <p class="text-xs text-muted-foreground">En uso real, cada día</p>
+                <div class="font-display text-xl font-bold text-foreground">Fase 0</div>
+                <p class="text-xs text-muted-foreground">Diseñando con farmacias reales</p>
               </div>
             </div>
           </div>

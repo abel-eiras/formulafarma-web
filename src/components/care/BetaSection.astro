@@ -1,5 +1,5 @@
 ---
-import { Sparkles, CheckCircle, Clock, HeartPulse } from 'lucide-astro';
+import { Sparkles, CheckCircle, Lock, Clock, HeartPulse } from 'lucide-astro';
 
 const betaFeatures = [
   {
@@ -20,9 +20,9 @@ const betaFeatures = [
 ];
 
 const promises = [
-  'Sin tarjeta de crédito',
-  'Sin compromiso',
-  'Cancela cuando quieras',
+  'Sin coste, nunca',
+  'Tus datos, tuyos siempre',
+  'El código será público',
 ];
 ---
 
@@ -31,14 +31,14 @@ const promises = [
     <div class="text-center mb-16 animate-fade-up">
       <span class="inline-block px-4 py-2 bg-accent text-accent-foreground font-body text-xs font-bold uppercase tracking-widest mb-4">
         <Sparkles class="w-4 h-4 inline mr-2" />
-        Beta Abierta
+        En desarrollo activo
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-        ¿Por qué unirte a la beta?
+        ¿Por qué probarlo si aún está en beta?
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Fórmula Care está casi listo. Pero antes de lanzar, quiero 
-        perfeccionarlo con farmacias reales como la tuya.
+        Porque ya funciona, y porque cada farmacia que lo usa lo mejora con su
+        feedback. Cuanto antes lo pruebes, antes se parece a lo que de verdad necesitas.
       </p>
     </div>
 
@@ -64,15 +64,18 @@ const promises = [
       ))}
     </div>
 
-    <!-- Beta Promise -->
+    <!-- Honest Promise -->
     <div class="animate-fade-up bg-card brutal-border-thick p-8 md:p-12 max-w-3xl mx-auto text-center" style="animation-delay: 0.4s;">
+      <div class="inline-flex items-center justify-center w-12 h-12 bg-foreground mb-4">
+        <Lock class="w-6 h-6 text-background" />
+      </div>
       <h3 class="font-display text-2xl font-bold text-foreground mb-4">
-        Mi promesa beta
+        Mi promesa, sin condiciones
       </h3>
       <p class="font-body text-muted-foreground mb-6 leading-relaxed">
-        Durante la beta tendrás acceso gratuito a todas las funcionalidades. 
-        A cambio, solo te pido que me cuentes qué funciona y qué puedo mejorar. 
-        Cuando lance la versión final, los usuarios beta tendrán <strong class="text-primary">condiciones especiales</strong>.
+        No hay "gratis durante la beta y luego pagas". Fórmula Care es y seguirá
+        siendo gratuito para usar. Lo único que te pido es que me cuentes qué
+        funciona y qué no — así de simple.
       </p>
       <div class="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
         {promises.map((promise) => (

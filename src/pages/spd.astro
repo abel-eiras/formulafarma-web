@@ -1,0 +1,25 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import SpdNavbar from '@/components/spd/SpdNavbar.astro';
+import SpdHero from '@/components/spd/SpdHero.astro';
+import SpdWhat from '@/components/spd/SpdWhat.astro';
+import SpdStatus from '@/components/spd/SpdStatus.astro';
+import SpdFAQ from '@/components/spd/SpdFAQ.astro';
+import SpdCTA from '@/components/spd/SpdCTA.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout
+  title="SPD | Adiós papeleo. Hola cordura."
+  description="Gestión documental libre para el servicio de Sistemas Personalizados de Dosificación en farmacias gallegas que envasan a mano. En desarrollo, código abierto desde el principio."
+>
+  <SpdNavbar />
+  <main>
+    <SpdHero />
+    <SpdWhat />
+    <SpdStatus />
+    <SpdFAQ />
+    <SpdCTA />
+  </main>
+  <Footer />
+</Layout>
