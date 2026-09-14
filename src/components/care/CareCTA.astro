@@ -12,35 +12,35 @@ import Button from '@/components/ui/Button.astro';
         </span>
 
         <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6 uppercase">
-          ¿Quieres probar Fórmula Care?
+          ¿Quieres instalar Fórmula Care?
         </h2>
         <p class="font-body text-lg md:text-xl text-background/80 mb-6 max-w-2xl mx-auto">
-          Entra directamente, sin pedir permiso. Y si quieres que te avise
-          cuando el código sea público, o simplemente contarme cómo te ha ido,
-          aquí abajo tienes cómo.
+          Descárgalo, instálalo, y en unos minutos tienes tu farmacia dada de alta.
+          Y si quieres contarme cómo te ha ido, aquí abajo tienes cómo.
         </p>
 
         <div class="mb-10">
           <a
-            href="https://formula-care.vercel.app/"
+            href="https://github.com/abel-eiras/formula-care/releases/latest"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-8 py-4 bg-background text-foreground font-bold text-lg uppercase tracking-wide brutal-border brutal-hover"
           >
             <Sparkles class="w-5 h-5" />
-            Probar Fórmula Care ahora
+            Descargar Fórmula Care
             <ArrowRight class="w-5 h-5" />
           </a>
           <p class="text-background/60 text-sm mt-3 flex items-center justify-center gap-2">
             <Github class="w-4 h-4" />
-            El repositorio aún no es público — en cuanto lo sea, lo verás enlazado aquí.
+            <a href="https://github.com/abel-eiras/formula-care" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">Código fuente en GitHub</a>
+            — licencia MIT.
           </p>
         </div>
       </div>
 
       <div class="animate-fade-up brutal-border-thick bg-background p-8 md:p-10 mb-10" style="animation-delay: 0.1s;">
         <h3 class="font-display text-xl font-bold text-foreground mb-6 text-center">
-          Avísame de novedades (o cuéntame tu caso)
+          Cuéntame cómo te va (o avísame de tu caso)
         </h3>
         <form id="care-contact-form" action="/contact.php" method="post" class="space-y-6">
           <input type="hidden" name="interest" value="formula-care" />
@@ -111,8 +111,8 @@ import Button from '@/components/ui/Button.astro';
 
       <div class="animate-fade-up flex flex-col sm:flex-row gap-6 justify-center items-center text-background/70 text-sm font-body" style="animation-delay: 0.2s;">
         <span>✓ Sin coste, nunca</span>
-        <span>✓ Tus datos son tuyos</span>
-        <span>✓ El código, tarde o temprano, también</span>
+        <span>✓ Tus datos, en tu ordenador</span>
+        <span>✓ Código público, licencia MIT</span>
       </div>
     </div>
   </div>
