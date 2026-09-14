@@ -4,31 +4,35 @@ import { ChevronDown, HelpCircle } from 'lucide-astro';
 const faqs = [
   {
     question: '¿Es realmente gratis, o hay truco?',
-    answer: 'Es gratis. Sin truco. Sin "prueba 14 días y luego te cobramos". Y no va a dejar de serlo cuando salga de beta — el software en sí nunca tendrá coste.',
+    answer: 'Es gratis. Sin truco. Sin "prueba 14 días y luego te cobramos". Y no va a dejar de serlo nunca — el software en sí no tendrá coste, sea la versión que sea.',
   },
   {
     question: '¿Y el código? ¿Es de verdad libre?',
-    answer: 'Va camino de serlo: licencia MIT ya elegida. Lo que queda es terminar de preparar el repositorio (limpiar configuración, documentación) para publicarlo. Cuando lo esté, podrás autoalojarlo tú mismo si quieres.',
+    answer: 'Sí, ya está publicado: repositorio público en GitHub, licencia MIT. Puedes leerlo, modificarlo o compilarlo tú mismo si te apetece.',
   },
   {
     question: '¿Necesito instalar algo?',
-    answer: 'Ahora mismo no hace falta nada para probarlo. Cómo lo uses el día de mañana puede cambiar (esto sigue moviéndose) — lo verás reflejado aquí en cuanto haya algo definitivo.',
+    answer: 'Sí — es una app de escritorio de verdad, no una web disfrazada. Te descargas el instalador de tu sistema (Windows, Mac o Linux) y lo instalas como cualquier programa.',
+  },
+  {
+    question: '¿Por qué el instalador avisa de "editor no verificado"?',
+    answer: 'Porque firmar el código cuesta dinero (certificados de Apple/Microsoft) y todavía no lo he hecho. Es el mismo instalador que genera la compilación pública en GitHub, así que puedes verificarlo tú mismo. En Windows: "más información" → "ejecutar de todas formas". En Mac: autorízalo en Preferencias del Sistema.',
   },
   {
     question: '¿Y si cambio de idea? ¿Puedo sacar mis datos?',
-    answer: 'Tus datos son TUYOS. Siempre. Exportación completa cuando quieras. Sin dramas, sin retenciones, sin "espera 30 días hábiles".',
+    answer: 'Tus datos son TUYOS, literalmente: viven en un archivo SQLite en tu propio ordenador, no en un servidor mío. Cópialo, expórtalo o bórralo cuando quieras. Además tiene copias de seguridad integradas (con cifrado opcional) para que no dependas de acordarte tú.',
   },
   {
     question: '¿Esto cumple con la RGPD y todo eso?',
-    answer: 'Por supuesto. Encriptación, servidores en Europa, política de privacidad clara... Todo lo que tiene que estar, está. Y bien hecho.',
+    answer: 'Mejor que cumplir: no hay servidor donde algo pueda salir mal. Tus datos de paciente no salen de tu ordenador, y los campos sensibles van cifrados en el propio archivo.',
   },
   {
     question: '¿Puedo usarlo en varias farmacias?',
-    answer: 'Sí, pero cada farmacia tendría su cuenta separada por ahora. Si tienes un grupo de farmacias, escríbeme y lo hablamos.',
+    answer: 'Cada instalación es una farmacia — no hay una cuenta central que las conecte a todas. Si tienes varias, instalas Fórmula Care en cada una por separado, con sus propios datos.',
   },
   {
     question: '¿Y si tengo una idea para mejorar el software?',
-    answer: 'Me la cuentas. En serio, leo TODO. Muchas funciones que tengo ahora vienen de sugerencias de usuarios. Y cuando el repo sea público, hasta puedes proponerla tú mismo en el código.',
+    answer: 'Me la cuentas. En serio, leo TODO. Muchas funciones que tengo ahora vienen de sugerencias de usuarios. Y como el repo ya es público, hasta puedes proponerla tú mismo en el código.',
   },
   {
     question: '¿Por qué debería fiarme de un software nuevo?',

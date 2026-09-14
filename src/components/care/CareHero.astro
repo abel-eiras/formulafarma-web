@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, HeartPulse, Sparkles, Users, Shield } from 'lucide-astro';
+import { ArrowRight, HeartPulse, Download, Users, Shield } from 'lucide-astro';
 import Button from '@/components/ui/Button.astro';
 ---
 
@@ -20,7 +20,7 @@ import Button from '@/components/ui/Button.astro';
       <div class="max-w-2xl">
         <div class="animate-fade-up" style="animation-delay: 0s;">
           <div class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-6">
-            En desarrollo activo — código en camino a ser público
+            Código abierto — v0.1.0 ya descargable
           </div>
         </div>
 
@@ -41,15 +41,15 @@ import Button from '@/components/ui/Button.astro';
         <div class="animate-fade-up" style="animation-delay: 0.25s;">
           <p class="font-body text-base text-muted-foreground mb-8">
             El software de servicios asistenciales que NO te va a vender tu proveedor de siempre.{" "}
-            <span class="text-primary font-medium">Va a ser libre, código incluido, en cuanto esté listo para publicarse.</span>
+            <span class="text-primary font-medium">Se instala en tu ordenador, no en la nube de nadie. Tus datos de paciente no salen de tu farmacia.</span>
           </p>
         </div>
 
         <div class="animate-fade-up" style="animation-delay: 0.3s;">
           <div class="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button variant="hero" size="xl" href="https://formula-care.vercel.app/" target="_blank" rel="noopener">
-              Probar Fórmula Care
-              <ArrowRight class="w-5 h-5" />
+            <Button variant="hero" size="xl" href="https://github.com/abel-eiras/formula-care/releases/latest" target="_blank" rel="noopener">
+              <Download class="w-5 h-5" />
+              Descargar
             </Button>
             <Button variant="outline" size="xl" href="#como-funciona">
               <HeartPulse class="w-5 h-5" />
@@ -61,15 +61,15 @@ import Button from '@/components/ui/Button.astro';
         <div class="animate-fade-up flex flex-wrap gap-6" style="animation-delay: 0.4s;">
           <div class="flex items-center gap-2 text-muted-foreground">
             <Shield class="w-5 h-5 text-primary" />
-            <span class="text-sm font-medium">Gratis. Y libre, no solo gratis</span>
+            <span class="text-sm font-medium">Sin servidor. Tus datos, en tu equipo</span>
           </div>
           <div class="flex items-center gap-2 text-muted-foreground">
             <Users class="w-5 h-5 text-primary" />
             <span class="text-sm font-medium">Feedback directo</span>
           </div>
           <div class="flex items-center gap-2 text-muted-foreground">
-            <Sparkles class="w-5 h-5 text-primary" />
-            <span class="text-sm font-medium">Código abierto (pronto)</span>
+            <ArrowRight class="w-5 h-5 text-primary" />
+            <span class="text-sm font-medium">Código abierto (MIT)</span>
           </div>
         </div>
       </div>
@@ -110,8 +110,8 @@ import Button from '@/components/ui/Button.astro';
                 <HeartPulse class="w-5 h-5 text-background" />
               </div>
               <div>
-                <div class="font-display text-xl font-bold text-foreground">Beta</div>
-                <p class="text-xs text-muted-foreground">En uso real, cada día</p>
+                <div class="font-display text-xl font-bold text-foreground">v0.1.0</div>
+                <p class="text-xs text-muted-foreground">Primera versión publicada</p>
               </div>
             </div>
           </div>

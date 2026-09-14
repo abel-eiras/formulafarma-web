@@ -1,34 +1,34 @@
 ---
-import { MousePointerClick, MessageSquare, Code2, GitFork, CheckCircle, Sparkles } from 'lucide-astro';
+import { Download, MessageSquare, Code2, GitFork, CheckCircle, Sparkles } from 'lucide-astro';
 
 const steps = [
   {
-    icon: 'click',
+    icon: 'download',
     step: '01',
-    title: 'Pruébalo',
-    description: 'Entra en la app, sin registro previo ni formularios. Explora, configura y regístrate directamente si te convence.',
+    title: 'Descárgalo',
+    description: 'El instalador de tu sistema (Windows, Mac o Linux) desde la página de releases en GitHub. Nada de crear cuenta antes de probarlo.',
     highlight: 'Sin dar de alta nada',
   },
   {
-    icon: 'message',
+    icon: 'code',
     step: '02',
+    title: 'Instálalo y arranca',
+    description: 'Se instala como cualquier programa. En el primer arranque te pide crear tu cuenta de administrador, y ya está. Sin servidores que configurar.',
+    highlight: 'Un asistente, y listo',
+  },
+  {
+    icon: 'message',
+    step: '03',
     title: 'Cuéntame qué falla',
     description: 'Bugs, cosas que no entiendes, funciones que echas en falta. Todo eso lo leo yo, no un buzón de sugerencias que nadie mira.',
     highlight: 'Tu voz importa',
   },
   {
-    icon: 'code',
-    step: '03',
-    title: 'Sigue el código',
-    description: 'Estoy preparando el repositorio para publicarlo: limpiar configuración, escribir documentación. Licencia MIT ya elegida. En camino.',
-    highlight: 'Próximamente en GitHub',
-  },
-  {
     icon: 'fork',
     step: '04',
-    title: 'Contribuye si te apetece',
-    description: 'Cuando el repo sea público, cualquier mejora es bienvenida — programes mucho o programes poco pero conozcas bien el oficio.',
-    highlight: 'Opcional, no obligatorio',
+    title: 'Mira el código o contribuye',
+    description: 'El repositorio es público, licencia MIT. Cualquier mejora es bienvenida — programes mucho o programes poco pero conozcas bien el oficio.',
+    highlight: 'Ya está en GitHub',
   },
 ];
 
@@ -52,7 +52,7 @@ const honesties = [
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
         No hay "plazas limitadas" ni cuenta atrás. Fórmula Care se usa ya,
-        se sigue mejorando con quien lo usa, y el código va camino de hacerse público.
+        se sigue mejorando con quien lo usa, y el código es público desde el primer día.
       </p>
     </div>
 
@@ -73,7 +73,7 @@ const honesties = [
 
             <div class="flex items-center gap-4 mb-4 mt-2">
               <div class="w-12 h-12 bg-foreground flex items-center justify-center">
-                {step.icon === 'click' && <MousePointerClick class="w-6 h-6 text-background" />}
+                {step.icon === 'download' && <Download class="w-6 h-6 text-background" />}
                 {step.icon === 'message' && <MessageSquare class="w-6 h-6 text-background" />}
                 {step.icon === 'code' && <Code2 class="w-6 h-6 text-background" />}
                 {step.icon === 'fork' && <GitFork class="w-6 h-6 text-background" />}
