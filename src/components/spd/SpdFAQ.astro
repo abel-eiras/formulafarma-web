@@ -4,7 +4,11 @@ import { ChevronDown, HelpCircle } from 'lucide-astro';
 const faqs = [
   {
     question: '¿Esto ya funciona?',
-    answer: 'No todavía. El repositorio existe y el diseño avanza, pero no hay una app usable ahora mismo. Esta página está aquí para que sepas que se está cociendo, y puedas seguirlo o meterle mano si te apetece.',
+    answer: 'Sí — ya puedes descargarlo. Es la v0.1.0-beta: es una primera versión pública, así que puede tener algún error inesperado, pero yo mismo la he instalado sin problemas en dos ordenadores con Windows completamente distintos.',
+  },
+  {
+    question: '¿Cómo se instala?',
+    answer: 'No hay instalador clásico: descargas el paquete de tu sistema desde Releases, lo descomprimes y ejecutas el programa. Trae un LEEME.txt con los pasos exactos. Es portable — programa, base de datos y copias de seguridad viven todos en esa misma carpeta.',
   },
   {
     question: '¿Por qué solo para farmacias gallegas?',
@@ -12,19 +16,19 @@ const faqs = [
   },
   {
     question: '¿Me sirve si tengo máquina semiautomática de emblistado?',
-    answer: 'Probablemente no lo necesites: los fabricantes de esas máquinas suelen incluir su propio software de gestión documental. Esto es para quien lo hace a mano, que hoy no tiene nada.',
+    answer: 'Probablemente no lo necesites: los fabricantes de esas máquinas suelen incluir su propio software de gestión documental. Esto es para quien lo hace a mano, que hoy no tenía nada.',
   },
   {
     question: '¿Va a costar dinero?',
     answer: 'No. Como Fórmula Care, es y seguirá siendo software libre. Cero coste por usarlo.',
   },
   {
-    question: '¿Cómo puedo ayudar ya, si aún no hay nada que probar?',
-    answer: 'Cuéntame cómo haces SPD hoy: en papel, en Excel, con plantillas propias. Qué documento te consume más tiempo, dónde metes la pata más a menudo. Eso vale tanto como una línea de código en esta fase.',
+    question: '¿Cómo puedo ayudar?',
+    answer: 'Descárgalo y pruébalo en tu farmacia. Al ser la primera beta, cuéntame qué falla, qué te choca o qué echas en falta — en esta fase, tu feedback vale tanto o más que una línea de código.',
   },
   {
     question: '¿Y si programas y quieres meterte ya?',
-    answer: 'Escríbeme. El repo aún no está listo para recibir colaboraciones externas de forma ordenada, pero puedo contarte por dónde va e ir avisándote según avance.',
+    answer: 'El repositorio ya es público en GitHub, licencia MIT. Escríbeme o mira directamente el código — cualquier mejora es bienvenida.',
   },
 ];
 ---
@@ -36,10 +40,10 @@ const faqs = [
         Dudas razonables
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-        Preguntas frecuentes (para un proyecto que casi no existe)
+        Preguntas frecuentes (para una beta muy joven)
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Justo porque está tan verde, prefiero contarte demasiado a contarte de menos.
+        Justo porque es tan joven, prefiero contarte demasiado a contarte de menos.
       </p>
     </div>
 

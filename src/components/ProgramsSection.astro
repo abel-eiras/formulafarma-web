@@ -63,7 +63,7 @@ import Button from '@/components/ui/Button.astro';
           </div>
           <div>
             <span class="inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs font-bold uppercase mb-2">
-              En desarrollo temprano
+              Beta descargable — v0.1.0-beta
             </span>
             <h3 class="font-display text-2xl font-bold text-background">SPD</h3>
           </div>
@@ -76,13 +76,17 @@ import Button from '@/components/ui/Button.astro';
             volverse loco con ellos.
           </p>
           <ul class="space-y-2 mb-8 font-body text-sm text-foreground">
-            <li class="flex items-center gap-2"><span class="text-primary font-bold">→</span> El repo ya existe, la app está naciendo</li>
-            <li class="flex items-center gap-2"><span class="text-primary font-bold">→</span> Pensado con farmacias que lo sufren cada día</li>
+            <li class="flex items-center gap-2"><span class="text-primary font-bold">→</span> Ya descargable: Windows, Linux y macOS (experimental)</li>
+            <li class="flex items-center gap-2"><span class="text-primary font-bold">→</span> Primera versión: puede tener algún error inesperado</li>
           </ul>
-          <div class="mt-auto">
-            <Button variant="hero" href="/spd" class="w-full sm:w-auto">
+          <div class="mt-auto flex flex-col sm:flex-row gap-3">
+            <Button variant="hero" href="/spd" class="flex-1">
               Ver el proyecto
               <ArrowRight class="w-4 h-4" />
+            </Button>
+            <Button variant="outline" href="https://github.com/abel-eiras/formula-spd/releases/latest" target="_blank" rel="noopener noreferrer" class="flex-1">
+              Descargar
+              <ExternalLink class="w-4 h-4" />
             </Button>
           </div>
         </div>

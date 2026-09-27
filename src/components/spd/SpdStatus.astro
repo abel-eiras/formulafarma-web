@@ -1,21 +1,26 @@
 ---
-import { Sparkles, GitCommitHorizontal, Users, Code2 } from 'lucide-astro';
+import { Sparkles, Download, AlertTriangle, Users, Code2 } from 'lucide-astro';
 
 const status = [
   {
-    icon: 'commit',
-    title: 'Recién empezado',
-    description: 'El repositorio existe y el diseño avanza, pero todavía no hay una app usable. Esta página existe para que sepas que se está cociendo.',
+    icon: 'download',
+    title: 'Ya se puede descargar',
+    description: 'La v0.1.0-beta está en GitHub Releases: paquete portable para Windows (probado sin problemas en dos ordenadores completamente distintos) y para Linux, con macOS de forma experimental.',
+  },
+  {
+    icon: 'warning',
+    title: 'Es una beta, con todas las letras',
+    description: 'Es la primera versión pública. Es posible que te encuentres con algún error inesperado — cuéntamelo y lo arreglo cuanto antes.',
   },
   {
     icon: 'users',
     title: 'Con farmacias reales',
-    description: 'Se está pensando junto a farmacias gallegas que hoy hacen SPD a mano, no en un despacho adivinando qué necesitan.',
+    description: 'Se está probando ya en un grupo reducido de farmacias gallegas que hacen SPD a mano, no en un despacho adivinando qué necesitan.',
   },
   {
     icon: 'code',
     title: 'Abierto desde el principio',
-    description: 'La idea es que el código sea público desde que haya algo mínimamente presentable — no al final, como "regalo" de última hora.',
+    description: 'El código ya es público en GitHub, licencia MIT, desde esta primera versión — no al final, como "regalo" de última hora.',
   },
 ];
 ---
@@ -28,22 +33,23 @@ const status = [
         Estado del proyecto
       </span>
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-        Sin fecha de lanzamiento inventada
+        Verde todavía, pero ya se usa
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Prefiero decirte "esto está verde todavía" a prometerte una fecha
-        que luego no cumplo. Así va, de verdad, ahora mismo.
+        Prefiero decirte "esto es una beta y puede fallar" a prometerte
+        algo que luego no cumplo. Así va, de verdad, ahora mismo.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
       {status.map((item, index) => (
         <div
           class="animate-fade-up bg-card brutal-border p-8 brutal-hover"
           style={`animation-delay: ${0.1 + index * 0.1}s;`}
         >
           <div class="w-14 h-14 bg-foreground flex items-center justify-center mb-6">
-            {item.icon === 'commit' && <GitCommitHorizontal class="w-7 h-7 text-background" />}
+            {item.icon === 'download' && <Download class="w-7 h-7 text-background" />}
+            {item.icon === 'warning' && <AlertTriangle class="w-7 h-7 text-background" />}
             {item.icon === 'users' && <Users class="w-7 h-7 text-background" />}
             {item.icon === 'code' && <Code2 class="w-7 h-7 text-background" />}
           </div>
