@@ -1,5 +1,5 @@
 ---
-import { Stethoscope, Droplets, Settings, FileText, BarChart3, Users } from 'lucide-astro';
+import { Stethoscope, Droplets, Settings, FileText, BarChart3, Users, HeartHandshake, CalendarClock, ShieldCheck } from 'lucide-astro';
 
 const features = [
   {
@@ -11,31 +11,49 @@ const features = [
   {
     icon: 'droplets',
     title: 'Parámetros Bioquímicos',
-    description: 'Glucosa, colesterol, tensión... Y sí, también recuerdo al paciente que dijo que "iba a empezar la dieta el lunes". Gráficos que hasta tu madre entendería.',
-    highlight: 'Disponible',
+    description: 'Glucosa, colesterol, tensión... con aviso de valores fuera de rango. Y ahora también riesgo cardiovascular (SCORE2) y test de diabetes (FINDRISC), calculados solos.',
+    highlight: 'Nuevo',
+  },
+  {
+    icon: 'heart',
+    title: 'Nutrición (con GLP-1)',
+    description: 'Programa completo por paciente: objetivo, visitas de seguimiento, evolución de peso y, si toma un GLP-1, dosis y efectos secundarios.',
+    highlight: 'Nuevo',
   },
   {
     icon: 'filetext',
     title: 'Fichas de Paciente',
-    description: 'Historial completo, notas, recomendaciones... Todo en un sitio. Adiós al "espera que busco en qué papel lo apunté".',
+    description: '¿Los tenías en Excel? Impórtalos de una vez con la plantilla de la app: avisa de errores y no duplica a nadie. Historial completo siempre a mano.',
     highlight: 'Personalizable',
   },
   {
+    icon: 'calendar',
+    title: 'Citas y Calendario',
+    description: 'Calendario con todas tus citas, recordatorio automático el día antes por email o WhatsApp, y aviso de cumpleaños de tus pacientes.',
+    highlight: 'Nuevo',
+  },
+  {
     icon: 'barchart',
-    title: 'Informes y Estadísticas',
-    description: 'Datos bonitos que te ayudan a entender qué funciona y qué no. Para cuando te pregunten "¿y esto para qué sirve?".',
+    title: 'Informes con tu Marca',
+    description: 'Cada servicio genera un informe con el logo y los colores de tu farmacia: imprimir, guardar en PDF o enviar por correo al paciente.',
     highlight: 'Disponible',
+  },
+  {
+    icon: 'shield',
+    title: 'Seguridad y RGPD',
+    description: 'Copias de seguridad automáticas y cifradas, cierre de sesión si el ordenador queda desatendido, registro de accesos y consentimiento RGPD de cada paciente.',
+    highlight: 'Reforzado',
   },
   {
     icon: 'settings',
     title: '100% Configurable',
-    description: '¿Cada farmacia es un mundo? Exacto. Por eso puedes configurar TODO. Campos, formularios, flujos... Si lo necesitas, lo tienes.',
+    description: '¿Cada farmacia es un mundo? Exacto. Por eso puedes configurar TODO. Campos, temas, textos de correo... Si lo necesitas, lo tienes.',
     highlight: 'Flexible',
   },
   {
     icon: 'users',
     title: 'Multiusuario',
-    description: 'Cada persona del equipo con su cuenta y su rol, en el mismo ordenador de la farmacia. Sin "¿dónde guardaste eso?".',
+    description: 'Cada persona del equipo con su cuenta y su contraseña, en el mismo ordenador de la farmacia. Sin "¿dónde guardaste eso?".',
     highlight: 'Colaborativo',
   },
 ];
@@ -71,8 +89,11 @@ const features = [
           <div class="w-14 h-14 bg-foreground flex items-center justify-center mb-6">
             {feature.icon === 'stethoscope' && <Stethoscope class="w-7 h-7 text-background" />}
             {feature.icon === 'droplets' && <Droplets class="w-7 h-7 text-background" />}
+            {feature.icon === 'heart' && <HeartHandshake class="w-7 h-7 text-background" />}
             {feature.icon === 'filetext' && <FileText class="w-7 h-7 text-background" />}
+            {feature.icon === 'calendar' && <CalendarClock class="w-7 h-7 text-background" />}
             {feature.icon === 'barchart' && <BarChart3 class="w-7 h-7 text-background" />}
+            {feature.icon === 'shield' && <ShieldCheck class="w-7 h-7 text-background" />}
             {feature.icon === 'settings' && <Settings class="w-7 h-7 text-background" />}
             {feature.icon === 'users' && <Users class="w-7 h-7 text-background" />}
           </div>
