@@ -4,21 +4,26 @@ on:
   push:
     branches: [master]
 
+# The deploy needs no repository write access. Secrets remain available only to
+# this protected environment.
+permissions:
+  contents: read
+
 jobs:
   web-deploy:
     runs-on: ubuntu-latest
     environment: Formulafarma_secrets
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '20'
       
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       
       - name: Build Astro
         run: npm run build
@@ -41,7 +46,7 @@ jobs:
           echo "✅ All FTP secrets are configured"
       
       - name: Deploy website to public_html
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}

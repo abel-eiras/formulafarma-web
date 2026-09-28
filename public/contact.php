@@ -24,6 +24,16 @@ if (file_exists($config_file)) {
 $to_email = $smtp_config['to_email'];
 $subject_prefix = "[Fórmula Farma] Nuevo mensaje de contacto";
 
+// Keep individual requests small even if PHP's global post_max_size is set too high.
+// This is checked before using any submitted value.
+$max_request_size = 12 * 1024;
+if (isset($_SERVER['CONTENT_LENGTH']) && (int) $_SERVER['CONTENT_LENGTH'] > $max_request_size) {
+    http_response_code(413);
+    header('Content-Type: application/json');
+    echo json_encode(["error" => "El formulario es demasiado grande"]);
+    exit;
+}
+
 // Verificar que es una petición POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
@@ -32,22 +42,51 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
-// Obtener y limpiar datos del formulario
+// Obtener y limpiar datos del formulario. Reject arrays and oversized values instead
+// of coercing them, so attackers cannot turn a field into an unexpected structure.
+function getPostString($key, $max_length, &$errors) {
+    if (!isset($_POST[$key])) {
+        return '';
+    }
+
+    if (!is_string($_POST[$key])) {
+        $errors[] = "El campo {$key} no es válido";
+        return '';
+    }
+
+    $value = $_POST[$key];
+    if (strlen($value) > $max_length || strpos($value, "\0") !== false) {
+        $errors[] = "El campo {$key} es demasiado largo o no es válido";
+        return '';
+    }
+
+    return $value;
+}
+
 // strip_tags elimina HTML; preg_replace elimina saltos de línea para prevenir header injection
 function sanitizeField($value) {
     return trim(htmlspecialchars(preg_replace('/[\r\n\t]/', ' ', strip_tags($value))));
 }
 
-$name     = isset($_POST["name"])     ? sanitizeField($_POST["name"])     : "";
-$email    = isset($_POST["email"])    ? trim(htmlspecialchars($_POST["email"])) : "";
-$pharmacy = isset($_POST["pharmacy"]) ? sanitizeField($_POST["pharmacy"]) : "";
-$interest = isset($_POST["interest"]) ? sanitizeField($_POST["interest"]) : "";
-$message  = isset($_POST["message"])  ? trim(strip_tags($_POST["message"])) : "";
-$source   = isset($_POST["source"])   ? sanitizeField($_POST["source"])   : "";
-$bot_field = isset($_POST["bot-field"]) ? $_POST["bot-field"] : "";
+$errors = [];
+$raw_name = getPostString('name', 100, $errors);
+$raw_email = getPostString('email', 254, $errors);
+$raw_pharmacy = getPostString('pharmacy', 150, $errors);
+$raw_interest = getPostString('interest', 32, $errors);
+$raw_message = getPostString('message', 5000, $errors);
+$raw_source = getPostString('source', 32, $errors);
+$bot_field = getPostString('bot-field', 200, $errors);
+
+$name = sanitizeField($raw_name);
+$email = trim($raw_email);
+$pharmacy = sanitizeField($raw_pharmacy);
+$interest = sanitizeField($raw_interest);
+$message = trim(strip_tags($raw_message));
+$source = sanitizeField($raw_source);
 
 // Validación básica
-$errors = [];
+$allowed_interests = ['usar', 'contribuir', 'caso', 'difundir', 'formula-care', 'spd'];
+$allowed_sources = ['', 'ficha-programa'];
 
 if (empty($name)) {
     $errors[] = "El nombre es obligatorio";
@@ -59,6 +98,14 @@ if (empty($email)) {
     $errors[] = "El email no es válido";
 }
 
+if (!in_array($interest, $allowed_interests, true)) {
+    $errors[] = "El interés no es válido";
+}
+
+if (!in_array($source, $allowed_sources, true)) {
+    $errors[] = "El origen no es válido";
+}
+
 // Honeypot: si el campo bot-field tiene contenido, es spam
 if (!empty($bot_field)) {
     http_response_code(200);
@@ -67,66 +114,99 @@ if (!empty($bot_field)) {
     exit;
 }
 
-// Rate limiting: limitar envíos por IP
+// Rate limiting: use only REMOTE_ADDR. Forwarded headers are user-controlled
+// unless the web server overwrites them after validating its trusted proxies.
+// A single, flock-protected and size-bounded state file avoids a file per IP and
+// makes concurrent requests update the same state safely.
 function checkRateLimit($ip, $max_attempts = 5, $time_window = 3600) {
-    $rate_limit_dir = dirname(dirname(__FILE__)) . '/rate_limits';
+    $rate_limit_dir = dirname(__DIR__) . '/rate_limits';
     
     if (!is_dir($rate_limit_dir)) {
-        @mkdir($rate_limit_dir, 0755, true);
+        if (!@mkdir($rate_limit_dir, 0700, true) && !is_dir($rate_limit_dir)) {
+            error_log('Contact form rate-limit directory cannot be created');
+            return ['allowed' => false, 'message' => 'El formulario no está disponible temporalmente.'];
+        }
     }
-    
+
     $ip_hash = hash('sha256', $ip);
-    $rate_limit_file = $rate_limit_dir . '/' . $ip_hash . '.txt';
-    
-    $now = time();
-    $attempts = [];
-    
-    if (file_exists($rate_limit_file)) {
-        $content = file_get_contents($rate_limit_file);
-        $attempts = json_decode($content, true) ?: [];
+    $rate_limit_file = $rate_limit_dir . '/contact-rate-limit.json';
+    $handle = @fopen($rate_limit_file, 'c+');
+    if ($handle === false || !flock($handle, LOCK_EX)) {
+        error_log('Contact form rate-limit state cannot be locked');
+        if (is_resource($handle)) {
+            fclose($handle);
+        }
+        return ['allowed' => false, 'message' => 'El formulario no está disponible temporalmente.'];
     }
-    
-    $attempts = array_filter($attempts, function($timestamp) use ($now, $time_window) {
-        return ($now - $timestamp) < $time_window;
-    });
-    
+
+    $now = time();
+    $content = stream_get_contents($handle);
+    $state = json_decode($content, true);
+    $buckets = is_array($state) && isset($state['buckets']) && is_array($state['buckets'])
+        ? $state['buckets']
+        : [];
+
+    foreach ($buckets as $key => $timestamps) {
+        if (!is_array($timestamps)) {
+            unset($buckets[$key]);
+            continue;
+        }
+        $timestamps = array_values(array_filter($timestamps, function($timestamp) use ($now, $time_window) {
+            return is_int($timestamp) && $timestamp <= $now && ($now - $timestamp) < $time_window;
+        }));
+        if (empty($timestamps)) {
+            unset($buckets[$key]);
+        } else {
+            $buckets[$key] = $timestamps;
+        }
+    }
+
+    // Retain a bounded number of clients; evict the least-recently-used bucket
+    // when a new address arrives so attacker-controlled addresses cannot grow it.
+    if (!isset($buckets[$ip_hash]) && count($buckets) >= 1000) {
+        uasort($buckets, function($left, $right) {
+            return end($left) <=> end($right);
+        });
+        array_shift($buckets);
+    }
+
+    $attempts = isset($buckets[$ip_hash]) ? $buckets[$ip_hash] : [];
     $attempt_count = count($attempts);
-    
     if ($attempt_count >= $max_attempts) {
         $oldest_attempt = min($attempts);
         $time_remaining = $time_window - ($now - $oldest_attempt);
         $minutes_remaining = ceil($time_remaining / 60);
-        
+
+        flock($handle, LOCK_UN);
+        fclose($handle);
         return [
             'allowed' => false,
             'message' => "Has alcanzado el límite de envíos. Por favor, espera {$minutes_remaining} minuto(s) antes de intentar de nuevo."
         ];
     }
-    
+
     $attempts[] = $now;
-    file_put_contents($rate_limit_file, json_encode(array_values($attempts)));
-    
-    if (file_exists($rate_limit_file) && ($now - filemtime($rate_limit_file)) > 86400) {
-        @unlink($rate_limit_file);
+    $buckets[$ip_hash] = $attempts;
+    $encoded_state = json_encode(['buckets' => $buckets]);
+    if ($encoded_state === false || !ftruncate($handle, 0) || rewind($handle) === false || fwrite($handle, $encoded_state) === false || !fflush($handle)) {
+        flock($handle, LOCK_UN);
+        fclose($handle);
+        error_log('Contact form rate-limit state cannot be written');
+        return ['allowed' => false, 'message' => 'El formulario no está disponible temporalmente.'];
     }
-    
+
+    @chmod($rate_limit_file, 0600);
+    flock($handle, LOCK_UN);
+    fclose($handle);
     return ['allowed' => true];
 }
 
 function getClientIP() {
-    $ip_keys = ['HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'REMOTE_ADDR'];
-    foreach ($ip_keys as $key) {
-        if (!empty($_SERVER[$key])) {
-            $ip = $_SERVER[$key];
-            if (strpos($ip, ',') !== false) {
-                $ip = trim(explode(',', $ip)[0]);
-            }
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
-                return $ip;
-            }
-        }
+    $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+    if (filter_var($ip, FILTER_VALIDATE_IP)) {
+        return $ip;
     }
-    return $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    return 'unknown';
 }
 
 // Verificar rate limiting
@@ -152,6 +232,7 @@ if (!empty($errors)) {
 
 // Preparar el email
 $is_program_page = ($source === 'ficha-programa');
+$is_beta = false;
 $subject = ($is_program_page ? "[" . strtoupper($interest) . "] " : "") . $subject_prefix . " - " . $name;
 $email_body = "Has recibido un nuevo mensaje desde el formulario de contacto de Fórmula Farma.\n\n";
 $email_body .= "Nombre: " . $name . "\n";
@@ -175,8 +256,39 @@ if (!empty($message)) {
     $email_body .= "Mensaje:\n" . $message . "\n";
 }
 
+function formatMailboxHeader($email, $display_name = '') {
+    if (!is_string($email) || preg_match('/[\r\n]/', $email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
+
+    if ($display_name === '') {
+        return '<' . $email . '>';
+    }
+
+    if (!is_string($display_name) || preg_match('/[\r\n]/', $display_name)) {
+        return false;
+    }
+
+    return '=?UTF-8?B?' . base64_encode($display_name) . '?= <' . $email . '>';
+}
+
+function escapeSmtpData($data) {
+    // SMTP terminates DATA at a line containing a single dot. Normalize line
+    // endings and dot-stuff every line so submitted text cannot terminate DATA
+    // or append SMTP commands.
+    $data = preg_replace('/\r\n|\r|\n/', "\r\n", $data);
+    return preg_replace('/(^|\r\n)\./', '$1..', $data);
+}
+
 // Función para enviar email con SMTP
 function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
+    $from_header = formatMailboxHeader($from_email, $from_name);
+    $to_header = formatMailboxHeader($to);
+    if ($from_header === false || $to_header === false) {
+        error_log('SMTP configuration contains an invalid email address or display name');
+        return false;
+    }
+
     $smtp_host = $config['smtp_host'];
     $smtp_port = $config['smtp_port'];
     $smtp_user = $config['smtp_username'];
@@ -362,9 +474,9 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     
     $encoded_subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     
-    $headers = "From: " . $from_name . " <" . $from_email . ">\r\n";
-    $headers .= "Reply-To: " . $from_email . "\r\n";
-    $headers .= "To: " . $to . "\r\n";
+    $headers = "From: " . $from_header . "\r\n";
+    $headers .= "Reply-To: " . formatMailboxHeader($from_email) . "\r\n";
+    $headers .= "To: " . $to_header . "\r\n";
     $headers .= "Subject: " . $encoded_subject . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
     $headers .= "Content-Transfer-Encoding: 8bit\r\n";
@@ -372,7 +484,7 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "\r\n";
     
-    fputs($smtp, $headers . $body . "\r\n.\r\n");
+    fputs($smtp, $headers . escapeSmtpData($body) . "\r\n.\r\n");
     
     $response = '';
     while ($line = fgets($smtp, 515)) {
@@ -409,11 +521,17 @@ if (isset($smtp_config['use_smtp']) && $smtp_config['use_smtp'] === true) {
         $error_message = "Error al enviar por SMTP. Revisa los logs del servidor.";
     }
 } else {
-    $headers = "From: " . $smtp_config['from_name'] . " <" . $smtp_config['from_email'] . ">\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    
-    $mail_sent = @mail($to_email, $subject, $email_body, $headers);
+    $from_header = formatMailboxHeader($smtp_config['from_email'], $smtp_config['from_name']);
+    $reply_to_header = formatMailboxHeader($email);
+    if ($from_header === false || $reply_to_header === false || !filter_var($to_email, FILTER_VALIDATE_EMAIL)) {
+        $mail_sent = false;
+        $error_message = "Configuración de correo no válida.";
+    } else {
+        $headers = "From: " . $from_header . "\r\n";
+        $headers .= "Reply-To: " . $reply_to_header . "\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $mail_sent = @mail($to_email, $subject, $email_body, $headers);
+    }
     
     if (!$mail_sent) {
         $error_message = "Error al enviar con mail() de PHP.";
@@ -447,9 +565,12 @@ if ($mail_sent) {
             $smtp_config['from_name']
         );
     } else {
-        $reply_headers  = "From: " . $smtp_config['from_name'] . " <" . $smtp_config['from_email'] . ">\r\n";
-        $reply_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-        @mail($email, $reply_subject, $reply_body, $reply_headers);
+        $from_header = formatMailboxHeader($smtp_config['from_email'], $smtp_config['from_name']);
+        if ($from_header !== false) {
+            $reply_headers  = "From: " . $from_header . "\r\n";
+            $reply_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+            @mail($email, $reply_subject, $reply_body, $reply_headers);
+        }
     }
 }
 
