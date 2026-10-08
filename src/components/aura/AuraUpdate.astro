@@ -1,0 +1,62 @@
+---
+import { RefreshCw, BellRing, ShieldCheck, Database } from 'lucide-astro';
+
+const points = [
+  {
+    icon: 'bell',
+    title: 'Te avisa sola',
+    description: 'Al abrir la app, si hay una versión nueva verás un mensaje con las novedades.',
+  },
+  {
+    icon: 'refresh',
+    title: 'Un toque y listo',
+    description: 'Pulsa "Actualizar": se descarga, se comprueba y se instala. Android te pedirá confirmar. Nunca se actualiza mientras estás grabando.',
+  },
+  {
+    icon: 'shield',
+    title: 'Comprobada',
+    description: 'La app verifica la huella y el certificado de firma antes de instalar, para que solo se instale el APK original.',
+  },
+  {
+    icon: 'db',
+    title: 'No pierdes nada',
+    description: 'Tus grabaciones y notas se conservan al actualizar. Si no quieres avisos, los desactivas en Ajustes.',
+  },
+];
+---
+
+<section id="actualizar" class="py-24 bg-secondary">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-block px-4 py-2 bg-accent text-accent-foreground font-body text-xs font-bold uppercase tracking-widest mb-4">
+        <RefreshCw class="w-4 h-4 inline mr-2" />
+        Actualizaciones
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Sin tienda, pero con actualizaciones fáciles
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Que no esté en la Play Store no significa que tengas que ir a buscar cada versión a mano.
+        Aura se actualiza desde dentro.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {points.map((item, index) => (
+        <div
+          class="animate-fade-up bg-card brutal-border p-8 brutal-hover"
+          style={`animation-delay: ${0.1 + index * 0.1}s;`}
+        >
+          <div class="w-14 h-14 bg-foreground flex items-center justify-center mb-6">
+            {item.icon === 'bell' && <BellRing class="w-7 h-7 text-background" />}
+            {item.icon === 'refresh' && <RefreshCw class="w-7 h-7 text-background" />}
+            {item.icon === 'shield' && <ShieldCheck class="w-7 h-7 text-background" />}
+            {item.icon === 'db' && <Database class="w-7 h-7 text-background" />}
+          </div>
+          <h3 class="font-display text-xl font-bold text-foreground mb-3">{item.title}</h3>
+          <p class="font-body text-muted-foreground leading-relaxed">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

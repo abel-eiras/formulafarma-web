@@ -1,0 +1,95 @@
+---
+import { Mic, Users, FileText, Share2, WifiOff, ShieldCheck } from 'lucide-astro';
+
+const features = [
+  {
+    icon: 'mic',
+    title: 'Graba con un toque',
+    description: 'Un toque para empezar y otro para parar, también con el móvil bloqueado. Desde la app, desde Ajustes rápidos o desde un widget. Pausa, reanuda y se pausa sola si entra una llamada.',
+    highlight: 'Grabar',
+  },
+  {
+    icon: 'users',
+    title: 'Separa quién dice qué',
+    description: 'La transcripción distingue a las personas ("Hablante 1", "Hablante 2"…). Después les pones nombre o unes dos que en realidad eran la misma.',
+    highlight: 'Transcribir',
+  },
+  {
+    icon: 'file',
+    title: 'La nota, ya redactada',
+    description: 'Acta de reunión, minuta de visita o nota personal, en castellano, gallego o inglés. Todo en segundo plano: te avisa cuando está lista.',
+    highlight: 'Redactar',
+  },
+  {
+    icon: 'share',
+    title: 'Tus notas, donde las uses',
+    description: 'Compártelas por WhatsApp o correo, o deja que Aura las copie sola a una carpeta (también de Google Drive) para que las lea tu gestor de notas.',
+    highlight: 'Exportar',
+  },
+  {
+    icon: 'wifi',
+    title: 'No pierdes nada',
+    description: 'Si el móvil se queda sin espacio o la app se cierra, lo grabado se conserva. Sin conexión o sin cuota del día, espera y reintenta sola.',
+    highlight: 'Fiable',
+  },
+  {
+    icon: 'shield',
+    title: 'Funciona en tu móvil',
+    description: 'Sin servidor, sin cuenta, sin analíticas. Las claves se guardan cifradas y las grabaciones solo salen hacia el servicio de transcripción si tú lo activas y después de avisarte.',
+    highlight: 'Privado',
+  },
+];
+---
+
+<section id="que-es" class="py-24 bg-secondary">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-block px-4 py-2 bg-accent text-accent-foreground font-body text-xs font-bold uppercase tracking-widest mb-4">
+        Qué hace
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        La grabadora con IA que ya tenías en el bolsillo
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Reuniones, visitas, ideas sueltas mientras vas por la calle. Pulsas grabar, te olvidas
+        del asunto y la nota aparece sola. Así de poco.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div
+          class="animate-fade-up group relative bg-card brutal-border p-8 brutal-hover"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <div class="absolute -top-3 right-6">
+            <span class="inline-block px-3 py-1 bg-accent text-accent-foreground text-xs font-bold uppercase">
+              {feature.highlight}
+            </span>
+          </div>
+
+          <div class="w-14 h-14 bg-foreground flex items-center justify-center mb-6">
+            {feature.icon === 'mic' && <Mic class="w-7 h-7 text-background" />}
+            {feature.icon === 'users' && <Users class="w-7 h-7 text-background" />}
+            {feature.icon === 'file' && <FileText class="w-7 h-7 text-background" />}
+            {feature.icon === 'share' && <Share2 class="w-7 h-7 text-background" />}
+            {feature.icon === 'wifi' && <WifiOff class="w-7 h-7 text-background" />}
+            {feature.icon === 'shield' && <ShieldCheck class="w-7 h-7 text-background" />}
+          </div>
+
+          <h3 class="font-display text-xl font-bold text-foreground mb-3">{feature.title}</h3>
+          <p class="font-body text-muted-foreground leading-relaxed">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center animate-fade-up" style="animation-delay: 0.5s;">
+      <p class="text-muted-foreground mb-2">
+        ¿Sales de las reuniones acordándote de la mitad de lo que se dijo?
+      </p>
+      <p class="text-foreground font-medium">
+        Pues esa otra mitad es exactamente lo que Aura te quita de la cabeza.
+      </p>
+    </div>
+  </div>
+</section>

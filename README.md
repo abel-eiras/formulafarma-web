@@ -15,6 +15,9 @@ verdad vive en sus propios repos:
 - **SPD** — gestión documental del servicio de Sistemas Personalizados de
   Dosificación para farmacias gallegas que lo hacen a mano. En desarrollo,
   repo aún no público.
+- **[Aura](https://github.com/abel-eiras/aura-app)** — app Android que graba
+  reuniones y notas de voz, separa quién dice qué y redacta la nota. Sin
+  cuenta ni suscripción, fuera de Play Store, código público, licencia MIT.
 
 ## Por qué esto es libre también
 
@@ -45,9 +48,10 @@ variables de entorno obligatorias — es un sitio estático.
 src/
 ├── components/       # Hero, Navbar, Footer, y las fichas de cada programa
 │   ├── care/         # Ficha de Fórmula Care
-│   └── spd/          # Ficha de SPD
+│   ├── spd/          # Ficha de SPD
+│   └── aura/         # Ficha de Aura
 ├── layouts/
-├── pages/             # Rutas: /, /formula-care, /spd, legales...
+├── pages/             # Rutas: /, /formula-care, /spd, /aura, legales...
 └── styles/
 ```
 
