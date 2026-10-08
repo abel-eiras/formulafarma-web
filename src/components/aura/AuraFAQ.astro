@@ -1,0 +1,95 @@
+---
+import { ChevronDown, HelpCircle } from 'lucide-astro';
+
+const faqs = [
+  {
+    question: '¿Cuánto cuesta?',
+    answer: 'Nada. Ni la app, ni la clave de Google AI Studio que usa para transcribir: su capa gratuita no pide tarjeta. No hay dispositivo que comprar ni suscripción, ni versión de pago escondida.',
+  },
+  {
+    question: '¿Por qué no está en la Play Store?',
+    answer: 'Porque es un proyecto gratuito y sin ánimo de lucro que distribuyo directamente. Se instala descargando el APK desde GitHub, y la propia app te avisa y se actualiza cuando hay una versión nueva.',
+  },
+  {
+    question: '¿Cómo se instala?',
+    answer: 'Descargas el archivo .apk de la última versión, lo abres, permites instalar desde esa fuente si Android te lo pide y pulsas Instalar. Necesitas Android 10 o posterior. Los pasos completos están más arriba.',
+  },
+  {
+    question: '¿Cómo se actualiza?',
+    answer: 'Desde la propia app: al abrirla, si hay versión nueva verás un aviso con las novedades. Pulsa Actualizar y se descarga, se comprueba y se instala (Android te pedirá confirmar). Tus grabaciones y notas se conservan.',
+  },
+  {
+    question: '¿Cuántas grabaciones puedo procesar al día?',
+    answer: 'Depende de los límites que Google ponga a tu clave gratuita, que cambian con el tiempo y según el modelo. Con el modelo que usa Aura por defecto, la capa gratuita admitía cientos de peticiones diarias. Si se agota, Aura espera a que se renueve y lo reintenta sola.',
+  },
+  {
+    question: '¿Salen mis grabaciones del móvil?',
+    answer: 'Solo hacia Google, para transcribirlas, y solo si has aceptado el aviso de privacidad. En la capa gratuita, Google puede usar lo que envías para mejorar sus productos, y la app te lo dice antes de enviar nada. Si no quieres eso, usa "Solo grabar".',
+  },
+  {
+    question: '¿Funciona sin internet?',
+    answer: 'Grabar, sí. La transcripción y la nota necesitan conexión; si no la hay, esperan y se procesan cuando vuelva.',
+  },
+  {
+    question: '¿Y en iPhone?',
+    answer: 'No. Solo Android: Apple no permite instalar apps fuera de su tienda con facilidad, y este proyecto no va a entrar en ninguna tienda.',
+  },
+  {
+    question: '¿Es seguro instalar algo que no viene de una tienda?',
+    answer: 'El código es público (licencia MIT), el APK va firmado con una clave propia y cada versión publica su huella SHA-256 para que puedas comprobarlo. La app no lleva analíticas ni servicios de Google Play, y las claves se guardan cifradas en el móvil.',
+  },
+  {
+    question: 'Algo no funciona bien',
+    answer: 'En la lista de grabaciones, una grabación con error tiene un botón "Detalles" con el motivo. Si no lo resuelves, copia ese texto y abre una incidencia en GitHub, o escríbeme desde el formulario de abajo.',
+  },
+  {
+    question: '¿Esto tiene algo que ver con tu trabajo o tu consultoría?',
+    answer: 'No, nada. Trabajo en Avantia haciendo consultoría, y Aura es un proyecto personal que construyo en mi tiempo libre, bajo el paraguas de Fórmula Farma. Sin fines comerciales, punto.',
+  },
+];
+---
+
+<section id="faq" class="py-24 bg-background">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="animate-fade-up text-center mb-16">
+      <span class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-4">
+        Dudas razonables
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Preguntas frecuentes
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Lo que suele preguntarse antes de instalar una app que no sale en la tienda.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-4">
+      {faqs.map((faq, index) => (
+        <details
+          class="animate-fade-up group bg-card brutal-border overflow-hidden"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none font-display font-semibold text-foreground hover:text-primary transition-colors">
+            <div class="flex items-center gap-3">
+              <HelpCircle class="w-5 h-5 text-primary flex-shrink-0" />
+              <span>{faq.question}</span>
+            </div>
+            <ChevronDown class="w-5 h-5 text-muted-foreground group-open:rotate-180 transition-transform duration-300 flex-shrink-0" />
+          </summary>
+          <div class="px-6 pb-6 pt-0">
+            <p class="font-body text-muted-foreground leading-relaxed pl-8">
+              {faq.answer}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="animate-fade-up text-center mt-12" style="animation-delay: 0.5s;">
+      <p class="text-muted-foreground mb-2">¿Tienes otra pregunta?</p>
+      <a href="#cta" class="text-primary font-medium hover:underline">
+        Escríbeme y te contesto (de verdad, lo hago. No es un bot.)
+      </a>
+    </div>
+  </div>
+</section>

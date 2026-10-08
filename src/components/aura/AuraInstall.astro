@@ -1,0 +1,126 @@
+---
+import { AlertTriangle, Download, Settings, KeyRound, ShieldCheck, Languages, Mic } from 'lucide-astro';
+
+const installSteps = [
+  {
+    title: 'Descarga el archivo .apk',
+    description: 'Entra desde el móvil en la página de descargas (Releases) y, en la versión más reciente, descarga el archivo que termina en .apk. Necesitas Android 10 o posterior.',
+  },
+  {
+    title: 'Ábrelo',
+    description: 'Pulsa sobre el archivo descargado. Verás un aviso de seguridad: es normal, Android avisa de toda app que no viene de una tienda.',
+  },
+  {
+    title: 'Permite instalar desde esa fuente',
+    description: 'Si Android te dice que no puedes instalar apps de esta fuente, pulsa Ajustes y activa "Permitir de esta fuente" para tu navegador o gestor de archivos.',
+  },
+  {
+    title: 'Vuelve atrás y pulsa Instalar',
+    description: 'Eso es todo. Si quieres comprobar que el APK es el original, cada versión trae un archivo .sha256 y la huella del certificado de firma en sus notas.',
+  },
+];
+
+const setupSteps = [
+  {
+    icon: 'mic',
+    title: 'Abre Aura',
+    description: 'La bienvenida te guía paso a paso. Puedes saltarte cualquiera.',
+  },
+  {
+    icon: 'key',
+    title: 'Elige cómo procesar las grabaciones',
+    description: '"Solo grabar" no necesita nada. Para transcribir y redactar, elige Gemini y consigue una clave gratuita: pulsa "Abrir AI Studio", inicia sesión con tu cuenta de Google, pulsa "Crear clave de API" y cópiala. Al volver a Aura te ofrecerá pegarla con un toque: pulsa "Guardar y comprobar". Sin tarjeta.',
+  },
+  {
+    icon: 'shield',
+    title: 'Acepta el aviso de privacidad',
+    description: 'Hasta que lo aceptes, no se envía nada fuera del móvil.',
+  },
+  {
+    icon: 'lang',
+    title: 'Elige tu idioma',
+    description: 'Castellano, gallego o inglés, y si quieres, un segundo idioma.',
+  },
+  {
+    icon: 'settings',
+    title: 'Graba',
+    description: 'Ya está. Opcional: en Ajustes → Exportar elige una carpeta (por ejemplo, de Google Drive) y Aura copiará allí cada transcripción y cada nota.',
+  },
+];
+---
+
+<section id="instalar" class="py-24 bg-background">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-12 animate-fade-up">
+      <span class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-4">
+        <Download class="w-4 h-4 inline mr-2" />
+        Instalar y configurar
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Instalada en un minuto, lista en cinco
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Se instala desde un archivo y se configura dentro de la propia app, con una guía de bienvenida.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto mb-16 animate-fade-up brutal-border-thick bg-accent text-accent-foreground p-6 flex items-start gap-4">
+      <AlertTriangle class="w-7 h-7 flex-shrink-0 mt-1" />
+      <div>
+        <h3 class="font-display text-xl font-bold mb-2 uppercase">No está disponible en la Play Store</h3>
+        <p class="font-body leading-relaxed">
+          Aura no se publica en ninguna tienda de aplicaciones, ni se va a publicar: es gratuita, sin ánimo
+          de lucro y la distribuyo yo directamente. Por eso se instala descargando el APK desde GitHub, y
+          por eso la primera vez Android te mostrará un aviso. Solo funciona en Android (no en iPhone).
+        </p>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div class="animate-fade-up">
+        <h3 class="font-display text-2xl font-bold text-foreground mb-6 uppercase">1 · Instalación</h3>
+        <ol class="space-y-4">
+          {installSteps.map((step, index) => (
+            <li class="bg-card brutal-border p-6 flex gap-4">
+              <span class="w-10 h-10 bg-foreground text-background font-display font-bold text-lg flex items-center justify-center flex-shrink-0">
+                {index + 1}
+              </span>
+              <div>
+                <h4 class="font-display font-bold text-foreground mb-1">{step.title}</h4>
+                <p class="font-body text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div class="mt-6">
+          <a
+            href="https://github.com/abel-eiras/aura-app/releases/latest"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-bold uppercase tracking-wide brutal-border brutal-hover"
+          >
+            <Download class="w-5 h-5" />
+            Ir a las descargas
+          </a>
+        </div>
+      </div>
+
+      <div class="animate-fade-up" style="animation-delay: 0.1s;">
+        <h3 class="font-display text-2xl font-bold text-foreground mb-6 uppercase">2 · Primeros pasos en la app</h3>
+        <ol class="space-y-4">
+          {setupSteps.map((step, index) => (
+            <li class="bg-card brutal-border p-6 flex gap-4">
+              <span class="w-10 h-10 bg-primary text-primary-foreground font-display font-bold text-lg flex items-center justify-center flex-shrink-0">
+                {index + 1}
+              </span>
+              <div>
+                <h4 class="font-display font-bold text-foreground mb-1">{step.title}</h4>
+                <p class="font-body text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

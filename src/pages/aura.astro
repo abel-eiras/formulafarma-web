@@ -1,0 +1,27 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import AuraNavbar from '@/components/aura/AuraNavbar.astro';
+import AuraHero from '@/components/aura/AuraHero.astro';
+import AuraWhat from '@/components/aura/AuraWhat.astro';
+import AuraInstall from '@/components/aura/AuraInstall.astro';
+import AuraUpdate from '@/components/aura/AuraUpdate.astro';
+import AuraFAQ from '@/components/aura/AuraFAQ.astro';
+import AuraCTA from '@/components/aura/AuraCTA.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout
+  title="Aura | Tú grabas. Aura apunta lo importante."
+  description="App Android gratuita y de código abierto que graba reuniones, visitas y notas de voz, separa quién dice qué y redacta la nota. Sin dispositivo que comprar ni suscripción. No está en la Play Store: se instala con un APK y se actualiza sola."
+>
+  <AuraNavbar />
+  <main>
+    <AuraHero />
+    <AuraWhat />
+    <AuraInstall />
+    <AuraUpdate />
+    <AuraFAQ />
+    <AuraCTA />
+  </main>
+  <Footer />
+</Layout>

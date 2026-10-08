@@ -3,6 +3,8 @@ import type { APIRoute } from 'astro';
 const pages = [
   { url: '/', priority: '1.0', changefreq: 'weekly' },
   { url: '/formula-care', priority: '0.9', changefreq: 'weekly' },
+  { url: '/spd', priority: '0.9', changefreq: 'weekly' },
+  { url: '/aura', priority: '0.9', changefreq: 'weekly' },
   { url: '/aviso-legal', priority: '0.3', changefreq: 'yearly' },
   { url: '/privacidad', priority: '0.3', changefreq: 'yearly' },
   { url: '/cookies', priority: '0.3', changefreq: 'yearly' },

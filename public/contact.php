@@ -85,7 +85,7 @@ $message = trim(strip_tags($raw_message));
 $source = sanitizeField($raw_source);
 
 // Validación básica
-$allowed_interests = ['usar', 'contribuir', 'caso', 'difundir', 'formula-care', 'spd'];
+$allowed_interests = ['usar', 'contribuir', 'caso', 'difundir', 'formula-care', 'spd', 'aura'];
 $allowed_sources = ['', 'ficha-programa'];
 
 if (empty($name)) {
@@ -242,12 +242,13 @@ if (!empty($pharmacy)) {
 }
 if (!empty($interest)) {
     $interest_labels = [
-        'usar' => 'Quiere usar Fórmula Care o SPD',
+        'usar' => 'Quiere usar Fórmula Care, SPD o Aura',
         'contribuir' => 'Quiere contribuir código',
         'caso' => 'Quiere contar su caso',
         'difundir' => 'Quiere ayudar a difundir esto',
         'formula-care' => 'Fórmula Care (ficha de programa)',
-        'spd' => 'SPD (ficha de programa)'
+        'spd' => 'SPD (ficha de programa)',
+        'aura' => 'Aura (ficha de programa)'
     ];
     $email_body .= "Interés: " . ($interest_labels[$interest] ?? $interest) . "\n";
 }

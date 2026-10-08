@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ExternalLink, HeartPulse, FileStack } from 'lucide-astro';
+import { ArrowRight, ExternalLink, HeartPulse, FileStack, Mic } from 'lucide-astro';
 import Button from '@/components/ui/Button.astro';
 ---
 
@@ -13,12 +13,12 @@ import Button from '@/components/ui/Button.astro';
         Esto es lo que hay (de momento)
       </h2>
       <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-        Dos herramientas, un mismo objetivo: que ninguna farmacia tenga que pelearse
-        sola con un Excel de 47 pestañas o con la burocracia.
+        Tres herramientas, un mismo objetivo: que ninguna farmacia tenga que pelearse
+        sola con un Excel de 47 pestañas, con la burocracia o con las notas de una reunión.
       </p>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-8">
+    <div class="grid lg:grid-cols-3 gap-8">
       <!-- Fórmula Care -->
       <div class="animate-fade-up brutal-border-thick bg-card flex flex-col">
         <div class="bg-foreground p-8 flex items-center gap-4">
@@ -85,6 +85,42 @@ import Button from '@/components/ui/Button.astro';
               <ArrowRight class="w-4 h-4" />
             </Button>
             <Button variant="outline" href="https://github.com/abel-eiras/formula-spd/releases/latest" target="_blank" rel="noopener noreferrer" class="flex-1">
+              Descargar
+              <ExternalLink class="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aura -->
+      <div class="animate-fade-up brutal-border-thick bg-card flex flex-col" style="animation-delay: 0.2s;">
+        <div class="bg-foreground p-8 flex items-center gap-4">
+          <div class="w-14 h-14 bg-primary flex items-center justify-center flex-shrink-0">
+            <Mic class="w-7 h-7 text-primary-foreground" />
+          </div>
+          <div>
+            <span class="inline-block px-3 py-1 bg-accent text-accent-foreground text-xs font-bold uppercase mb-2">
+              App Android — v0.4.1
+            </span>
+            <h3 class="font-display text-2xl font-bold text-background">Aura</h3>
+          </div>
+        </div>
+        <div class="p-8 flex flex-col flex-1">
+          <p class="font-body text-muted-foreground mb-6 leading-relaxed">
+            Graba reuniones, visitas y notas de voz con el móvil, separa quién dice qué
+            y te deja la nota ya redactada. Lo que hacen esas grabadoras con IA de más
+            de 100 €, pero sin comprar nada ni pagar suscripción.
+          </p>
+          <ul class="space-y-2 mb-8 font-body text-sm text-foreground">
+            <li class="flex items-center gap-2"><span class="text-primary font-bold">→</span> Solo Android, fuera de la Play Store (se instala con un APK)</li>
+            <li class="flex items-center gap-2"><span class="text-primary font-bold">→</span> Se actualiza sola desde la propia app</li>
+          </ul>
+          <div class="mt-auto flex flex-col sm:flex-row gap-3">
+            <Button variant="hero" href="/aura" class="flex-1">
+              Ver el proyecto
+              <ArrowRight class="w-4 h-4" />
+            </Button>
+            <Button variant="outline" href="https://github.com/abel-eiras/aura-app/releases/latest" target="_blank" rel="noopener noreferrer" class="flex-1">
               Descargar
               <ExternalLink class="w-4 h-4" />
             </Button>
