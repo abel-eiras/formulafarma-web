@@ -1,0 +1,59 @@
+---
+import { Check, X } from 'lucide-astro';
+
+const rows = [
+  { label: 'Precio inicial', device: 'Más de 100 € por el aparato', aura: '0 €' },
+  { label: 'Suscripción', device: 'Mensual o anual para las funciones buenas', aura: 'Ninguna' },
+  { label: 'Cosas que cargar', device: 'Otro aparato, otra batería, otro cable', aura: 'Ninguna: usas tu móvil' },
+  { label: 'Cuenta de usuario', device: 'Obligatoria', aura: 'No hace falta' },
+  { label: 'Tus grabaciones', device: 'En la nube de la empresa', aura: 'En tu móvil' },
+  { label: 'Código', device: 'Cerrado', aura: 'Abierto, licencia MIT' },
+];
+---
+
+<section id="comparativa" class="py-24 bg-secondary">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-12 animate-fade-up">
+      <span class="inline-block px-4 py-2 bg-accent text-accent-foreground font-body text-xs font-bold uppercase tracking-widest mb-4">
+        Cuentas claras
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Aura frente a una grabadora con IA de las de comprar
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Sin nombrar a nadie: hablo de esos dispositivos que se venden aparte y cobran suscripción.
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto animate-fade-up brutal-border-thick bg-card overflow-x-auto">
+      <table class="w-full text-left font-body text-sm md:text-base">
+        <thead>
+          <tr class="bg-foreground text-background">
+            <th class="p-4 font-display uppercase text-xs tracking-widest"></th>
+            <th class="p-4 font-display uppercase text-xs tracking-widest">Dispositivo + suscripción</th>
+            <th class="p-4 font-display uppercase text-xs tracking-widest">Aura</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr class="border-t-2 border-foreground">
+              <th class="p-4 font-display font-bold text-foreground">{row.label}</th>
+              <td class="p-4 text-muted-foreground">
+                <span class="inline-flex items-start gap-2"><X class="w-4 h-4 mt-1 flex-shrink-0 text-muted-foreground" />{row.device}</span>
+              </td>
+              <td class="p-4 text-foreground font-medium">
+                <span class="inline-flex items-start gap-2"><Check class="w-4 h-4 mt-1 flex-shrink-0 text-primary" />{row.aura}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="font-body text-sm text-muted-foreground text-center max-w-2xl mx-auto mt-8 animate-fade-up">
+      Para ser justos: un aparato dedicado tiene su gracia (es pequeño, no gasta tu batería ni te ocupa el móvil).
+      Lo que Aura te dice es que, para la mayoría, el móvil que ya llevas encima basta.
+      Y para transcribir usa tu propia clave gratuita de Google AI Studio, que sí tiene límites diarios.
+    </p>
+  </div>
+</section>

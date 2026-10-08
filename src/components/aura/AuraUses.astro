@@ -1,0 +1,82 @@
+---
+import { Users, Stethoscope, Lightbulb, Briefcase, GraduationCap, Footprints, ShieldAlert } from 'lucide-astro';
+
+const uses = [
+  {
+    icon: 'users',
+    title: 'Reuniones de equipo',
+    description: 'Claustro de la farmacia, reunión con la gestoría, con la asesoría… Acta redactada y con cada intervención en su sitio, sin que nadie tenga que "tomar nota".',
+  },
+  {
+    icon: 'briefcase',
+    title: 'Visitas y llamadas de trabajo',
+    description: 'Comerciales, laboratorios, proveedores, clientes. Lo que se acordó, lo que se prometió y lo que quedó pendiente, en una minuta.',
+  },
+  {
+    icon: 'bulb',
+    title: 'Ideas sueltas',
+    description: 'Se te ocurre algo en el coche, en la ducha o a las tres de la mañana. Lo cuentas en voz alta y te queda escrito y ordenado.',
+  },
+  {
+    icon: 'grad',
+    title: 'Cursos, charlas y formaciones',
+    description: 'Graba la sesión (con permiso) y llévate el resumen. Menos apuntes a mano, más atención a lo que se está diciendo.',
+  },
+  {
+    icon: 'walk',
+    title: 'Recordatorios hablados',
+    description: '"Acuérdate de pedir esto, llamar a aquel y revisar lo otro." Dictas la lista caminando y Aura la deja limpia.',
+  },
+  {
+    icon: 'steth',
+    title: 'Tu propio día a día',
+    description: 'Seguimientos, entregas de turno, avisos al compañero de la tarde. Una nota de voz de un minuto que se convierte en un texto claro.',
+  },
+];
+---
+
+<section id="usos" class="py-24 bg-background">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-block px-4 py-2 bg-foreground text-background font-body text-xs font-bold uppercase tracking-widest mb-4">
+        Para qué sirve
+      </span>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        Cualquier cosa que se diga y no quieras perder
+      </h2>
+      <p class="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+        Nació para reuniones y visitas, pero en cuanto la tienes en el móvil le encuentras usos por todas partes.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {uses.map((use, index) => (
+        <div
+          class="animate-fade-up bg-card brutal-border p-8 brutal-hover"
+          style={`animation-delay: ${0.1 + index * 0.05}s;`}
+        >
+          <div class="w-14 h-14 bg-primary flex items-center justify-center mb-6">
+            {use.icon === 'users' && <Users class="w-7 h-7 text-primary-foreground" />}
+            {use.icon === 'briefcase' && <Briefcase class="w-7 h-7 text-primary-foreground" />}
+            {use.icon === 'bulb' && <Lightbulb class="w-7 h-7 text-primary-foreground" />}
+            {use.icon === 'grad' && <GraduationCap class="w-7 h-7 text-primary-foreground" />}
+            {use.icon === 'walk' && <Footprints class="w-7 h-7 text-primary-foreground" />}
+            {use.icon === 'steth' && <Stethoscope class="w-7 h-7 text-primary-foreground" />}
+          </div>
+          <h3 class="font-display text-xl font-bold text-foreground mb-3">{use.title}</h3>
+          <p class="font-body text-muted-foreground leading-relaxed">{use.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 max-w-3xl mx-auto animate-fade-up brutal-border bg-secondary p-6 flex items-start gap-4">
+      <ShieldAlert class="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+      <p class="font-body text-sm text-foreground leading-relaxed">
+        <strong>Un apunte de sentido común:</strong> grabar a otras personas exige que lo sepan y estén de acuerdo.
+        Y, como el audio se envía a Google para transcribirlo, <strong>no grabes datos de pacientes ni información
+        confidencial</strong> salvo que estés seguro de que puedes hacerlo. Si dudas, usa el modo "Solo grabar", que no
+        envía nada a ningún sitio.
+      </p>
+    </div>
+  </div>
+</section>
