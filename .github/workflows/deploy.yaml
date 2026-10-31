@@ -52,7 +52,9 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./public_html/
+          # La cuenta FTP de despliegue (deploy@formulafarma.com) tiene como raíz
+          # public_html, así que se sube a su raíz. No usa la cuenta principal de cPanel.
+          server-dir: ./
           # FTP con TLS explícito: sin esto, usuario y contraseña viajan en claro.
           # "strict" exige un certificado válido, así que FTP_SERVER debe ser
           # el nombre del servidor (com1012.raiolanetworks.es), no el dominio de la web.
