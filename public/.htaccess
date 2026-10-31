@@ -65,9 +65,13 @@ ServerSignature Off
 
 # Bloquear acceso a archivos de configuración PHP
 <Files "smtp-config.php">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </Files>
+
+# Bloquear registros de errores de PHP, configuración local y estado del despliegue FTP
+<FilesMatch "^(error_log|\.user\.ini|\.ht.*|\.ftp-deploy-sync-state\.json)$">
+    Require all denied
+</FilesMatch>
 
 # Bloquear acceso al directorio de rate limiting
 <IfModule mod_rewrite.c>
