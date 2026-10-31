@@ -53,3 +53,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: ./public_html/
+          # FTP con TLS explícito: sin esto, usuario y contraseña viajan en claro.
+          # "strict" exige un certificado válido, así que FTP_SERVER debe ser
+          # el nombre del servidor (com1012.raiolanetworks.es), no el dominio de la web.
+          protocol: ftps
+          security: strict
