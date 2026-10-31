@@ -1,0 +1,16 @@
+---
+import ErrorPage from '@/components/ErrorPage.astro';
+---
+
+<ErrorPage
+  code="500"
+  badge="Error 500 · Incidencia en la rebotica"
+  pageTitle="Error del servidor | Fórmula Farma"
+  title="Algo se ha roto en la rebotica."
+  lines={[
+    'Ha fallado algo en el servidor. Tú no has hecho nada mal: la culpa es mía.',
+    'Prueba otra vez en unos minutos. Si sigue fallando, avísame y le echo un ojo en cuanto pueda.',
+  ]}
+  footnote="* Sin departamento de soporte ni ticket de incidencia: me llega a mí directamente."
+  showContact
+/>

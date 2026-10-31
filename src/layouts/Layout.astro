@@ -6,12 +6,15 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  /** Páginas de error: no indexar ni declarar URL canónica. */
+  noindex?: boolean;
 }
 
 const {
   title,
   description = 'Hub de Innovación y Tecnología Farmacéutica. Hago herramientas digitales y ayudo a modernizar tu farmacia.',
   ogImage = '/logo.webp',
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = 'https://formulafarma.com';
@@ -36,8 +39,10 @@ const ogImageURL = new URL(ogImage, siteUrl);
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   
-  <!-- Canonical -->
-  <link rel="canonical" href={canonicalURL} />
+  <!-- Canonical (las páginas de error se sirven en cualquier URL: no se indexan) -->
+  {noindex
+    ? <meta name="robots" content="noindex, nofollow" />
+    : <link rel="canonical" href={canonicalURL} />}
 
   <!-- Open Graph -->
   <meta property="og:title" content={title} />

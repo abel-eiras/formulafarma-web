@@ -1,0 +1,16 @@
+---
+import ErrorPage from '@/components/ErrorPage.astro';
+---
+
+<ErrorPage
+  code="503"
+  badge="Error 503 · Cerrado por inventario"
+  pageTitle="En mantenimiento | Fórmula Farma"
+  title="Cerrado un momento por inventario."
+  lines={[
+    'Estoy haciendo mantenimiento o el servidor está saturado. No suele durar mucho.',
+    'Vuelve a intentarlo en unos minutos. Si tarda más de lo normal, avísame.',
+  ]}
+  footnote="* Ni siquiera un sábado a las 14:00 cierro tanto rato."
+  showContact
+/>

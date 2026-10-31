@@ -1,0 +1,15 @@
+---
+import ErrorPage from '@/components/ErrorPage.astro';
+---
+
+<ErrorPage
+  code="403"
+  badge="Error 403 · Dispensación con receta"
+  pageTitle="Acceso no permitido | Fórmula Farma"
+  title="Esto no se dispensa sin receta."
+  lines={[
+    'Esta parte de la web es solo para el personal de la rebotica. No es nada personal: simplemente no está abierta al público.',
+    'Si crees que deberías poder entrar, escríbeme y lo miramos.',
+  ]}
+  footnote="* Todo lo demás, incluido el código de los programas, sí está abierto. Esto no."
+/>
