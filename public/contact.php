@@ -282,10 +282,11 @@ function escapeSmtpData($data) {
 }
 
 // Función para enviar email con SMTP
-function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
+function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name, $reply_to = null) {
     $from_header = formatMailboxHeader($from_email, $from_name);
     $to_header = formatMailboxHeader($to);
-    if ($from_header === false || $to_header === false) {
+    $reply_to_header = formatMailboxHeader($reply_to !== null ? $reply_to : $from_email);
+    if ($from_header === false || $to_header === false || $reply_to_header === false) {
         error_log('SMTP configuration contains an invalid email address or display name');
         return false;
     }
@@ -388,7 +389,13 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
             fclose($smtp);
             return false;
         }
-        stream_socket_enable_crypto($smtp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+        // Si la negociación TLS falla, abortar: continuar enviaría las
+        // credenciales SMTP sin cifrar.
+        if (stream_socket_enable_crypto($smtp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) {
+            error_log("SMTP STARTTLS negotiation failed");
+            fclose($smtp);
+            return false;
+        }
         fputs($smtp, "EHLO " . $smtp_host . "\r\n");
         $ehlo_response = '';
         while (true) {
@@ -476,7 +483,7 @@ function sendEmailSMTP($config, $to, $subject, $body, $from_email, $from_name) {
     $encoded_subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     
     $headers = "From: " . $from_header . "\r\n";
-    $headers .= "Reply-To: " . formatMailboxHeader($from_email) . "\r\n";
+    $headers .= "Reply-To: " . $reply_to_header . "\r\n";
     $headers .= "To: " . $to_header . "\r\n";
     $headers .= "Subject: " . $encoded_subject . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
@@ -515,7 +522,8 @@ if (isset($smtp_config['use_smtp']) && $smtp_config['use_smtp'] === true) {
         $subject,
         $email_body,
         $smtp_config['from_email'],
-        $smtp_config['from_name']
+        $smtp_config['from_name'],
+        $email
     );
     
     if (!$mail_sent) {
@@ -545,7 +553,10 @@ if ($mail_sent) {
         ? "Solicitud de acceso beta recibida — Fórmula Care"
         : "Hemos recibido tu mensaje — Fórmula Farma";
 
-    $reply_body  = "Hola " . $name . ",\n\n";
+    // La respuesta automática va a una dirección que escribe el visitante, así
+    // que no incluye nada de lo que ha enviado (ni el nombre): así no se puede
+    // usar el formulario para mandar texto arbitrario a terceros.
+    $reply_body  = "Hola,\n\n";
     if ($is_beta) {
         $reply_body .= "He recibido tu solicitud de acceso a la beta de Fórmula Care.\n";
         $reply_body .= "Te escribo en cuanto tenga un hueco para darte acceso y contarte los detalles.\n\n";
